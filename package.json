@@ -1,0 +1,19 @@
+{
+  "name": "sistema-reservas-asesorias",
+  "version": "1.0.0",
+  "description": "Sistema de reservaciones de asesorías para el Centro de Autoacceso (Electron)",
+  "main": "src/main/main.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "Press's Kids",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^35.2.0"
+  }
+}
