@@ -1,8 +1,10 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
+let mainWindow;
+
 function createWindow() {
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1000,
     height: 700,
     webPreferences: {
@@ -11,13 +13,11 @@ function createWindow() {
     }
   });
 
-  win.loadFile(path.join(__dirname, '../renderer/login/login.html'));
+  mainWindow.loadFile(path.join(__dirname, 'renderer/login/login.html'));
 }
 
 app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  if (process.platform !== 'darwin') app.quit();
 });
