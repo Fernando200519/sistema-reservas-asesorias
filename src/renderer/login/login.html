@@ -15,22 +15,26 @@
     
         <div class="container-input">
     
-            <h3 class="titulo-usuario">Usuario</h3>
-            <div class="container-input-user">
-                <input class="input-user" type="text" placeholder="Introduce tu nombre de usuario">
-            </div>
+            <form class="login-form">
+                <label for="usuario" class="titulo">Usuario</label>
+                <div class="container-input-user">
+                    <input id="usuario" name="usuario" class="input" type="text" placeholder="Introduce tu nombre de usuario">
+                </div>
     
-            <h3 class="titulo-contraseña">Contraseña</h3>
-            <div class="container-input-password">
-                <input class="input-password" type="text" placeholder="Introduce tu contraseña">
-            </div>
+                <label for="contraseña" class="titulo">Contraseña</label>
+                <div class="container-input-password">
+                    <input id="contraseña" name="contraseña" class="input" type="password" placeholder="Introduce tu contraseña">
+                    <img id="toggle-password" src="../../../assets/esconder.png" alt="Mostrar contraseña">
+                </div>
+
+                <div class="container-button">
+                    <button class="button-iniciar" type="submit">Iniciar sesión</button>
+                </div>
+            </form>
     
             
         </div>
-    
-        <div class="container-button">
-            <button class="button-iniciar">Iniciar sesión</button>
-        </div>
     </div>
+    <script src="login.js"></script>
 </body>
 </html>

@@ -10,9 +10,9 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
-    }
+    },
   });
-
+  mainWindow.setMenu(null); 
   mainWindow.loadFile(path.join(__dirname, '../renderer/login/login.html'));
 }
 
