@@ -5,15 +5,14 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 700,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
     },
   });
-  mainWindow.setMenu(null); 
-  mainWindow.loadFile(path.join(__dirname, '../renderer/login/login.html'));
+  // mainWindow.setMenu(null);
+  mainWindow.maximize();
+  mainWindow.loadFile(path.join(__dirname, '../renderer/alumno/alumno.html'));
 }
 
 app.whenReady().then(createWindow);
