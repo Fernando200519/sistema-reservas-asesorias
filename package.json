@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Sistema de reservaciones de asesorías para el Centro de Autoacceso (Electron)",
   "main": "src/main/main.js",
+  "type": "module",  
   "directories": {
     "doc": "docs",
     "test": "test"
