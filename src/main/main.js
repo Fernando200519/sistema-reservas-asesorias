@@ -12,10 +12,16 @@ async function createWindow() {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       sandbox: true
-    }
+    },
+    maximized: true, // Abre la ventana maximizada
+    autoHideMenuBar: true // Oculta la barra de menú
   });
 
   await win.loadFile(path.join(__dirname, 'index.html')); 
+
+    // Opcional: Forzar maximizado si hay algún problema
+    win.maximize();
+
 }
 
 app.whenReady().then(() => {

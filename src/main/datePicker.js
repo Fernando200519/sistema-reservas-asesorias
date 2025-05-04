@@ -14,8 +14,8 @@ const loadFlatpickr = async () => {
 export async function initDatePicker() {
   await loadFlatpickr();
   
-  return window.flatpickr("#datePicker", {
-    dateFormat: "l, j F Y",
+  const fpInstance = window.flatpickr("#datePicker", {
+    dateFormat: "l, j F Y", // Formato: Lunes, 3 Junio 2023
     defaultDate: new Date(),
     locale: {
       firstDayOfWeek: 1,
@@ -27,6 +27,24 @@ export async function initDatePicker() {
         shorthand: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
         longhand: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
       }
+    },
+    onChange: function(selectedDates, dateStr, instance) {
+      // Actualizar el texto del botón con la fecha formateada
+      updateDateButtonText(dateStr);
+      loadScheduleForDate(selectedDates[0]);
     }
   });
+  
+  // Establecer texto inicial
+  updateDateButtonText(fpInstance.formatDate(new Date(), fpInstance.config.dateFormat));
+  
+  return fpInstance;
+}
+
+// Función para actualizar el texto del botón
+function updateDateButtonText(dateStr) {
+  const datePickerButton = document.querySelector('.date-picker');
+  if (datePickerButton) {
+    datePickerButton.textContent = dateStr;
+  }
 }
