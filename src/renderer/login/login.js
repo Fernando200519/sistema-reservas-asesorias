@@ -3,25 +3,24 @@ const togglePassword = document.getElementById('toggle-password');
 const form = document.querySelector('.login-form');
 const mensajeError = document.getElementById('mensaje-error');
 
-function verificarLogin(matricula, contra) {
-  return fetch("https://gb572ef1f8a56c6-caa23.adb.us-ashburn-1.oraclecloudapps.com/ords/api/login/log", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      matricula: matricula,
-      contra: contra
-    })
-  })
-  .then(response => {
+async function verificarLogin(matricula, contra) {
+  try {
+    const response = await fetch("https://gb572ef1f8a56c6-caa23.adb.us-ashburn-1.oraclecloudapps.com/ords/api/login/log", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        matricula: matricula,
+        contra: contra})
+    });
+
     if (!response.ok) {
       throw new Error("Error en la solicitud: " + response.status);
     }
-    return response.json();
-  })
-  .then(data => {
-    
+
+    const data = await response.json();
+
     if (data.success) {
       // Usuario válido
       return {exito: true, tipoUsuario: "alumno"};
@@ -29,10 +28,11 @@ function verificarLogin(matricula, contra) {
       // Credenciales inválidas
       return {exito: false};
     }
-  })
-  .catch(error => {
+
+  } catch (error) {
     console.error("Error al llamar al endpoint:", error);
-  });
+  }
+
 }
 
 togglePassword.addEventListener('click', () => {
@@ -74,5 +74,4 @@ form.addEventListener('submit', async (e) => {
     mensajeError.style.display = 'block';
     console.error(error);
   });
-
 });
