@@ -3,6 +3,38 @@ const togglePassword = document.getElementById('toggle-password');
 const form = document.querySelector('.login-form');
 const mensajeError = document.getElementById('mensaje-error');
 
+function verificarLogin(matricula, contra) {
+  return fetch("https://gb572ef1f8a56c6-caa23.adb.us-ashburn-1.oraclecloudapps.com/ords/api/login/log", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      matricula: matricula,
+      contra: contra
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Error en la solicitud: " + response.status);
+    }
+    return response.json();
+  })
+  .then(data => {
+    
+    if (data.success) {
+      // Usuario válido
+      return {exito: true, tipoUsuario: "alumno"};
+    } else {
+      // Credenciales inválidas
+      return {exito: false};
+    }
+  })
+  .catch(error => {
+    console.error("Error al llamar al endpoint:", error);
+  });
+}
+
 togglePassword.addEventListener('click', () => {
   const isPassword = passwordInput.type === 'password';
   passwordInput.type = isPassword ? 'text' : 'password';
@@ -21,17 +53,8 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  
-  /*
-  try {
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ usuario, contraseña })
-    });
-
-    const result = await response.json();
-
+  verificarLogin(usuario, contraseña)
+  .then(result => {
     if (result.exito) {
       if (result.tipoUsuario === 'alumno') {
         window.location.href = '../alumno/alumno.html';
@@ -45,11 +68,11 @@ form.addEventListener('submit', async (e) => {
       mensajeError.textContent = 'Usuario o contraseña incorrectos.';
       mensajeError.style.display = 'block';
     }
-  } catch (error) {
+  })
+  .catch (error => {
     mensajeError.textContent = 'Error al conectar con el servidor.';
     mensajeError.style.display = 'block';
     console.error(error);
-  }
-    */
+  });
 
 });
