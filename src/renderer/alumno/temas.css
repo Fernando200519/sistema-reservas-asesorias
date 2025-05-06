@@ -1,0 +1,118 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Segoe UI';
+}
+
+body{
+    background-color: #F4F6F9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container{
+    width: 90%;
+    max-width: 1200px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 5px #e5e5e5;
+    padding: 35px;
+}
+
+.encabezado{
+    width: 100%;
+    border-bottom: 1.5px solid #E2E8F0;
+    padding-bottom: 10px;
+}
+
+.encabezado h1{
+    color: #1a202c;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.encabezado p{
+    color: #4a5568;
+    font-size: 16px;
+}
+
+.ingles-temas{
+    color: #2a3342;
+    font-size: 14px;
+    margin: 20px 0px;
+    width: 100%;
+    text-align: center;
+    background-color: #E2E8F0;
+    border-radius: 8px;
+    padding: 15px;
+
+}
+
+.container-temas{
+    font-size: 15px;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    overflow-y: auto;
+    display: grid;
+    height: 325px;
+}
+
+.tema-card{
+    display: flex;
+    align-items: center;
+    border: 1px solid #E2E8F0;
+    color: #4e5e79;
+    cursor: pointer;
+    background-color: #EDF2F7;
+}
+
+.tema-card h1{
+    color: #3190DB;
+    font-size: 20px;
+    padding: 15px 20px;
+}
+
+.container-btn{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0px;
+    justify-content: space-between;
+}
+
+.btn-atras{
+    border: none;
+    border-radius: 8px;
+    background-color: #E53E3E;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 14px 35px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-siguiente{
+    border: none;
+    border-radius: 8px;
+    background-color: #003366;
+    color: #FFFFFF;
+    font-size: 16px;
+    padding: 14px 35px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#active{
+    background-color: #FFFFFF;
+    color: #2d3748;
+}
+
+#active h1{
+    color: #2d3748;
+}
