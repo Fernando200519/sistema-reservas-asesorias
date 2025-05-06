@@ -8,21 +8,21 @@
 </head>
 <body>
     <div class="container">
-        <div class="container-titles">
             <h1 class="titulo-caa">CAA</h1>
             <h1 class="titulo-inicio">Inicio de sesión</h1>
-        </div>
-    
+            <div id="mensaje-error">
+                Por favor, completa todos los campos.
+            </div>
         <div class="container-input">
     
             <form class="login-form">
                 <label for="usuario" class="titulo">Usuario</label>
-                <div class="container-input-user">
+                <div class="container-input-data">
                     <input id="usuario" name="usuario" class="input" type="text" placeholder="Introduce tu nombre de usuario">
                 </div>
     
                 <label for="contraseña" class="titulo">Contraseña</label>
-                <div class="container-input-password">
+                <div class="container-input-data">
                     <input id="contraseña" name="contraseña" class="input" type="password" placeholder="Introduce tu contraseña">
                     <img id="toggle-password" src="../../../assets/esconder.png" alt="Mostrar contraseña">
                 </div>
@@ -31,8 +31,6 @@
                     <button class="button-iniciar" type="submit">Iniciar sesión</button>
                 </div>
             </form>
-    
-            
         </div>
     </div>
     <script src="login.js"></script>
