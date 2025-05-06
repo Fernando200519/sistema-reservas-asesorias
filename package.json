@@ -13,10 +13,8 @@
   "keywords": [],
   "author": "Press's Kids",
   "license": "ISC",
-  "dependencies": {
-    "electron": "^35.2.0"
-  },
   "devDependencies": {
+    "electron": "^36.1.0",
     "electron-reload": "^2.0.0-alpha.1"
   }
 }
