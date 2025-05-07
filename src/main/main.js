@@ -17,7 +17,7 @@ async function createWindow() {
     autoHideMenuBar: true // Oculta la barra de menú
   });
 
-  await win.loadFile(path.join(__dirname, 'index.html')); 
+  await win.loadFile(path.join(__dirname, 'index.html'));
 
     // Opcional: Forzar maximizado si hay algún problema
     win.maximize();

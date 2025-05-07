@@ -1,0 +1,401 @@
+/* Reset y base mejorados */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f2f5;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Crucial para el correcto escalado */
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+.header h1 {
+    color: #003366;
+    font-size: 2.2rem;
+}
+
+.active-tab {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: default;
+    text-transform: none;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Controles */
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+/* Botones de navegación */
+.arrow {
+    background-color: #f3f4f6;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .arrow:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .arrow svg {
+    width: 20px;
+    height: 20px;
+    fill: #4b5563;
+  }
+
+.date-picker {
+    background-color: white;
+    padding: 10px 25px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    min-width: 280px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.date-picker:hover {
+    border-color: #003366;
+}
+
+.filter {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    min-width: 150px;
+}
+
+/* Grid de tarjetas */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 5px;
+    align-content: flex-start;
+    min-height: 0;
+}
+
+/* Tarjetas */
+.card {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    min-height: 120px;
+    max-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-content {
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right: 5px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.card p {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+/* Estados de tarjetas */
+.card.concluida {
+    background-color: #f8f9fa;
+    border-left: 5px solid #6c757d;
+}
+
+.card.reservada {
+    background-color: #fff3f3;
+    border-left: 5px solid #dc3545;
+}
+
+.card.disponible {
+    background-color: #f0fff4;
+    border-left: 5px solid #28a745;
+}
+
+/* Puntos de estado */
+.dot {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Contenedor del botón */
+.nuevo-horario-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+
+/* Botón Nuevo Horario */
+#nuevoHorario {
+    background-color: #00C851;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+  }
+  
+  #nuevoHorario:hover {
+    background-color: #007E33;
+    transform: scale(1.05);
+  }
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.card-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+/* ===== [CORRECCIONES DASHBOARD] ===== */
+body.profesores-dashboard {
+    background: #f7f9fc;
+  }
+  
+/* Centrar el contenido en la vista de nuevo-horario */
+body.profesores-dashboard .nuevo-horario-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centra verticalmente */
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    padding: 2rem; /* Espaciado interno */
+    box-sizing: border-box; /* Incluye el padding en el tamaño total */
+  }
+  
+  /* Espaciado adicional para el botón */
+  body.profesores-dashboard .nuevo-horario-container .action-button {
+    margin-top: 2rem; /* Espacio entre los horarios y el botón */
+  }
+
+
+/* Animación fade-in */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+/* Estado vacío */
+.profesores-empty-state {
+    animation: fadeIn 0.5s ease-in-out;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 500px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+/* Estilo para el ícono vacío */
+.profesores-empty-state .empty-icon {
+    font-size: 4rem; /* Tamaño del ícono */
+    color: #00bcd4; /* Color del ícono */
+    margin-bottom: 1rem; /* Espaciado debajo del ícono */
+  }
+
+.profesores-empty-state h2 {
+    font-size: 1.5rem;
+    color: #003366;
+    margin-bottom: 1rem;
+}
+
+.profesores-empty-state p {
+    color: #6b7280; /* Gris suave */
+    font-size: 1.125rem; /* Tamaño más grande */
+}
+
+/* Espaciado adicional para el botón */
+.profesores-empty-state button#nuevoHorario {
+    margin-top: 1.5rem; /* Aumenta este valor según sea necesario */
+}
+
+/* PARA NUEVO HORARIO */
+
+/* Selector de horas */
+.hour-selector {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Fuerza 5 columnas */
+    gap: 1rem; /* Espacio entre las horas */
+    max-width: 100%; /* Permite que ocupe todo el ancho disponible */
+    margin: 0 auto 2rem auto; /* Centra el contenedor */
+    padding: 1.5rem; /* Más espacio interno */
+    background: linear-gradient(135deg, #f0f4ff, #e6f7ff); /* Fondo degradado */
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+  }
+  
+  /* Lista de horas */
+  .hour-selector ul {
+    display: contents; /* Permite que los <li> sean manejados directamente por el grid */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Estilo de cada hora */
+  .hour-selector li {
+    padding: 15px 20px;
+    background-color: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra ligera */
+  }
+  
+  /* Hover en cada hora */
+  .hour-selector li:hover {
+    background-color: #e0f7fa; /* Azul claro */
+    border-color: #00bcd4; /* Azul más intenso */
+    transform: scale(1.05); /* Efecto de zoom */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  }
+  
+  /* Hora seleccionada */
+  .hour-selector li.selected {
+    background-color: #00C851; /* Verde */
+    color: white;
+    font-weight: bold;
+    border-color: #007E33; /* Verde oscuro */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+  }
+  
+  
+  /* Botón de acción */
+  .action-button {
+    text-align: center;
+    margin-top: 3rem; /* Más espacio para separarlo del contenido */
+  }
+  
+  .action-button button {
+    background-color: #00C851;
+    color: white;
+    padding: 15px 40px; /* Botón más grande */
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem; /* Texto más grande */
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    transition: all 0.3s ease;
+  }
+  
+  .action-button button:hover {
+    background-color: #007E33;
+    transform: scale(1.1); /* Efecto de zoom */
+  }
+
+  /* Fecha seleccionada en confirmación */
+  .fecha-seleccionada {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .fecha-seleccionada span {
+    color: #00bcd4; /* Azul moderno */
+  }
