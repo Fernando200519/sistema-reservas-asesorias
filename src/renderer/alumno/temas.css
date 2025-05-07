@@ -62,16 +62,36 @@ body{
     display: flex;
     align-items: center;
     border: 1px solid #E2E8F0;
-    color: #4e5e79;
+    color: #2d3748;
     cursor: pointer;
-    background-color: #EDF2F7;
+    background-color: #FFFFFF;
 }
 
 .tema-card h1{
-    color: #4e5e79;
+    color: #3182ce;
     font-size: 20px;
     padding: 15px 20px;
 }
+
+.tema-card h3{
+    font-size: 18px;
+}
+
+.tema-card:hover{
+    background-color: #ddf3ff;
+    color: #2d3748;
+}
+.tema-card:hover h1{
+    color: #3182ce;
+}
+.tema-card:hover h3{
+    color: #2d3748;
+}
+
+
+
+
+
 
 .container-btn{
     width: 100%;
@@ -86,41 +106,30 @@ body{
     align-items: center;
     border: none;
     border-radius: 8px;
-    background-color: #E53E3E;
+    background-color: #c7c7c7;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 600;
-    cursor: pointer;
     padding: 15px 35px;
 }
-
-.btn-atras:hover{
-    background-color: #C53030;
-}
-.btn-atras:active{
-    background-color: #9B2C2C;
-}
-
-
 
 .btn-siguiente{
     border: none;
     border-radius: 8px;
-    background-color: #003366;
+    background-color: #c7c7c7;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 600;
-    cursor: pointer;
     padding: 15px 35px;
 }
 
-.btn-siguiente:hover{
-    background-color: #002244;
-}
-.btn-siguiente:active{
-    background-color: #001122;
-}
+.boton-activo {
+    background-color: lightgreen !important;
+    cursor: pointer !important;
+  }
 
+
+/*
 #active{
     background-color: #FFFFFF;
     color: #2d3748;
@@ -137,3 +146,4 @@ body{
 #active:hover h1{
     color: #3182ce;
 }
+*/

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="alumno.css">
     <title>Interfaz del alumno</title>
+    <link rel="stylesheet" href="../../utils/flatpickr.min.css">
+    <script src="../../utils/flatpickr.min.js"></script>
+    <script src="../../utils/es.js"></script>
 </head>
 <body>
     <div class="container">
@@ -23,10 +26,11 @@
 
             <div class="container-2-div-calendario">
                 <button class="container-2-button-calendario">
-                    <img src="../../../assets/calendario.png" class="img-calendario" alt="Icono de calendario">
+                    <img id="datepicker" src="../../../assets/calendario.png" class="img-calendario" alt="Icono de calendario">
                 </button>
-                Viernes 21 de Marzo de 2025
+                <span id="fecha-seleccionada"></span>
             </div>
+
 
             <div class="container-2-div-dias">
                 <button class="container-2-button-flecha-atras">
@@ -180,5 +184,7 @@
         </footer>
 
     </div>
+
+    <script src="alumno.js"></script>
 </body>
 </html>

@@ -84,6 +84,10 @@ body{
     display: flex;
     justify-content: left;
     align-items: center;
+}
+
+#fecha-seleccionada{
+    font-size: 18px;
     font-weight: 500;
     color: #2d3748;
 }
@@ -255,9 +259,10 @@ span{
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 10px 25px;
+    padding: 15px 25px;
     cursor: pointer;
     font-weight: 500;
+    font-size: 15px;
 }
 
 .container-3-btn-reservar:hover {
