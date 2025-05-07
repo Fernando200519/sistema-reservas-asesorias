@@ -12,7 +12,7 @@ function createWindow() {
   });
   // mainWindow.setMenu(null);
   mainWindow.maximize();
-  mainWindow.loadFile(path.join(__dirname, '../renderer/alumno/alumno.html'));
+  mainWindow.loadFile(path.join(__dirname, '../renderer/alumno/temas.html'));
 }
 
 app.whenReady().then(createWindow);
