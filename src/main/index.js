@@ -14,10 +14,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   const horariosGrid = document.querySelector('.grid');
   const horarios = JSON.parse(localStorage.getItem('horariosIndex')) || [];
 
+  // Función para mostrar el estado vacío
+  function mostrarEstadoVacio() {
+    horariosGrid.innerHTML = `
+      <div class="profesores-empty-state">
+        <img src="../../assets/clock.png" alt="Ícono de reloj" class="empty-icon">
+        <h2>No hay horarios disponibles</h2>
+        <p>Por favor, crea un nuevo horario para comenzar.</p>
+      </div>
+    `;
+  }
+
+  // Limpiar la cuadrícula antes de renderizar
+  horariosGrid.innerHTML = '';
+
   if (horarios.length > 0) {
     horarios.forEach(hora => {
       const card = document.createElement('div');
-      card.classList.add('card', 'disponible');
+      card.classList.add('card', 'disponible'); // Clase predeterminada "disponible"
       card.innerHTML = `
         <div class="card-content">
           <p>${hora}</p>
@@ -26,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       horariosGrid.appendChild(card);
     });
   } else {
-    horariosGrid.innerHTML = '<p>No hay horarios disponibles.</p>';
+    mostrarEstadoVacio(); // Usar la función para mostrar el estado vacío
   }
 
   // Configurar el filtro de estado
@@ -58,5 +72,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   } else {
     console.error('El botón "Nuevo horario" no fue encontrado en el DOM.');
+  }
+
+  // Manejar el botón "Reiniciar horarios"
+  const resetButton = document.getElementById('resetHorarios');
+  if (resetButton) {
+    resetButton.addEventListener('click', () => {
+      localStorage.removeItem('horariosIndex'); // Eliminar los horarios guardados
+      mostrarEstadoVacio(); // Usar la función para mostrar el estado vacío
+      alert('Horarios reiniciados.');
+    });
+  } else {
+    console.error('El botón "Reiniciar horarios" no fue encontrado en el DOM.');
   }
 });

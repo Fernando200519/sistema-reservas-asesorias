@@ -11,11 +11,23 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.error('Error al inicializar el DatePicker:', error);
     }
   } else {
-    console.error('El elemento datePicker no fue encontrado');
+    document.body.innerHTML += `
+    <div style="color:red; padding:1rem;">
+      Error: No se pudo cargar el calendario. Por favor, recarga la página.
+    </div>
+  `;
   }
 
   // Lógica para la selección de horas
   const hourItems = document.querySelectorAll('.hour-selector li');
+
+  // Lógica para el botón "Regresar"
+  const regresarButton = document.getElementById('regresar');
+  if (regresarButton) {
+    regresarButton.addEventListener('click', () => {
+      window.location.href = '../../../index.html'; // Cambia la ruta si es necesario
+    });
+  }
   const continuarButton = document.getElementById('continuar');
 
   const selectedHours = []; // Array para almacenar las horas seleccionadas
