@@ -151,7 +151,7 @@ span{
 
 .container-3 {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     gap: 20px;
     height: 55vh;
     overflow-y: auto;
