@@ -1,0 +1,139 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Segoe UI';
+}
+
+body{
+    background-color: #F5F7FA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container{
+    width: 90%;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 5px #e5e5e5;
+    padding: 35px;
+}
+
+.encabezado{
+    width: 100%;
+    border-bottom: 1.5px solid #E2E8F0;
+    padding-bottom: 10px;
+}
+
+.encabezado h1{
+    color: #1a202c;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.encabezado p{
+    color: #4a5568;
+    font-size: 16px;
+}
+
+.ingles-temas{
+    color: #2a3342;
+    font-size: 14px;
+    margin: 20px 0px;
+    width: 100%;
+    text-align: center;
+    background-color: #E2E8F0;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.container-temas{
+    font-size: 15px;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    overflow-y: auto;
+    display: grid;
+    height: 45vh;
+}
+
+.tema-card{
+    display: flex;
+    align-items: center;
+    border: 1px solid #E2E8F0;
+    color: #2d3748;
+    cursor: pointer;
+    background-color: #FFFFFF;
+}
+
+.tema-card h1{
+    color: #3182ce;
+    font-size: 20px;
+    padding: 12px 20px;
+}
+
+.tema-card h3{
+    font-size: 18px;
+}
+
+.tema-seleccionado {
+    background-color: #63aeff;
+    color: white;
+}
+
+.tema-seleccionado h1{
+    color: white;
+}
+
+
+
+.boton-activo {
+    background-color: #00509e;
+    color: white;
+    cursor: pointer;
+}
+
+.boton-activo:hover {
+    background-color: #003366;
+}
+  
+.boton-inactivo {
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: not-allowed;
+}
+
+.container-btn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 35px;
+}
+
+.btn-atras{
+    display: block;
+    align-items: center;
+    border: none;
+    border-radius: 8px;
+    background-color: #E53E3E;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 15px 35px;
+    cursor: pointer;
+}
+
+.btn-atras:hover{
+    background-color: #c53030;
+}
+
+.btn-siguiente{
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 15px 35px;
+}
