@@ -204,7 +204,7 @@ span{
 }
 
 .nombre-asesor{
-    display: inline-block;
+    display: block;
     font-weight: 600;
     color: #2d3748;
     margin-bottom: 20px;
