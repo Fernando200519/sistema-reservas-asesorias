@@ -1,23 +1,24 @@
-const { app, BrowserWindow } = require('electron');
+const oracledb = require('oracledb');
+oracledb.initOracleClient({ libDir: 'C:\\instantclient\\instantclient_19_26' });
 const path = require('path');
 
-function createWindow() {
-  const win = new BrowserWindow({
-    width: 1000,
-    height: 700,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
-    }
-  });
+const walletPath = path.join(__dirname, '..', '..', 'wallet');
 
-  win.loadFile(path.join(__dirname, '../renderer/login/login.html'));
+async function connectToOracle() {
+  try {
+    process.env.TNS_ADMIN = walletPath; // ruta a tu wallet
+
+    const connection = await oracledb.getConnection({
+      user: "equipocaa",
+      password: "proyecTo_asesorias1",
+      connectionString: "147.154.27.228:1522/caa_tp" // lo sacas de tnsnames.ora
+    });
+
+    console.log("¡Conexión exitosa!");
+    await connection.close();
+  } catch (err) {
+    console.error("Error al conectar:", err);
+  }
 }
 
-app.whenReady().then(createWindow);
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
+connectToOracle();

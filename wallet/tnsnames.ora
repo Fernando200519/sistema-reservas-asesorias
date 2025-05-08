@@ -1,0 +1,12 @@
+caa23_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-ashburn-1.oraclecloud.com))(connect_data=(service_name=gb572ef1f8a56c6_caa23_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+caa23_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-ashburn-1.oraclecloud.com))(connect_data=(service_name=gb572ef1f8a56c6_caa23_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+caa23_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-ashburn-1.oraclecloud.com))(connect_data=(service_name=gb572ef1f8a56c6_caa23_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+caa23_tp = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-ashburn-1.oraclecloud.com))(connect_data=(service_name=gb572ef1f8a56c6_caa23_tp.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+caa23_tpurgent = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-ashburn-1.oraclecloud.com))(connect_data=(service_name=gb572ef1f8a56c6_caa23_tpurgent.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+
+
