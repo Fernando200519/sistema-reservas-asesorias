@@ -79,7 +79,7 @@ body{
 }
 
 .container-2-div-calendario{
-    width: 50%;
+    width: 60%;
     height: 60px;
     display: flex;
     justify-content: left;
@@ -103,36 +103,52 @@ body{
     display: flex;
     justify-content: right;
     align-items: center;
+    padding-right: 30px;
+}
+
+.container-2-div-dias span{
+    font-weight: 500;
+    color: #334155;
 }
 
 .container-2-button-flecha-atras{
-    width: 150px;
+    width: 130px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    border: 1px solid #c2c2c2;
+    border: 1.5px #c2c2c2 solid;
     background-color: #F8FAFD;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .container-2-button-flecha-atras:hover{
-    background-color: #e9ecf0;
+    background-color: #E2E8F0; /* Gris medio al hacer hover */
+    border-color: #94A3B8; /* Borde más oscuro en hover */
 }
 
 .img-flecha-atras{
     width: 20px;
 }
 
+.container-2-button-flecha-atras.desactivado {
+    cursor: not-allowed;
+    color: #94A3B8; /* Texto gris medio para desactivado */
+    background-color: #F8FAFC; /* Fondo más claro para desactivado */
+    border-color: #E2E8F0; /* Borde más claro */
+    opacity: 0.7; /* Reduce la opacidad para indicar estado desactivado */
+}
+
 .container-2-button-div-flecha-adelante{
-    width: 150px;
+    width: 130px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    border: 1px solid #c2c2c2;
+    border: 1.5px #c2c2c2 solid;
     background-color: #F8FAFD;
     cursor: pointer;
 }

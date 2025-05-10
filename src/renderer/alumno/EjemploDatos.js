@@ -33,8 +33,7 @@ const datosDePrueba = [
         tema: "",
         asesor: "Luisa Gómez",
         cupos: 2
-    }
-    ,
+    },
     {
         id: 3,
         hora: "10:00 - 10:30",

@@ -33,3 +33,14 @@ function resetearBotones() {
   boton2.classList.add('boton-inactivo');
   boton2.disabled = true;
 }
+
+
+// Boton para regresar a la pantalla de horarios
+document.getElementById('boton-activar-1').addEventListener('click', () => {
+    window.history.back(); // Esto regresa a la pantalla anterior (la de horarios)
+});
+
+
+document.getElementById('boton-activar-2').addEventListener('click', () => {
+    window.location.href = `confirmacion.html`; // Redirigir a confirmación directamente
+});

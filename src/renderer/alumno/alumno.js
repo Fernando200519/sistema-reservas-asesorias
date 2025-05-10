@@ -1,33 +1,3 @@
-// Función para poner la fecha actual en formato largo en español
-function ponerFechaHoy() {
-    const hoy = new Date();
-    const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const fechaFormateada = hoy.toLocaleDateString('es-MX', opciones);
-    const capitalizada = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
-    document.getElementById("fecha-seleccionada").textContent = capitalizada;
-}
-
-ponerFechaHoy(); // Llamar al cargar la página
-
-flatpickr("#datepicker", {
-    locale: "es",
-    minDate: "today",
-    dateFormat: "Y-m-d",
-    onChange: function(selectedDates, dateStr, instance) {
-        const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const fechaFormateada = selectedDates[0].toLocaleDateString('es-MX', opciones);
-
-        // Capitaliza la primera letra
-        const fechaFinal = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
-
-        document.getElementById("fecha-seleccionada").textContent = fechaFinal;
-        obtenerReservaciones(dateStr); // Se llama al backend con la fecha en formato YYYY-MM-DD
-    }
-});
-
-
-
-
 function mostrarReservaciones(data) {
     const contenedor = document.querySelector('.container-3');
     contenedor.innerHTML = ''; // Limpiar contenido anterior
@@ -55,8 +25,30 @@ function mostrarReservaciones(data) {
         `;
         contenedor.appendChild(card);
     });
+
+    document.querySelectorAll('.container-3-btn-reservar').forEach(button => {
+        button.addEventListener('click', () => {
+            const idAsesoria = button.getAttribute('data-id');
+            reservarAsesoria(idAsesoria); // llamada a función para reservar
+        });
+    });
 }
 
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('container-3-btn-reservar')) {
+        const idReserva = e.target.dataset.id;
+        const card = e.target.closest('.container-3-horario-card');
+        const tema = card.querySelector('.container-3-tema').textContent.trim();
+
+        if (tema === 'Tema a elección') {
+            // Redirigir a selección de tema
+            window.location.href = `temas.html?id=${idReserva}`;
+        } else {
+            // Redirigir a confirmación directamente
+            window.location.href = `confirma_tema.html?id=${idReserva}`;
+        }
+    }
+});
 
 /*
 function obtenerReservaciones(fechaSeleccionada) {
@@ -65,5 +57,37 @@ function obtenerReservaciones(fechaSeleccionada) {
         .then(response => response.json())
         .then(data => mostrarReservaciones(data))
         .catch(error => console.error('Error al obtener reservaciones:', error));
+}
+*/
+
+/*
+function reservarAsesoria(idAsesoria) {
+
+    // Suponiendo que tienes el id del alumno y su nombre en localStorage
+    // Puedes obtener el id del alumno y su nombre desde localStorage o desde donde lo tengas
+    const alumnoId = localStorage.getItem("alumnoId");
+    const alumnoNombre = localStorage.getItem("alumnoNombre");
+
+    // Puedes pasar más datos si tu backend lo requiere (como id del alumno, nombre, etc.)
+    fetch('/api/reservar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ idAsesoria: idAsesoria, alumnoId: alumnoId, alumnoNombre: alumnoNombre })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Error al reservar');
+        return response.json();
+    })
+    .then(data => {
+        alert('Reservación realizada correctamente');
+        // Puedes volver a obtener los horarios si quieres actualizar los cupos
+        // obtenerReservaciones(fechaActualSeleccionada);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('No se pudo reservar. Intenta de nuevo.');
+    });
 }
 */
