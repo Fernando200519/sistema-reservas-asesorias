@@ -1,3 +1,12 @@
+// Mostrar el nivel de ingles en la interfaz 
+const nivel = localStorage.getItem("nivelIngles");
+const contenedorNivel = document.querySelector('.container-1-nivel');
+if (contenedorNivel && nivel) {
+    contenedorNivel.textContent = nivel;
+}
+
+
+// Mostrar las reservaciones de la fecha seleccionada
 function mostrarReservaciones(data) {
     const contenedor = document.querySelector('.container-3');
     contenedor.innerHTML = ''; // Limpiar contenido anterior
@@ -34,21 +43,34 @@ function mostrarReservaciones(data) {
     });
 }
 
+
+// Redirigir a la página de selección de tema o confirmación
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('container-3-btn-reservar')) {
         const idReserva = e.target.dataset.id;
         const card = e.target.closest('.container-3-horario-card');
         const tema = card.querySelector('.container-3-tema').textContent.trim();
+        const hora = card.querySelector('.informacion-hora').textContent.trim();
+        const asesor = card.querySelector('.nombre-asesor span').textContent.trim();
+        const fecha = localStorage.getItem("fechaSeleccionada");
+
+        // Guardar todos los datos en localStorage
+        localStorage.setItem('idAsesoria', idReserva);
+        localStorage.setItem('temaSeleccionado', tema);
+        localStorage.setItem('horaSeleccionada', hora);
+        localStorage.setItem('nombreAsesor', asesor);
+        localStorage.setItem('fechaSeleccionada', fecha);
+
 
         if (tema === 'Tema a elección') {
-            // Redirigir a selección de tema
             window.location.href = `temas.html?id=${idReserva}`;
         } else {
-            // Redirigir a confirmación directamente
             window.location.href = `confirma_tema.html?id=${idReserva}`;
         }
     }
 });
+
+
 
 /*
 function obtenerReservaciones(fechaSeleccionada) {

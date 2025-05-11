@@ -31,10 +31,11 @@ function actualizarFecha(fecha) {
     const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const fechaFormateada = fecha.toLocaleDateString('es-MX', opciones);
     const capitalizada = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
+    localStorage.setItem("fechaSeleccionada", capitalizada);
 
     document.getElementById("fecha-seleccionada").textContent = capitalizada;
     flatpickrInstance.setDate(fecha);
-    // obtenerReservaciones(formatearFechaLocal(fecha));
+    obtenerReservaciones(formatearFechaLocal(fecha));
     actualizarBotonAnterior();
 }
 
