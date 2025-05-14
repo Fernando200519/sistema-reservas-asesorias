@@ -30,12 +30,13 @@ form.addEventListener('submit', async (e) => {
     const response = await fetch('DatosPrueba.json'); // ruta relativa a tu HTML
     const usuarios = await response.json();
 
-    const user = usuarios.find(u => u.usuario === usuario && u.contraseña === contraseña);
+    const user = usuarios.find(u => u.matricula === usuario && u.contraseña === contraseña);
 
     if (user) {
       if (user.tipoUsuario === 'alumno') {
-        localStorage.setItem('nivelIngles', user.nivel);
-        localStorage.setItem('nombreAlumno', user.nombre);
+        localStorage.setItem('nivelIngles', user.nivel); // Guardar el nivel de inglés en localStorage
+        localStorage.setItem('nombreAlumno', user.nombre); // Guardar el nombre del alumno en localStorage
+        localStorage.setItem('matricula', user.matricula); // Guardar el usuario en localStorage
         window.location.href = '../alumno/alumno.html';
       } else if (user.tipoUsuario === 'asesor') {
         window.location.href = '../alumno/asesor.html';

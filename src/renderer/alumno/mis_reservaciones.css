@@ -25,6 +25,7 @@ body{
     display: flex;
     height: 100px;
     align-items: center;
+    border-bottom: 1.5px #c2c2c2 solid;
 }
 
 .container-1-titulo{
@@ -34,7 +35,7 @@ body{
 }
 
 .container-1-div-subtitulo{
-    width: 220px;
+    width: 300px;
     height: 40%;
     font-size: 12px;
     background-color: #003366;
@@ -62,114 +63,27 @@ body{
     color: #000000;
 }
 
-.container-2{
-    background-color: #F8FAFD;
-    border-bottom: 1.5px #c2c2c2 solid;
-    border-top: 1.5px #c2c2c2 solid;
-    display: flex;
-    align-items: center;
-    padding: 0 1.5%;
-    height: 70px;
-}
-
-.container-2-button-calendario{
-    border: none;
-    background-color: #F8FAFD;
-    cursor: pointer;
-}
-
-.container-2-div-calendario{
-    width: 70%;
-    height: 60px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-}
-
-#fecha-seleccionada{
-    font-size: 18px;
-    font-weight: 500;
-    color: #2d3748;
-}
-
-.img-calendario{
-    width: 28px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.container-2-div-dias{
-    width: 100%;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    padding-right: 30px;
-}
-
-.container-2-div-dias span{
-    font-weight: 500;
-    color: #334155;
-}
-
-.container-2-button-flecha-atras{
-    width: 130px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    border: 1.5px #c2c2c2 solid;
-    background-color: #F8FAFD;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.container-2-button-flecha-atras:hover{
-    background-color: #E2E8F0; /* Gris medio al hacer hover */
-    border-color: #94A3B8; /* Borde más oscuro en hover */
-}
-
-.img-flecha-atras{
-    width: 20px;
-}
-
-.container-2-button-flecha-atras.desactivado {
-    cursor: not-allowed;
-    color: #94A3B8; /* Texto gris medio para desactivado */
-    background-color: #F8FAFC; /* Fondo más claro para desactivado */
-    border-color: #E2E8F0; /* Borde más claro */
-    opacity: 0.7; /* Reduce la opacidad para indicar estado desactivado */
-}
-
-.container-2-button-div-flecha-adelante{
-    width: 130px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    border: 1.5px #c2c2c2 solid;
-    background-color: #F8FAFD;
-    cursor: pointer;
-}
-
-.container-2-button-div-flecha-adelante:hover{
-    background-color: #e9ecf0;
-}
-
-.img-flecha-adelante{
-    width: 20px;
-}
-
 span{
     font-weight: 400;
+}
+
+.container-2-div-nivel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.container-2-div-nivel h2{
+    font-size: 28px;
+    color: #0d3b66;
 }
 
 .container-3 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
     gap: 20px;
-    height: 55vh;
+    height: 50vh;
     overflow-y: auto;
     border-bottom: 1.5px solid #c2c2c2;
     padding: 30px;

@@ -6,6 +6,14 @@ if (contenedorNivel && nivel) {
 }
 
 
+// Leer desde archivo local JSON
+fetch('EjemploDatos.json')
+  .then(res => res.json())
+  .then(data => mostrarReservaciones(data))
+  .catch(error => console.error('Error cargando datos:', error));
+
+
+
 // Mostrar las reservaciones de la fecha seleccionada
 function mostrarReservaciones(data) {
     const contenedor = document.querySelector('.container-3');

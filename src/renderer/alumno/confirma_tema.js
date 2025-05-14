@@ -6,24 +6,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const spanAsesor = document.querySelector('.cuadro-datos-izquierda p:nth-child(4) span');
   const spanAlumno = document.querySelector('.cuadro-datos-izquierda p:nth-child(5) span');
 
+  function limpiarTextoTema(temaCompleto) {
+    // Expresión regular: elimina "Tema N: " al inicio
+    return temaCompleto.replace(/^Tema \d+:\s*/, '');
+  }
+
   // Leer datos del localStorage
-  const tema = localStorage.getItem('temaSeleccionado');
+  const temaRaw = localStorage.getItem('temaSeleccionado');
   const fecha = localStorage.getItem('fechaSeleccionada');
   const hora = localStorage.getItem('horaSeleccionada');
   const asesor = localStorage.getItem('nombreAsesor');
   const alumno = localStorage.getItem('nombreAlumno');
-
+  
+  // Limpiar el texto del tema
+  const tema = temaRaw ? limpiarTextoTema(temaRaw) : '';
+  
   // Insertar los datos en el HTML
   if (tema) spanTema.textContent = tema;
   if (fecha) spanFecha.textContent = fecha;
   if (hora) spanHora.textContent = hora;
   if (asesor) spanAsesor.textContent = asesor;
   if (alumno) spanAlumno.textContent = alumno;
-});
-
-// Botón para modificar tema
-document.getElementById('btn-modificar-tema').addEventListener('click', () => {
-  window.history.back(); // Regresa a la pantalla de selección de temas
 });
 
 document.getElementById('btn-volver').addEventListener('click', () => {

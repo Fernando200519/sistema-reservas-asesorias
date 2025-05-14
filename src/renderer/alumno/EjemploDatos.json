@@ -1,0 +1,23 @@
+[
+  {
+    "id": "101",
+    "hora": "09:00 - 09:30",
+    "tema": null,
+    "asesor": "María López",
+    "cupos": 3
+  },
+  {
+    "id": "102",
+    "hora": "10:00 - 10:30",
+    "tema": "Tema 1: Saludos",
+    "asesor": "Carlos Méndez",
+    "cupos": 2
+  },
+  {
+    "id": "103",
+    "hora": "11:00 - 11:30",
+    "tema": "Tema 2: Despedidas",
+    "asesor": "María López",
+    "cupos": 1
+  }
+]
