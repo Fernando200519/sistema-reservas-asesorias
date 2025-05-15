@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CAA Reservaciones</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="index-page">
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>CAA</h1>
+      <button class="active-tab">Reservaciones</button>
+    </div>
+  
+    <!-- Controles -->
+    <div class="controls">
+      <button class="arrow">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
+        </svg>
+      </button>
+      <div id="datePicker" class="date-picker">Seleccionar fecha</div>
+      <button class="arrow">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+        </svg>
+      </button>
+      <select class="filter" id="filtroEstado">
+        <option value="todas">Todas</option>
+        <option value="disponible">Disponibles</option>
+        <option value="reservada">Reservadas</option>
+        <option value="concluida">Concluidas</option>
+      </select>
+    </div>
+  
+    <!-- Grid de tarjetas -->
+    <section class="grid">
+      <!-- Se llenará con JavaScript -->
+    </section>
+  
+    <!-- Contenedor de botones -->
+    <div class="botones-container">
+      <button id="resetHorarios" class="btn">
+        Reiniciar horarios
+      </button>
+      <button id="nuevoHorario" class="btn">
+        <span>+</span> Nuevo Horario
+      </button>
+    </div>
+  </div>
+
+  <!-- Carga el script principal como módulo -->
+  <script src="index.js" type="module"></script>
+</body>
+</html>
