@@ -6,6 +6,11 @@ if (contenedorNivel && nivel) {
 }
 
 
+document.getElementById("button-mis-reservaciones").addEventListener("click", function() {
+    // Redirigir a la página anterior
+    window.location.href = 'mis_reservaciones/mis_reservaciones.html';
+});
+
 // Leer desde archivo local JSON
 fetch('EjemploDatos.json')
   .then(res => res.json())

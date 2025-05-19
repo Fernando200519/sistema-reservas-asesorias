@@ -7,15 +7,12 @@
     <link rel="stylesheet" href="mis_reservaciones.css">
 </head>
 <body>
-    <div class="container">
+    <!-- Sección 1: Lista de reservaciones -->
+    <div id="seccion-reservaciones" class="seccion activa">
         <header class="container-1">
             <h1 class="container-1-titulo">CAA</h1>
             <div class="container-1-div-subtitulo">
                 <h2 class="container-1-subtitulo">Mis Reservaciones</h2>
-            </div>
-
-            <div class="container-1-div-nivel">
-                <h2 class="container-1-nivel"></h2>
             </div>
         </header>
 
@@ -23,19 +20,30 @@
             <h2 class="container-2-nivel"></h2>
         </div>
 
-        <main class="container-3">
-
+        <main class="container-3" >
             
-
         </main>
 
         <footer class="container-4">
-            <button class="container-4-button-reservar">
+            <button class="container-4-button-reservar" id="button-reservar">
                 Reservaciones
             </button>
         </footer>
-
     </div>
-    <script src="mis_reservaciones.js"></script> 
+
+    <!-- Fondo oscuro (overlay) -->
+    <div id="overlay" class="overlay oculto"></div>
+
+    <!-- Sección 2: Detalles de la reservación -->
+    <div id="modal-detalles" class="oculto">
+        
+    </div>
+
+    <!-- Sección 3: Confirmación de cancelación -->
+     <div class="oculto" id="modal-confirmacion">
+        
+    </div>
+
+    <script src="mis_reservaciones.js"></script>
 </body>
 </html>

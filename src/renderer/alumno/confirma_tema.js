@@ -34,6 +34,31 @@ document.getElementById('btn-volver').addEventListener('click', () => {
 });
 
 
+// CODIGO PARA PROBAR MIS RESERVACIONES
+document.getElementById('btn-confirmar').addEventListener('click', async () => {
+  const idReserva = localStorage.getItem('idAsesoria');
+  const tema = localStorage.getItem('temaSeleccionado');
+  const hora = localStorage.getItem('horaSeleccionada');
+  const asesor = localStorage.getItem('nombreAsesor');
+  const fecha = localStorage.getItem('fechaSeleccionada');
+
+  // 🚀 NUEVO: Guardar en la lista de reservaciones hechas
+  const nuevaReservacion = {
+    id: idReserva,
+    tema,
+    hora,
+    asesor,
+    fecha
+  };
+
+  let misReservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
+  misReservaciones.push(nuevaReservacion);
+  localStorage.setItem("misReservaciones", JSON.stringify(misReservaciones));
+});
+
+
+
+
 // Botón para confirmar la reservación
 document.getElementById('btn-confirmar').addEventListener('click', async () => {
   const tema = localStorage.getItem('temaSeleccionado');
