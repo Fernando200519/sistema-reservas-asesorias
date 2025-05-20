@@ -30,28 +30,30 @@ document.getElementById('btn-volver').addEventListener('click', () => {
     window.history.back(); // Esto regresa a la pantalla anterior
 });
 
-// CODIGO PARA PROBAR MIS RESERVACIONES
-document.getElementById('btn-confirmar').addEventListener('click', async () => {
+// CODIGO CORRECTO para confirmar reservación
+document.getElementById('btn-confirmar').addEventListener('click', () => {
   const idReserva = localStorage.getItem('idAsesoria');
-  const tema = localStorage.getItem('temaSeleccionado');
-  const hora = localStorage.getItem('horaSeleccionada');
-  const asesor = localStorage.getItem('nombreAsesor');
-  const fecha = localStorage.getItem('fechaSeleccionada');
+  const asesoriasDisponibles = JSON.parse(localStorage.getItem("asesoriasDisponibles")) || [];
 
-  // 🚀 NUEVO: Guardar en la lista de reservaciones hechas
-  const nuevaReservacion = {
-    id: idReserva,
-    tema,
-    hora,
-    asesor,
-    fecha
-  };
+  // Buscar la asesoría completa (con cupos y todo)
+  const asesoriaSeleccionada = asesoriasDisponibles.find(r => String(r.id) === String(idReserva));
 
-  let misReservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
-  misReservaciones.push(nuevaReservacion);
-  localStorage.setItem("misReservaciones", JSON.stringify(misReservaciones));
+  if (asesoriaSeleccionada) {
+    // Guardarla tal cual en misReservaciones
+    let misReservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
+    misReservaciones.push(asesoriaSeleccionada);
+    localStorage.setItem("misReservaciones", JSON.stringify(misReservaciones));
+
+    // Quitarla de las asesorías disponibles
+    const nuevasDisponibles = asesoriasDisponibles.filter(r => String(r.id) !== String(idReserva));
+    localStorage.setItem("asesoriasDisponibles", JSON.stringify(nuevasDisponibles));
+  }
+
+  // Redirigir a la página de alumno
+  window.location.href = 'alumno.html';
 });
 
+/*
 // Botón para confirmar la reservación
 document.getElementById('btn-confirmar').addEventListener('click', async () => {
   const tema = localStorage.getItem('temaSeleccionado');
@@ -97,5 +99,6 @@ document.getElementById('btn-confirmar').addEventListener('click', async () => {
     console.error('Error:', error);
     alert('Ocurrió un error al confirmar la reservación.');
   }
-  */
+  
 });
+*/

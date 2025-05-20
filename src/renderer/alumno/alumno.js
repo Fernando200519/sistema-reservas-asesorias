@@ -12,17 +12,30 @@ document.getElementById("button-mis-reservaciones").addEventListener("click", fu
 });
 
 // Leer desde archivo local JSON
-fetch('EjemploDatos.json')
-  .then(res => res.json())
-  .then(data => mostrarReservaciones(data))
-  .catch(error => console.error('Error cargando datos:', error));
+let asesoriasLocales = JSON.parse(localStorage.getItem("asesoriasDisponibles"));
 
+if (asesoriasLocales !== null) {
+    mostrarReservaciones(asesoriasLocales);
+} else {
+    fetch('EjemploDatos.json')
+      .then(res => res.json())
+      .then(data => {
+        localStorage.setItem("asesoriasDisponibles", JSON.stringify(data));
+        mostrarReservaciones(data);
+      })
+      .catch(error => console.error('Error cargando datos:', error));
+}
 
 
 // Mostrar las reservaciones de la fecha seleccionada
 function mostrarReservaciones(data) {
     const contenedor = document.querySelector('.container-3');
     contenedor.innerHTML = ''; // Limpiar contenido anterior
+
+    if (data.length === 0) {
+        contenedor.innerHTML = '<p>No hay asesorías disponibles por ahora.</p>';
+        return;
+    }
 
     data.forEach(reserva => {
         const card = document.createElement('div');
@@ -66,6 +79,7 @@ document.addEventListener('click', (e) => {
         const hora = card.querySelector('.informacion-hora').textContent.trim();
         const asesor = card.querySelector('.nombre-asesor span').textContent.trim();
         const fecha = localStorage.getItem("fechaSeleccionada");
+        const cupos = card.querySelector('.cupos-disponibles span').textContent.trim();
 
         // Guardar todos los datos en localStorage
         localStorage.setItem('idAsesoria', idReserva);
@@ -73,7 +87,6 @@ document.addEventListener('click', (e) => {
         localStorage.setItem('horaSeleccionada', hora);
         localStorage.setItem('nombreAsesor', asesor);
         localStorage.setItem('fechaSeleccionada', fecha);
-
 
         if (tema === 'Tema a elección') {
             window.location.href = `temas.html?id=${idReserva}`;

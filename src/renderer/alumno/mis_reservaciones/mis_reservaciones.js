@@ -30,16 +30,16 @@ function mantenerReservacion() {
     mostrarModal('modal-detalles');
 }
 
-
-
-
-
-
 function cargarReservaciones() {
     const contenedor = document.querySelector('.container-3');
     const reservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
 
     contenedor.innerHTML = '';
+
+    if (reservaciones.length === 0) {
+        contenedor.innerHTML = '<p>No hay asesorías disponibles por ahora.</p>';
+        return;
+    }
 
     reservaciones.forEach(res => {
         const card = document.createElement('div');
@@ -112,9 +112,22 @@ function mostrarConfirmacion(idReservacion) {
 
 function cancelarReservacion(idReservacion) {
     let reservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
+    let asesoriasDisponibles = JSON.parse(localStorage.getItem("asesoriasDisponibles")) || [];
+
+    // Buscar la asesoría cancelada
+    const asesoriaCancelada = reservaciones.find(r => String(r.id) === String(idReservacion));
+
+    // Quitarla de misReservaciones
     reservaciones = reservaciones.filter(r => String(r.id) !== String(idReservacion));
     localStorage.setItem("misReservaciones", JSON.stringify(reservaciones));
 
+    // Volver a agregarla a las asesorías disponibles
+    if (asesoriaCancelada) {
+        asesoriasDisponibles.push(asesoriaCancelada);
+        localStorage.setItem("asesoriasDisponibles", JSON.stringify(asesoriasDisponibles));
+    }
+
+    // Cerrar modales y actualizar la lista
     cerrarModal('modal-confirmacion');
     cerrarModal('modal-detalles');
     cargarReservaciones(); // recargar la lista en pantalla
