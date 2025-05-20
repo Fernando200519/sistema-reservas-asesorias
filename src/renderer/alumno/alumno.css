@@ -167,12 +167,13 @@ span{
 
 .container-3 {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     gap: 20px;
     height: 55vh;
     overflow-y: auto;
     border-bottom: 1.5px solid #c2c2c2;
     padding: 30px;
+    align-content: start; /* <-- Importante: evita que el grid estire las filas verticalmente */
 }
 
 .container-3-horario-card{
@@ -195,7 +196,6 @@ span{
     align-items: center;
     justify-content: center;
     padding: 18px;
-    height: 250px;
 }
 
 .informacion-hora{
@@ -270,7 +270,7 @@ span{
     display: flex;
     justify-content: right;
     align-items: right;
-    margin-top: 40px;
+    margin-top: 30px;
     background-color: #38A169;
     color: white;
     border: none;
