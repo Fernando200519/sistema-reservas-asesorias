@@ -39,6 +39,8 @@ document.getElementById('btn-confirmar').addEventListener('click', () => {
   const asesoriaSeleccionada = asesoriasDisponibles.find(r => String(r.id) === String(idReserva));
 
   if (asesoriaSeleccionada) {
+    asesoriaSeleccionada.tema = localStorage.getItem("temaSeleccionado");
+    asesoriaSeleccionada.fecha = localStorage.getItem("fechaSeleccionada");
     // Guardarla tal cual en misReservaciones
     let misReservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
     misReservaciones.push(asesoriaSeleccionada);
@@ -50,8 +52,21 @@ document.getElementById('btn-confirmar').addEventListener('click', () => {
   }
 
   // Redirigir a la página de alumno
-  window.location.href = 'alumno.html';
+  mostrarModal();
 });
+
+
+
+function cerrarModal() {
+  window.location.href = "alumno.html"; // Redirigir a la página de alumno
+}
+
+
+// Mostar modal de asesoria confirmada
+function mostrarModal() {
+    document.getElementById('overlay').classList.remove('oculto');
+    document.getElementById('modal-reservacion-confirmada').classList.remove('oculto');
+}
 
 /*
 // Botón para confirmar la reservación

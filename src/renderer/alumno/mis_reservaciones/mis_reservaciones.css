@@ -90,6 +90,7 @@ span{
     overflow-y: auto;
     border-bottom: 1.5px solid #c2c2c2;
     padding: 20px;
+    align-content: start;
 }
 
 .container-3-horario-card{
@@ -97,7 +98,6 @@ span{
     border-radius: 12px;
     transition: all 0.2s ease;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    height: 200px;
     padding: 20px;
     cursor: pointer;
 }
@@ -328,3 +328,28 @@ span{
 .btn-confirmar:hover{
     background-color: #C82333;
 }
+
+
+
+/*Mensaje de aviso de que no hay reservaciones*/
+.container-3-vacio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin-bottom: 40px;
+}
+
+.container-3-vacio img{
+    width: 50px;
+    margin-bottom: 20px;
+}
+
+.container-3-vacio p{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #666666;
+}
+

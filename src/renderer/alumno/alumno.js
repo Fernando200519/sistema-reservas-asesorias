@@ -26,6 +26,16 @@ if (asesoriasLocales !== null) {
       .catch(error => console.error('Error cargando datos:', error));
 }
 
+function ordenarAsesoriasPorHora(asesorias) {
+    return asesorias.sort((a, b) => {
+        const horaInicioA = a.hora.split(' - ')[0].trim();  // "9:00"
+        const horaInicioB = b.hora.split(' - ')[0].trim();  // "10:30"
+        const dateA = new Date(`1970-01-01T${horaInicioA}:00`);
+        const dateB = new Date(`1970-01-01T${horaInicioB}:00`);
+        return dateA - dateB;
+    });
+}
+
 
 // Mostrar las reservaciones de la fecha seleccionada
 function mostrarReservaciones(data) {
@@ -33,11 +43,22 @@ function mostrarReservaciones(data) {
     contenedor.innerHTML = ''; // Limpiar contenido anterior
 
     if (data.length === 0) {
-        contenedor.innerHTML = '<p>No hay asesorías disponibles por ahora.</p>';
+        document.querySelector('.container-3').style.display = 'flex';
+        document.querySelector('.container-3').style.justifyContent = 'center';
+        document.querySelector('.container-3').style.alignItems = 'center';
+        contenedor.innerHTML = `
+            <div class="container-3-vacio">
+                <img src="../../../assets/calendario.png">
+                <p>No hay asesorías disponibles para esta fecha.</p>
+            </div>
+        `;
         return;
     }
 
-    data.forEach(reserva => {
+    // Ordenar por hora antes de mostrar
+    const asesoriasOrdenadas = ordenarAsesoriasPorHora(data);
+
+    asesoriasOrdenadas.forEach(reserva => {
         const card = document.createElement('div');
         card.classList.add('container-3-horario-card');
         card.innerHTML = `
@@ -79,7 +100,6 @@ document.addEventListener('click', (e) => {
         const hora = card.querySelector('.informacion-hora').textContent.trim();
         const asesor = card.querySelector('.nombre-asesor span').textContent.trim();
         const fecha = localStorage.getItem("fechaSeleccionada");
-        const cupos = card.querySelector('.cupos-disponibles span').textContent.trim();
 
         // Guardar todos los datos en localStorage
         localStorage.setItem('idAsesoria', idReserva);

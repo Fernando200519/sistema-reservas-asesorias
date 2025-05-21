@@ -5,6 +5,11 @@ if (contenedorNivel && nivel) {
     contenedorNivel.textContent = nivel;
 }
 
+function limpiarTextoTema(temaCompleto) {
+  if (!temaCompleto || typeof temaCompleto !== 'string') return 'Tema no asignado';
+  return temaCompleto.replace(/^Tema \d+:\s*/, '');
+}
+
 // Botón para regresar a la página principal
 document.getElementById("button-reservar").addEventListener("click", function() {
     window.location.href = "../alumno.html";
@@ -34,10 +39,20 @@ function cargarReservaciones() {
     const contenedor = document.querySelector('.container-3');
     const reservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
 
+    console.log("Reservaciones cargadas:", reservaciones); // <-- Aquí
+
     contenedor.innerHTML = '';
 
     if (reservaciones.length === 0) {
-        contenedor.innerHTML = '<p>No hay asesorías disponibles por ahora.</p>';
+        document.querySelector('.container-3').style.display = 'flex';
+        document.querySelector('.container-3').style.justifyContent = 'center';
+        document.querySelector('.container-3').style.alignItems = 'center';
+        contenedor.innerHTML = `
+            <div class="container-3-vacio">
+                <img src="../../../../assets/calendario.png">
+                <p>Parece que no tienes asesorías reservadas todavía.</p>
+            </div>
+        `;
         return;
     }
 
@@ -51,7 +66,7 @@ function cargarReservaciones() {
                 <h3 class="informacion-hora">${res.hora}</h3>
                 <div class="container-3-datos">
                     <div class="container-3-datos-izquierda">
-                        <h3 class="tema">Tema: <span>${res.tema}</span></h3>
+                        <h3 class="tema">Tema: <span>${limpiarTextoTema(res.tema)}</span></h3>
                         <h3 class="nombre-asesor">Asesor: <span>${res.asesor}</span></h3>
                     </div>
                     <p class="fecha">Fecha: ${res.fecha}</p>
@@ -75,7 +90,7 @@ function mostrarDetallesDinamico(reservacion) {
         </div>
 
         <div class="container-detalles-reservación-información">
-            <p>Tema : <span class="cdri-informacion"> ${reservacion.tema}</span></p>
+            <p>Tema : <span class="cdri-informacion"> ${limpiarTextoTema(reservacion.tema)}</span></p>
             <p>Fecha: <span class="cdri-informacion">${reservacion.fecha}</span></p>
             <p>Hora : <span class="cdri-informacion">${reservacion.hora}</span></p>
 
@@ -111,6 +126,7 @@ function mostrarConfirmacion(idReservacion) {
 }
 
 function cancelarReservacion(idReservacion) {
+    const temaSeleccionado = localStorage.getItem("temaSeleccionado");
     let reservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
     let asesoriasDisponibles = JSON.parse(localStorage.getItem("asesoriasDisponibles")) || [];
 
@@ -123,12 +139,27 @@ function cancelarReservacion(idReservacion) {
 
     // Volver a agregarla a las asesorías disponibles
     if (asesoriaCancelada) {
+        if (!(/^Tema [1-9]|10:/.test(asesoriaCancelada.tema))) {
+            asesoriaCancelada.tema = null;
+        }
         asesoriasDisponibles.push(asesoriaCancelada);
-        localStorage.setItem("asesoriasDisponibles", JSON.stringify(asesoriasDisponibles));
+        // Ordenar por hora antes de guardar
+        const asesoriasOrdenadas = ordenarAsesoriasPorHora(asesoriasDisponibles);
+        localStorage.setItem("asesoriasDisponibles", JSON.stringify(asesoriasOrdenadas));
     }
 
     // Cerrar modales y actualizar la lista
     cerrarModal('modal-confirmacion');
     cerrarModal('modal-detalles');
     cargarReservaciones(); // recargar la lista en pantalla
+}
+
+function ordenarAsesoriasPorHora(asesorias) {
+    return asesorias.sort((a, b) => {
+        const horaInicioA = a.hora.split(' - ')[0].trim();  // "9:00"
+        const horaInicioB = b.hora.split(' - ')[0].trim();  // "10:30"
+        const dateA = new Date(`1970-01-01T${horaInicioA}:00`);
+        const dateB = new Date(`1970-01-01T${horaInicioB}:00`);
+        return dateA - dateB;
+    });
 }

@@ -13,9 +13,67 @@ body{
 }
 
 .contenedor-reservacion-hecha{
-    width: 50%;
+    width: 45%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 0px 15px 5px #e5e5e5;
 }
 
-.contenedor-reservacion-hecha h1{
-    font-size: 50px;
+.crh-encabezado{
+    width: 100%;
+    background-color: #003366;
+    padding: 20px;
+}
+
+.crh-encabezado h1{
+    color: white;
+    text-align: center;
+}
+
+
+
+
+
+.crh-cuerpo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.crh-cuerpo h1{
+    color: #000000;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.crh-cuerpo h2{
+    color: #666666;
+    font-weight: 400;
+    margin: 20px 0;
+}
+
+.crh-cuerpo img{
+    width: 100px;
+    margin: 40px 0px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+
+.crh-boton{
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }

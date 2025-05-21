@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Obtener referencias a los <span> del HTML
   const spanTema = document.querySelector('.cuadro-datos-izquierda p:nth-child(1) span');
   const spanFecha = document.querySelector('.cuadro-datos-izquierda p:nth-child(2) span');
   const spanHora = document.querySelector('.cuadro-datos-izquierda p:nth-child(3) span');
@@ -7,21 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const spanAlumno = document.querySelector('.cuadro-datos-izquierda p:nth-child(5) span');
 
   function limpiarTextoTema(temaCompleto) {
-    // Expresión regular: elimina "Tema N: " al inicio
     return temaCompleto.replace(/^Tema \d+:\s*/, '');
   }
 
-  // Leer datos del localStorage
   const temaRaw = localStorage.getItem('temaSeleccionado');
   const fecha = localStorage.getItem('fechaSeleccionada');
   const hora = localStorage.getItem('horaSeleccionada');
   const asesor = localStorage.getItem('nombreAsesor');
   const alumno = localStorage.getItem('nombreAlumno');
-  
-  // Limpiar el texto del tema
+
   const tema = temaRaw ? limpiarTextoTema(temaRaw) : '';
-  
-  // Insertar los datos en el HTML
+
   if (tema) spanTema.textContent = tema;
   if (fecha) spanFecha.textContent = fecha;
   if (hora) spanHora.textContent = hora;
@@ -29,33 +24,45 @@ document.addEventListener('DOMContentLoaded', () => {
   if (alumno) spanAlumno.textContent = alumno;
 });
 
+// Botón para 
 document.getElementById('btn-volver').addEventListener('click', () => {
-    window.history.back(); // Esto regresa a la pantalla anterior
+  window.history.back();
 });
 
-
-// CODIGO CORRECTO para confirmar reservación
 document.getElementById('btn-confirmar').addEventListener('click', () => {
   const idReserva = localStorage.getItem('idAsesoria');
   const asesoriasDisponibles = JSON.parse(localStorage.getItem("asesoriasDisponibles")) || [];
 
-  // Buscar la asesoría completa (con cupos y todo)
   const asesoriaSeleccionada = asesoriasDisponibles.find(r => String(r.id) === String(idReserva));
 
   if (asesoriaSeleccionada) {
-    // Guardarla tal cual en misReservaciones
+    asesoriaSeleccionada.fecha = localStorage.getItem("fechaSeleccionada");
+    asesoriaSeleccionada.tema = localStorage.getItem("temaSeleccionado");
+
     let misReservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
     misReservaciones.push(asesoriaSeleccionada);
     localStorage.setItem("misReservaciones", JSON.stringify(misReservaciones));
 
-    // Quitarla de las asesorías disponibles
     const nuevasDisponibles = asesoriasDisponibles.filter(r => String(r.id) !== String(idReserva));
     localStorage.setItem("asesoriasDisponibles", JSON.stringify(nuevasDisponibles));
   }
 
-  // Redirigir a la página de alumno
-  window.location.href = 'alumno.html';
+  mostrarModal();
 });
+
+function cerrarModal() {
+  window.location.href = "alumno.html";
+}
+
+function mostrarModal() {
+  document.getElementById('overlay').classList.remove('oculto');
+  document.getElementById('modal-reservacion-confirmada').classList.remove('oculto');
+}
+
+
+
+
+
 
 
 /*

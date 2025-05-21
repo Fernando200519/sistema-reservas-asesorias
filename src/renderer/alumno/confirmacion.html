@@ -34,8 +34,23 @@
 
         <footer class="footer">
             <button class="botones" id="btn-modificar-tema">Modificar tema</button>
-            <button class="botones" id="btn-confirmar">Confirmar</button>
+            <button class="botones" id="btn-confirmar" onclick="mostrarModal()">Confirmar</button>
         </footer>
+    </div>
+
+    <div id="overlay" class="overlay oculto"></div>
+
+    <div id="modal-reservacion-confirmada" class="oculto">
+        <div class="crh-encabezado">
+            <h1>Reservación hecha</h1>
+        </div>
+        <div class="crh-cuerpo">
+            <img src="../../../assets/icono_reservacion_hecha.png">
+            <h1>¡Reservación Confirmada!</h1>
+            <h2>Tu reservación ha sido registrada exitosamente.</h2>
+        </div>
+
+        <button class="crh-boton" onclick="cerrarModal()">Volver al inicio</button>
     </div>
 </body>
 <script src="confirmacion.js"></script>

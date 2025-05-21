@@ -172,7 +172,7 @@ span{
     height: 55vh;
     overflow-y: auto;
     border-bottom: 1.5px solid #c2c2c2;
-    padding: 30px;
+    padding: 25px;
     align-content: start; /* <-- Importante: evita que el grid estire las filas verticalmente */
 }
 
@@ -306,4 +306,27 @@ span{
 
 .container-4-button-reservar:hover{
     background-color: #002244;
+}
+
+
+
+/*Mensaje de aviso de que no hay reservaciones*/
+.container-3-vacio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.container-3-vacio img{
+    width: 50px;
+    margin-bottom: 20px;
+}
+
+.container-3-vacio p{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #666666;
 }
