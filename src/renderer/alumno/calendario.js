@@ -7,9 +7,7 @@ const flatpickrInstance = flatpickr("#datepicker", {
     minDate: "today",
     dateFormat: "Y-m-d",
     disable: [
-        function(date) {
-            return (date.getDay() === 0 || date.getDay() === 6);
-        }
+        date => date.getDay() === 0 || date.getDay() === 6
     ],
     onChange: function(selectedDates, dateStr, instance) {
         fechaActual = selectedDates[0];
@@ -73,11 +71,16 @@ document.getElementById("dia-anterior").addEventListener("click", () => {
 });
 
 document.getElementById("dia-siguiente").addEventListener("click", () => {
+    let nuevaFecha = new Date(fechaActual);
+
     do {
-        fechaActual.setDate(fechaActual.getDate() + 1);
-    } while (fechaActual.getDay() === 0 || fechaActual.getDay() === 6);
+        nuevaFecha.setDate(nuevaFecha.getDate() + 1);
+    } while (nuevaFecha.getDay() === 0 || nuevaFecha.getDay() === 6);
+
+    fechaActual = nuevaFecha;
     actualizarFecha(fechaActual);
 });
+
 
 // Mostrar la fecha actual al cargar
 actualizarFecha(fechaActual);

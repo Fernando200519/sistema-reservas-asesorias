@@ -24,30 +24,46 @@ document.addEventListener('DOMContentLoaded', () => {
   if (alumno) spanAlumno.textContent = alumno;
 });
 
-// Botón para 
+// Botón volver
 document.getElementById('btn-volver').addEventListener('click', () => {
   window.history.back();
 });
 
-document.getElementById('btn-confirmar').addEventListener('click', () => {
-  const idReserva = localStorage.getItem('idAsesoria');
-  const asesoriasDisponibles = JSON.parse(localStorage.getItem("asesoriasDisponibles")) || [];
+// Botón confirmar reservación
+document.getElementById('btn-confirmar').addEventListener('click', async () => {
+  const idAsesoria = localStorage.getItem("idAsesoria");
+  const tema = localStorage.getItem("temaSeleccionado");
+  const fecha = localStorage.getItem("fechaSeleccionada");
+  const hora = localStorage.getItem("horaSeleccionada");
+  const matricula = localStorage.getItem("matricula");
 
-  const asesoriaSeleccionada = asesoriasDisponibles.find(r => String(r.id) === String(idReserva));
+  const datos = {
+    id_asesoria: idAsesoria,
+    tema: tema,
+    fecha: fecha,
+    hora: hora,
+    matricula: matricula
+  };
 
-  if (asesoriaSeleccionada) {
-    asesoriaSeleccionada.fecha = localStorage.getItem("fechaSeleccionada");
-    asesoriaSeleccionada.tema = localStorage.getItem("temaSeleccionado");
+  try {
+    const response = await fetch('http://localhost:3000/api/reservaciones', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datos)
+    });
 
-    let misReservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
-    misReservaciones.push(asesoriaSeleccionada);
-    localStorage.setItem("misReservaciones", JSON.stringify(misReservaciones));
+    if (!response.ok) {
+      throw new Error('Error en la reservación');
+    }
 
-    const nuevasDisponibles = asesoriasDisponibles.filter(r => String(r.id) !== String(idReserva));
-    localStorage.setItem("asesoriasDisponibles", JSON.stringify(nuevasDisponibles));
+    mostrarModal(); // Éxito
+
+  } catch (error) {
+    console.error('Error al confirmar la reservación:', error);
+    alert('Ocurrió un error al confirmar la reservación. Intenta nuevamente.');
   }
-
-  mostrarModal();
 });
 
 function cerrarModal() {
@@ -58,60 +74,3 @@ function mostrarModal() {
   document.getElementById('overlay').classList.remove('oculto');
   document.getElementById('modal-reservacion-confirmada').classList.remove('oculto');
 }
-
-
-
-
-
-
-
-/*
-
-// Botón para confirmar la reservación
-document.getElementById('btn-confirmar').addEventListener('click', async () => {
-  const tema = localStorage.getItem('temaSeleccionado');
-  const matricula = localStorage.getItem('matricula');
-  const idReserva = localStorage.getItem('idAsesoria');
-
-  // Validar que todos los datos estén presentes
-  if (!tema || !idReserva || !matricula) {
-    alert('Faltan datos para enviar la reservación.');
-    return;
-  }
-
-  // Construir objeto para enviar
-  const datosReservacion = {
-    idReserva: idReserva,
-    matricula: matricula,
-    tema: tema,
-  };
-
-  console.log('Datos de la reservación:', datosReservacion);
-
-
-  try {
-    const response = await fetch('http://localhost:3000/api/reservaciones', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(datosReservacion)
-    });
-
-    if (!response.ok) {
-      throw new Error('Error al guardar la reservación.');
-    }
-
-    const resultado = await response.json();
-    console.log('Reservación guardada:', resultado);
-
-    alert('Reservación confirmada con éxito.');
-    localStorage.clear(); // O limpia solo lo necesario
-    window.location.href = 'reserva_exitosa.html'; // Página de éxito si quieres
-  } catch (error) {
-    console.error('Error:', error);
-    alert('Ocurrió un error al confirmar la reservación.');
-  }
- 
-});
- */

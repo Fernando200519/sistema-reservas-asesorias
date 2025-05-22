@@ -3,13 +3,11 @@ const togglePassword = document.getElementById('toggle-password');
 const form = document.querySelector('.login-form');
 const mensajeError = document.getElementById('mensaje-error');
 
-// Funcion para mostrar/ocultar la contraseña
 togglePassword.addEventListener('click', () => {
   const isPassword = passwordInput.type === 'password';
   passwordInput.type = isPassword ? 'text' : 'password';
   togglePassword.src = isPassword ? '../../../assets/mostrar.png' : '../../../assets/esconder.png';
 });
-
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -17,75 +15,50 @@ form.addEventListener('submit', async (e) => {
   const usuario = document.getElementById('usuario').value.trim();
   const contraseña = passwordInput.value.trim();
 
-  // Validar el formulario al enviar
+  // Validación básica
   if (usuario === '' || contraseña === '') {
     mensajeError.textContent = 'Por favor, llena todos los campos.';
     mensajeError.style.display = 'block';
     return;
   }
 
-
   try {
-    // Cargar el archivo JSON como si fuera una "API"
-    const response = await fetch('DatosPrueba.json'); // ruta relativa a tu HTML
-    const usuarios = await response.json();
-
-    const user = usuarios.find(u => u.matricula === usuario && u.contraseña === contraseña);
-
-    if (user) {
-      if (user.tipoUsuario === 'alumno') {
-        localStorage.setItem('nivelIngles', user.nivel); // Guardar el nivel de inglés en localStorage
-        localStorage.setItem('nombreAlumno', user.nombre); // Guardar el nombre del alumno en localStorage
-        localStorage.setItem('matricula', user.matricula); // Guardar el usuario en localStorage
-        window.location.href = '../alumno/alumno.html';
-      } else if (user.tipoUsuario === 'asesor') {
-        window.location.href = '../alumno/asesor.html';
-      }
-    } else {
-      mensajeError.textContent = 'Usuario o contraseña incorrectos.';
-      mensajeError.style.display = 'block';
-    }
-  } catch (error) {
-    console.error(error);
-    mensajeError.textContent = 'Error al cargar los datos.';
-    mensajeError.style.display = 'block';
-  }
-
-
-  /*
-  try {
-    const response = await fetch('http://localhost:3000/login', {
+    // Enviar solicitud al backend real
+    const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ usuario, contraseña })
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        matricula: usuario,
+        contrasena: contraseña
+      })
     });
 
-    const result = await response.json();
+    const data = await response.json();
 
-    if (result.exito) {
-      // Guardar el nivel y otros datos del alumno en el localStorage
-      if (result.tipoUsuario === 'alumno') {
-        localStorage.setItem("nivelIngles", result.nivel);
-        localStorage.setItem("nombreAlumno", result.nombre);
+    if (response.ok && data.success) {
+      const user = data.alumno;
+
+      if (user.tipo_usuario === 'alumno') {
+        localStorage.setItem('nivelIngles', user.nivel_ingles); // Pedro modificalo si el nombre de la variable es diferente
+        localStorage.setItem('nombreAlumno', user.nombre); // Pedro modificalo si el nombre de la variable es diferente
+        localStorage.setItem('matricula', usuario); // Pedro modificalo si el nombre de la variable es diferente
         window.location.href = '../alumno/alumno.html';
-      } else if (result.tipoUsuario === 'asesor') {
+      } else if (user.tipo_usuario === 'asesor') {
         window.location.href = '../alumno/asesor.html';
       } else {
         mensajeError.textContent = 'Tipo de usuario desconocido.';
         mensajeError.style.display = 'block';
       }
     } else {
-      mensajeError.textContent = 'Usuario o contraseña incorrectos.';
+      mensajeError.textContent = data.error || 'Usuario o contraseña incorrectos.';
       mensajeError.style.display = 'block';
     }
+
   } catch (error) {
-    mensajeError.textContent = 'Error al conectar con el servidor.';
+    console.error('Error al intentar iniciar sesión:', error);
+    mensajeError.textContent = 'No se pudo conectar con el servidor.';
     mensajeError.style.display = 'block';
-    console.error(error);
   }
-  */
-
 });
-
-
-

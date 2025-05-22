@@ -5,13 +5,23 @@ if (contenedorNivel && nivel) {
     contenedorNivel.textContent = nivel;
 }
 
+// Función defensiva para obtener JSON del localStorage
+function obtenerJSONSeguro(clave) {
+    try {
+        return JSON.parse(localStorage.getItem(clave)) || [];
+    } catch (e) {
+        console.error(`Error al parsear "${clave}":`, e);
+        return [];
+    }
+}
+
 function limpiarTextoTema(temaCompleto) {
-  if (!temaCompleto || typeof temaCompleto !== 'string') return 'Tema no asignado';
-  return temaCompleto.replace(/^Tema \d+:\s*/, '');
+    if (!temaCompleto || typeof temaCompleto !== 'string') return 'Tema no asignado';
+    return temaCompleto.replace(/^Tema \d+:\s*/, '');
 }
 
 // Botón para regresar a la página principal
-document.getElementById("button-reservar").addEventListener("click", function() {
+document.getElementById("button-reservar").addEventListener("click", function () {
     window.location.href = "../alumno.html";
 });
 
@@ -37,16 +47,14 @@ function mantenerReservacion() {
 
 function cargarReservaciones() {
     const contenedor = document.querySelector('.container-3');
-    const reservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
-
-    console.log("Reservaciones cargadas:", reservaciones); // <-- Aquí
+    const reservaciones = obtenerJSONSeguro("misReservaciones");
 
     contenedor.innerHTML = '';
 
     if (reservaciones.length === 0) {
-        document.querySelector('.container-3').style.display = 'flex';
-        document.querySelector('.container-3').style.justifyContent = 'center';
-        document.querySelector('.container-3').style.alignItems = 'center';
+        contenedor.style.display = 'flex';
+        contenedor.style.justifyContent = 'center';
+        contenedor.style.alignItems = 'center';
         contenedor.innerHTML = `
             <div class="container-3-vacio">
                 <img src="../../../../assets/calendario.png">
@@ -59,7 +67,6 @@ function cargarReservaciones() {
     reservaciones.forEach(res => {
         const card = document.createElement('div');
         card.className = 'container-3-horario-card';
-        card.onclick = () => mostrarDetallesDinamico(res);
 
         card.innerHTML = `
             <div class="container-3-horario-info">
@@ -73,6 +80,8 @@ function cargarReservaciones() {
                 </div>
             </div>
         `;
+
+        card.addEventListener('click', () => mostrarDetallesDinamico(res));
         contenedor.appendChild(card);
     });
 }
@@ -83,52 +92,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function mostrarDetallesDinamico(reservacion) {
     const modal = document.getElementById('modal-detalles');
+    const nombreAlumno = localStorage.getItem("nombreAlumno") || "Alumno";
+
     modal.innerHTML = `
         <div class="container-titulo-detalles-reservación">
             <h1>Reservación</h1>
-            <button onclick="volverALista()">×</button>
+            <button class="btn-cerrar">×</button>
         </div>
 
         <div class="container-detalles-reservación-información">
-            <p>Tema : <span class="cdri-informacion"> ${limpiarTextoTema(reservacion.tema)}</span></p>
+            <p>Tema : <span class="cdri-informacion">${limpiarTextoTema(reservacion.tema)}</span></p>
             <p>Fecha: <span class="cdri-informacion">${reservacion.fecha}</span></p>
             <p>Hora : <span class="cdri-informacion">${reservacion.hora}</span></p>
 
             <div class="container-detalles-reservación-información-personas">
                 <p>${reservacion.asesor}</p>
                 <span>Asesor</span>
-                <p>José Fernando Enríquez Maldonado</p>
+                <p>${nombreAlumno}</p>
                 <span>Alumno</span>
             </div>
         </div>
 
         <div class="container-detalles-reservación-información-acciones">
-            <button class="cdria-btn-cancelar" onclick="mostrarConfirmacion(${reservacion.id})">Cancelar reservación</button>
+            <button class="cdria-btn-cancelar btn-cancelar-res" data-id="${reservacion.id}">Cancelar reservación</button>
         </div>
     `;
+
+    modal.querySelector('.btn-cerrar').addEventListener('click', volverALista);
+    modal.querySelector('.btn-cancelar-res').addEventListener('click', () => mostrarConfirmacion(reservacion.id));
+
     mostrarModal('modal-detalles');
 }
 
-
 function mostrarConfirmacion(idReservacion) {
     const modal = document.getElementById('modal-confirmacion');
+
     modal.innerHTML = `
         <img src="../../../../assets/advertencia.png" alt="Advertencia" id="advertencia">
         <h1 class="titulo-cancelar">Cancelar reservación</h1>
         <p class="texto-cancelar">¿Estás seguro de que deseas cancelar la reservación de asesoría? Esta acción no se puede deshacer.</p>
 
         <div class="botones-cancelar">
-            <button class="btn-cancelar" onclick="mantenerReservacion()">No, mantener</button>
-            <button class="btn-confirmar" onclick="cancelarReservacion(${idReservacion})">Sí, cancelar</button>
+            <button class="btn-cancelar-no">No, mantener</button>
+            <button class="btn-confirmar-si">Sí, cancelar</button>
         </div>
     `;
+
+    modal.querySelector('.btn-cancelar-no').addEventListener('click', mantenerReservacion);
+    modal.querySelector('.btn-confirmar-si').addEventListener('click', () => cancelarReservacion(idReservacion));
+
     mostrarModal('modal-confirmacion');
 }
 
 function cancelarReservacion(idReservacion) {
-    const temaSeleccionado = localStorage.getItem("temaSeleccionado");
-    let reservaciones = JSON.parse(localStorage.getItem("misReservaciones")) || [];
-    let asesoriasDisponibles = JSON.parse(localStorage.getItem("asesoriasDisponibles")) || [];
+    let reservaciones = obtenerJSONSeguro("misReservaciones");
+    let asesoriasDisponibles = obtenerJSONSeguro("asesoriasDisponibles");
 
     // Buscar la asesoría cancelada
     const asesoriaCancelada = reservaciones.find(r => String(r.id) === String(idReservacion));
@@ -139,16 +157,15 @@ function cancelarReservacion(idReservacion) {
 
     // Volver a agregarla a las asesorías disponibles
     if (asesoriaCancelada) {
-        if (!(/^Tema [1-9]|10:/.test(asesoriaCancelada.tema))) {
+        if (!/^Tema (10|[1-9]):/.test(asesoriaCancelada.tema)) {
             asesoriaCancelada.tema = null;
         }
+
         asesoriasDisponibles.push(asesoriaCancelada);
-        // Ordenar por hora antes de guardar
         const asesoriasOrdenadas = ordenarAsesoriasPorHora(asesoriasDisponibles);
         localStorage.setItem("asesoriasDisponibles", JSON.stringify(asesoriasOrdenadas));
     }
 
-    // Cerrar modales y actualizar la lista
     cerrarModal('modal-confirmacion');
     cerrarModal('modal-detalles');
     cargarReservaciones(); // recargar la lista en pantalla
@@ -156,8 +173,8 @@ function cancelarReservacion(idReservacion) {
 
 function ordenarAsesoriasPorHora(asesorias) {
     return asesorias.sort((a, b) => {
-        const horaInicioA = a.hora.split(' - ')[0].trim();  // "9:00"
-        const horaInicioB = b.hora.split(' - ')[0].trim();  // "10:30"
+        const horaInicioA = a.hora.split(' - ')[0].trim();
+        const horaInicioB = b.hora.split(' - ')[0].trim();
         const dateA = new Date(`1970-01-01T${horaInicioA}:00`);
         const dateB = new Date(`1970-01-01T${horaInicioB}:00`);
         return dateA - dateB;

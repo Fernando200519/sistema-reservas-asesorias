@@ -10,7 +10,7 @@ function createWindow() {
       contextIsolation: false
     },
   });
-  // mainWindow.setMenu(null);
+  mainWindow.setMenu(null);
   mainWindow.maximize();
   mainWindow.loadFile(path.join(__dirname, '../renderer/login/login.html'));
 }

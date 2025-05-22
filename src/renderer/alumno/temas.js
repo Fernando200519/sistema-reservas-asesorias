@@ -2,20 +2,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nivel = localStorage.getItem('nivelIngles') || 'Inglés 1';
   const contenedorTemas = document.querySelector('.container-temas');
   const encabezadoNivel = document.querySelector('.ingles-temas h2');
-  const boton2 = document.getElementById('boton-activar-2');
+  const botonConfirmar = document.getElementById('boton-activar-2');
 
   let temaSeleccionado = null;
 
-  function activarBotones() {
-    boton2.classList.remove('boton-inactivo');
-    boton2.classList.add('boton-activo');
-    boton2.disabled = false;
+  function activarBotonConfirmar() {
+    botonConfirmar.classList.remove('boton-inactivo');
+    botonConfirmar.classList.add('boton-activo');
+    botonConfirmar.disabled = false;
   }
 
-  function resetearBotones() {
-    boton2.classList.remove('boton-activo');
-    boton2.classList.add('boton-inactivo');
-    boton2.disabled = true;
+  function desactivarBotonConfirmar() {
+    botonConfirmar.classList.remove('boton-activo');
+    botonConfirmar.classList.add('boton-inactivo');
+    botonConfirmar.disabled = true;
   }
 
   try {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     encabezadoNivel.textContent = `${nivel} - Temas`;
     contenedorTemas.innerHTML = '';
-    resetearBotones();
+    desactivarBotonConfirmar();
 
     temas.forEach((tema, index) => {
       const boton = document.createElement('button');
@@ -36,20 +36,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       boton.addEventListener('click', () => {
         const yaSeleccionado = boton.classList.contains('tema-seleccionado');
 
-        // Quitar selección a todos primero
+        // Deseleccionar todos
         document.querySelectorAll('.tema-card').forEach(c => c.classList.remove('tema-seleccionado'));
 
         if (yaSeleccionado) {
-          // Si ya estaba seleccionado, deseleccionamos
           temaSeleccionado = null;
           localStorage.removeItem('temaSeleccionado');
-          resetearBotones();
+          desactivarBotonConfirmar();
         } else {
-          // Seleccionar nuevo
           boton.classList.add('tema-seleccionado');
           temaSeleccionado = tema;
           localStorage.setItem('temaSeleccionado', tema);
-          activarBotones();
+          activarBotonConfirmar();
         }
       });
 
@@ -57,6 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   } catch (error) {
     console.error('Error al cargar los temas:', error);
+    alert('No se pudieron cargar los temas. Intenta recargar la página.');
   }
 
   // Botón "Regresar"
@@ -65,9 +64,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Botón "Confirmar"
-  document.getElementById('boton-activar-2').addEventListener('click', () => {
+  botonConfirmar.addEventListener('click', () => {
     if (temaSeleccionado) {
-      window.location.href = `confirmacion.html`;
+      window.location.href = 'confirmacion.html';
     }
   });
 });
