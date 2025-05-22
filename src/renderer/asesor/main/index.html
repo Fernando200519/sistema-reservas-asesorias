@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>CAA Reservaciones</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,400italic&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="index-page">
@@ -33,6 +34,13 @@
         <option value="reservada">Reservadas</option>
         <option value="concluida">Concluidas</option>
       </select>
+      <button id="btnImprimir" class="btn" title="Imprimir" style="display: none;">
+         <img src="../../../../assets/printer.png" alt="Imprimir" style="width:25px; height:25px; vertical-align:middle;">         <path d="M6 9V4h12v5" stroke="#0a2e5c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+         <rect x="6" y="13" width="12" height="7" rx="2" stroke="#0a2e5c" stroke-width="2"/>
+         <path d="M6 17h12" stroke="#0a2e5c" stroke-width="2" stroke-linecap="round"/>
+         <circle cx="18" cy="10" r="1" fill="#0a2e5c"/>
+      </svg>
+      </button>
     </div>
   
     <!-- Grid de tarjetas -->
@@ -48,8 +56,10 @@
       <button id="nuevoHorario" class="btn">
         <span>+</span> Nuevo Horario
       </button>
+      <button id="eliminarHorario" class="btn">
+        Eliminar horario
+      </button>
     </div>
-  </div>
 
   <!-- Carga el script principal como módulo -->
   <script src="index.js" type="module"></script>

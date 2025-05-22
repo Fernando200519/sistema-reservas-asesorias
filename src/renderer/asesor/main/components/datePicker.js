@@ -71,8 +71,9 @@ export async function initDatePicker(selector = "#datePicker", enableNavigation 
 
   // Agregar funcionalidad a las flechas de navegación
   if (enableNavigation) {
-    const prevButton = document.querySelector('.arrow:first-of-type'); // Botón de flecha izquierda
-    const nextButton = document.querySelector('.arrow:last-of-type'); // Botón de flecha derecha
+    const arrowButtons = document.querySelectorAll('.arrow');
+    const prevButton = arrowButtons[0]; // Botón de flecha izquierda
+    const nextButton = arrowButtons[1]; // Botón de flecha derecha
 
     if (prevButton) {
       prevButton.addEventListener('click', () => {

@@ -1,9 +1,12 @@
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
 /* Reset y base mejorados */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
 }
 
 body {
@@ -119,12 +122,13 @@ body {
 /* Grid de tarjetas */
 /* Diseño original de la cuadrícula de tarjetas */
 .grid {
+    flex: 1 1 auto; /* Permite que el contenedor crezca y ocupe el espacio disponible */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 tarjetas por fila */
     gap: 1.5rem; /* Espaciado entre tarjetas */
-    flex-grow: 1; /* Permite que la cuadrícula ocupe el espacio restante */
     overflow-y: auto; /* Habilita el scroll si hay muchas tarjetas */
     padding-bottom: 100px; /* Espaciado inferior para evitar que las tarjetas toquen los botones */
+    align-items: start; /* Asegura que las tarjetas no se estiren verticalmente */
 }
   
 /* Tarjetas */
@@ -134,17 +138,14 @@ body {
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    height: 100px; /* Altura más grande para incluir más contenido */
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Distribuye el contenido dentro de la tarjeta */
-    overflow: hidden;
 }
 
 .card-content {
-    overflow-y: auto;
-    max-height: 100%;
-    padding-right: 5px;
+  width: 100%;
+  padding-right: 0; /* Puedes ajustar o quitar el padding si ya existe */
 }
 
 .card:hover {
@@ -372,15 +373,15 @@ body.profesores-dashboard .nuevo-horario-container {
   }
 
   /* Contenedor de los botones */
-  .botones-container {
-    position: absolute; /* Posiciona los botones dentro del contenedor */
-    bottom: 20px; /* Espaciado desde la parte inferior */
-    left: 20px; /* Espaciado desde la izquierda */
-    right: 20px; /* Espaciado desde la derecha */
+.botones-container {
+    width: 100%;
     display: flex;
-    justify-content: space-between; /* Posiciona los botones en extremos opuestos */
+    justify-content: space-between;
     align-items: center;
-    z-index: 10; /* Asegura que los botones estén por encima de las tarjetas */
+    gap: 1.5rem;
+    margin-top: 0;      /* Quita el margen superior */
+    margin-bottom: 0;   /* Quita el margen inferior */
+    padding: 0 32px 12px 32px; /* Espaciado interno abajo */
 }
   
   /* Estilo general para los botones */
@@ -449,4 +450,39 @@ body.index-page .container {
     margin: 0 auto; /* Centra el contenedor horizontalmente */
     padding: 0 20px; /* Agrega padding horizontal */
     box-sizing: border-box; /* Incluye padding en el tamaño total */
+}
+
+
+/* Ejemplo para resaltar el botón de eliminar */
+#eliminarHorario {
+  background: #e53935;
+  color: white;
+}
+#eliminarHorario:hover {
+  background: #b71c1c;
+}
+
+.hora-estado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.info-extra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: #555;
+  width: 100%;
+}
+.info-extra span {
+  min-width: 120px;
+}
+
+.card em {
+  font-style: italic;
 }

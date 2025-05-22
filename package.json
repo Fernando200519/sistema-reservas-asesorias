@@ -2,7 +2,7 @@
   "name": "sistema-reservas-asesorias",
   "version": "1.0.0",
   "description": "Sistema de reservaciones de asesorías para el Centro de Autoacceso (Electron)",
-  "main": "src/main/main.js",
+  "main": "src/renderer/asesor/main/main.js",
   "type": "module",
   "directories": {
     "doc": "docs",
