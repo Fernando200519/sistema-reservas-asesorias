@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function mostrarEstadoVacio() {
     horariosGrid.innerHTML = `
       <div class="profesores-empty-state">
-        <img src="../../../../assets/clock.png" alt="Ícono de reloj" class="empty-icon">
+        <img src="../../../assets/clock.png" alt="Ícono de reloj" class="empty-icon">
         <h2>No hay horarios disponibles</h2>
         <p>Por favor, crea un nuevo horario para comenzar.</p>
       </div>
@@ -98,7 +98,6 @@ card.innerHTML = `
     resetButton.addEventListener('click', () => {
       localStorage.removeItem('horariosIndex'); // Eliminar los horarios guardados
       mostrarEstadoVacio(); // Usar la función para mostrar el estado vacío
-      alert('Horarios reiniciados.');
     });
   } else {
     console.error('El botón "Reiniciar horarios" no fue encontrado en el DOM.');

@@ -24,32 +24,33 @@ body {
 
 /* Tarjeta de horario */
 
-body, html {
-  height: 100%;
-}
 
 body.index-page .container {
-  min-height: calc(100vh - 40px) !important;
+  /*min-height: calc(100vh - 40px) !important;*/
   box-sizing: border-box ;
   display: block ;
   padding-bottom: 40px ;
   width: 100% ;
   max-width: 1200px ;
   margin: 0 auto ;
-  margin-bottom: 60px ;
+  margin-bottom: 0 ;
   background: #fff ;
   border-radius: 12px ;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1) ;
 }
 
 body.index-page .grid {
-  display: grid ;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) ;
   gap: 1.5rem ;
   margin: 0 auto ;
   max-width: 1000px ;
-  padding-bottom: 140px ;
   overflow: visible ;
+
+  display: flex; /* Usamos flex para manejar ambos casos */
+  flex-wrap: wrap; /* Para que las tarjetas se envuelvan como en un grid */
+  justify-content: center; /* Centra las tarjetas o el mensaje de vacío */
+  align-items: center; /* Centra verticalmente el mensaje de vacío si es el único hijo */
+  min-height: 530px; 
+  padding: 20px; 
 }
 
 
@@ -69,6 +70,8 @@ body.index-page .grid {
   margin-right: auto;
   transition: box-shadow 0.2s;
   overflow: visible; /* Asegura que no haya scrollbars */
+  flex-basis: 250px; /* Ancho mínimo de la tarjeta */
+  flex-grow: 1; /* Permite que la tarjeta crezca */
 }
 
 .card:hover {
@@ -101,7 +104,7 @@ body.index-page .grid {
 .estado {
   font-size: 1rem;
   color: #fff;
-  background: #3ff870;
+  background: #d7e62f;
   border-radius: 8px;
   padding: 2px 10px;
   text-transform: capitalize;
@@ -151,25 +154,21 @@ body.index-page .grid {
 
 
 .volver-container {
-  position: fixed;
-  left: 0;
-  bottom:35px; /* Ajusta este valor para subirlo o bajarlo */
-  width: 100vw;
+  width: 100%; /* Para que el contenedor ocupe el ancho disponible y podamos centrar el botón */
   display: flex;
-  justify-content: center;
-  z-index: 100;
-  pointer-events: none;
-  background: transparent;
+  justify-content: center; /* Centra el botón horizontalmente */
+  padding: 20px 0; /* Añade un poco de espacio vertical alrededor del botón */
+  margin-top: 25px; /* Espacio entre la última tarjeta y el botón "Volver" */
+  background: transparent; /* Puedes mantenerlo o quitarlo si no es necesario */
 }
 .btn-volver {
-  pointer-events: auto;
   background: #00c853;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   border: none;
-  border-radius: 24px;
-  padding: 14px 48px;
+  border-radius: 20px;
+  padding: 10px 25px;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
   transition: background 0.2s, box-shadow 0.2s;
@@ -181,9 +180,6 @@ body.index-page .grid {
   box-shadow: 0 4px 16px rgba(0,0,0,0.13);
 }
 
-body, html {
-  overflow: hidden;
-}
 
 .header {
   display: flex;
@@ -320,11 +316,9 @@ body, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     box-sizing: border-box;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 /* Ícono igual al index */

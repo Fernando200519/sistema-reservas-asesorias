@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmarButton = document.getElementById('confirmar'); // Definir el botón "Confirmar"
     if (confirmarButton) {
       confirmarButton.addEventListener('click', () => {
-        alert('Horarios confirmados con éxito.');
         window.location.href = '../exito/exito-horarios.html';
       });
     } else {

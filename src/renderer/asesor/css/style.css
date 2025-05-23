@@ -66,9 +66,10 @@ body {
 .controls {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */ /* Ya no es necesario aquí, los espaciadores lo manejan */
     margin-bottom: 25px;
-    gap: 15px;
+    /* gap: 15px; */ /* El gap se aplica ahora dentro de .calendar-controls-group */
+    width: 100%; /* Asegura que los espaciadores funcionen correctamente */
 }
 
 /* Botones de navegación */
@@ -251,7 +252,6 @@ body.profesores-dashboard .nuevo-horario-container {
     flex-direction: column;
     align-items: center;
     justify-content: center; /* Centra verticalmente */
-    height: 100vh; /* Ocupa toda la altura de la ventana */
     padding: 2rem; /* Espaciado interno */
     box-sizing: border-box; /* Incluye el padding en el tamaño total */
   }
@@ -397,6 +397,25 @@ body.profesores-dashboard .nuevo-horario-container {
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.3s;
   }
+
+  /* Estilo específico para el botón de imprimir para que solo muestre el ícono */
+#btnImprimir {
+  background: transparent; /* Sin fondo */
+  border: none; /* Sin borde */
+  padding: 0; /* Sin padding */
+  box-shadow: none; /* Sin sombra */
+  border-radius: 0; /* Sin bordes redondeados (opcional, pero más limpio para un ícono) */
+  /* El cursor: pointer; y la transición se heredan de .btn, lo cual está bien */
+  /* El color de texto no importa ya que solo hay una imagen */
+}
+
+/* Opcional: Estilo hover para el botón de imprimir si quieres alguna retroalimentación visual */
+#btnImprimir:hover {
+  background: transparent; /* Mantiene el fondo transparente */
+  /* Podrías añadir un ligero cambio de opacidad o un filtro si lo deseas */
+  /* opacity: 0.8; */
+  /* transform: scale(1.1); */ /* Un ligero zoom al pasar el cursor */
+}
   
   .btn:hover {
     background-color: #007E33;

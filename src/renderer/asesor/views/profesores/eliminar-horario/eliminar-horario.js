@@ -8,9 +8,9 @@ function renderHorarios() {
   if (horarios.length === 0) {
     horariosLista.innerHTML = `
       <div class="profesores-empty-state-card">
-        <img src="../../../../../../../assets/clock.png" alt="Ícono de reloj" class="empty-icon">
+        <img src="../../../../../../assets/clock.png" alt="Ícono de reloj" class="empty-icon">
         <h2 class="empty-title">No hay horarios disponibles</h2>
-        <p class="empty-desc">Por favor, crea un nuevo horario para comenzar.</p>
+        <p class="empty-desc">Por favor, vuelva a la sección anterior para crear un nuevo horario.</p>
       </div>
     `;
     return;
