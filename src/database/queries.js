@@ -73,12 +73,12 @@ export async function reservarAsesoria(idAsesoria, tema, matricula) {
 /**
  * 
  * @param {string} matricula 
- * @returns {<Array>} Devuelve un array de reservaciones del alumno. Cada reservación es un JSON con la siguiente estructura:
+ * @returns {Object[]} Devuelve un array de reservaciones del alumno. Cada reservación es un JSON con la siguiente estructura:
  * - asesor: Primer nombre del asesor, ej. "JORGE" (sólo devuelve el primer nombre)
  * - fecha: Fecha en formato YYYY-MM-DDTHH:mm:ssZ, ej. "2025-05-22T00:00:00Z"
  * - hora: ej. "10:00",
  * - tema: Tema de la asesoría
- * - id_evento: "ID del evento, ej. 3513" (**Imporante: guardar este ID para una reservación**)
+ * - id_evento: "ID del evento, ej. 3513"
  */
 export async function obtenerMisReservaciones(matricula) {
   try {
@@ -112,7 +112,6 @@ export async function obtenerMisReservaciones(matricula) {
  * @returns JSON con la siguiente estructura:
  * - success: true si el login fue exitoso, false en caso contrario
  * - tipo_usuario: "ACADEMICO" o "ESTUDIANTE"
- * - nombre: Nombre del usuario
  * - curso: "INGI" o "INGII"
  * - nombre: Nombre completo del usuario
  */
