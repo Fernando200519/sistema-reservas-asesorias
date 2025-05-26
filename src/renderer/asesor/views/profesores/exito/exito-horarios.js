@@ -1,15 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const okButton = document.getElementById('ok');
+    const botonOk = document.getElementById('ok');
 
-    // Obtener los horarios confirmados del almacenamiento local
-    const horariosConfirmados = JSON.parse(localStorage.getItem('horariosSeleccionados')) || [];
+    if (botonOk) {
+        botonOk.addEventListener('click', () => {
+            const horariosConfirmados = JSON.parse(localStorage.getItem('horariosSeleccionados')) || [];
 
-    okButton.addEventListener('click', () => {
-        const horariosExistentes = JSON.parse(localStorage.getItem('horariosIndex')) || [];
-        const nuevosHorarios = [...horariosExistentes, ...horariosConfirmados];
-        localStorage.setItem('horariosIndex', JSON.stringify(nuevosHorarios));
+            if (horariosConfirmados.length > 0) {
+                const horariosExistentes = JSON.parse(localStorage.getItem('horariosIndex')) || [];
+                const nuevosHorarios = [...horariosExistentes, ...horariosConfirmados];
+                localStorage.setItem('horariosIndex', JSON.stringify(nuevosHorarios));
 
-        localStorage.removeItem('horariosSeleccionados');
-        window.location.href = '../../../asesorNuevo.html';
-    });
+                localStorage.removeItem('horariosSeleccionados');
+            }
+
+            window.location.href = '../../../asesorNuevo.html';
+        });
+    }
 });

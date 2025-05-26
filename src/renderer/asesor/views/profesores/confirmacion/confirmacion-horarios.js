@@ -36,12 +36,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     btnConfirmar.addEventListener('click', () => {
-        console.log('Reserva confirmada:', reservaData);
+    console.log('Reserva confirmada:', reservaData);
 
-        // Guardar solo los horarios seleccionados para exito-horarios.js
-        localStorage.setItem('horariosSeleccionados', JSON.stringify(reservaData));
+    const { fecha, horarios } = reservaData;
 
-        localStorage.removeItem('reservaData');
-        window.location.href = '../exito/exito-horarios.html';
-    });
+    // Convertir cada string horario a un objeto con estado y tema por defecto
+    const horariosConEstado = horarios.map(hora => ({
+        fecha: fecha,
+        hora: hora,
+        estado: '',
+        tema: '' // Se asignará después
+    }));
+
+    // Guardar temporalmente para exito-horarios
+    localStorage.setItem('horariosSeleccionados', JSON.stringify(horariosConEstado));
+
+    localStorage.removeItem('reservaData');
+    window.location.href = '../exito/exito-horarios.html';
+});
 });
