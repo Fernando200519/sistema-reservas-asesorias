@@ -5,16 +5,31 @@ let idxAEliminar = null; // <-- NUEVO: para guardar el índice a eliminar
 
 function renderHorarios() {
   horariosLista.innerHTML = '';
+  const gridElement = document.querySelector('.grid');
+
   if (horarios.length === 0) {
     horariosLista.innerHTML = `
       <div class="profesores-empty-state-card">
-        <img src="../../../../../../../assets/clock.png" alt="Ícono de reloj" class="empty-icon">
+        <img src="../../../../../../assets/clock.png" alt="Ícono de reloj" class="empty-icon">
         <h2 class="empty-title">No hay horarios disponibles</h2>
-        <p class="empty-desc">Por favor, crea un nuevo horario para comenzar.</p>
+        <p class="empty-desc">Por favor, vuelva a la sección anterior para crear un nuevo horario.</p>
       </div>
     `;
+
+    // Cambiar display de .grid a block si no hay horarios
+    if (gridElement) {
+      gridElement.style.display = 'block';
+      gridElement.style.padding = '30px 0px';
+    }
+
     return;
   }
+
+  // Si sí hay horarios, asegúrate de que .grid tenga display: grid
+  if (gridElement) {
+    gridElement.style.display = 'grid';
+  }
+
   horarios.forEach((horario, idx) => {
     const estado = horario.estado || 'disponible';
     const hora = horario.hora || horario;

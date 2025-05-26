@@ -1,74 +1,92 @@
-import { initDatePicker } from '../../../components/datePicker.js';
+console.log("nuevo-horario.js está ejecutándose");
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // Inicializar el calendario
-  const datePickerEl = document.getElementById('datePicker');
-  if (datePickerEl) {
-    try {
-      await initDatePicker('#datePicker', true); // Activa el calendario y selecciona la fecha de hoy
-      console.log('DatePicker inicializado correctamente');
-    } catch (error) {
-      console.error('Error al inicializar el DatePicker:', error);
+document.addEventListener('DOMContentLoaded', () => {
+    // Elementos del DOM
+    const hourItems = document.querySelectorAll('.hour-selector li');
+    const continuarButton = document.getElementById('continuar'); // Corregido selector
+    const selectedHours = [];
+    
+    // Obtener fecha del calendario (del código anterior)
+    let fechaSeleccionada = localStorage.getItem("fechaSeleccionada");
+    console.log("Fecha seleccionada:", fechaSeleccionada);
+
+    // Función para actualizar cuando cambia la fecha
+    function actualizarFechaSeleccionada() {
+        fechaSeleccionada = localStorage.getItem("fechaSeleccionada");
+        console.log("Fecha actualizada:", fechaSeleccionada);
     }
-  } else {
-    document.body.innerHTML += `
-    <div style="color:red; padding:1rem;">
-      Error: No se pudo cargar el calendario. Por favor, recarga la página.
-    </div>
-  `;
-  }
 
-  // Lógica para la selección de horas
-  const hourItems = document.querySelectorAll('.hour-selector li');
-
-  // Lógica para el botón "Regresar"
-  const regresarButton = document.getElementById('regresar');
-  if (regresarButton) {
-    regresarButton.addEventListener('click', () => {
-      window.location.href = '../../../index.html'; // Cambia la ruta si es necesario
-    });
-  }
-  const continuarButton = document.getElementById('continuar');
-
-  const selectedHours = []; // Array para almacenar las horas seleccionadas
-
-  // Permitir seleccionar múltiples horas
-  hourItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const hour = item.textContent;
-
-      // Alternar selección
-      if (item.classList.contains('selected')) {
-        // Si ya está seleccionada, quítala
-        item.classList.remove('selected');
-        const index = selectedHours.indexOf(hour);
-        if (index > -1) {
-          selectedHours.splice(index, 1); // Eliminar del array
+    // Escuchar cambios en localStorage
+    window.addEventListener('storage', (e) => {
+        if (e.key === "fechaSeleccionada") {
+            actualizarFechaSeleccionada();
         }
-      } else {
-        // Si no está seleccionada, agrégala
-        item.classList.add('selected');
-        selectedHours.push(hour);
-      }
-
-      console.log("Horas seleccionadas:", selectedHours); // Para depuración
     });
-  });
 
-  // Acción del botón "Continuar"
-  continuarButton.addEventListener('click', () => {
-    if (selectedHours.length > 0) {
-      const datePickerEl = document.getElementById('datePicker');
-      const fechaSeleccionada = datePickerEl.textContent; // O usa el valor seleccionado del DatePicker
-
-      // Guardar los datos en el almacenamiento local
-      localStorage.setItem('fechaSeleccionada', fechaSeleccionada);
-      localStorage.setItem('horariosSeleccionados', JSON.stringify(selectedHours));
-
-      // Redirigir a la vista de confirmación
-      window.location.href = '../confirmacion/confirmacion-horarios.html';
-    } else {
-      alert('Por favor, selecciona al menos una hora antes de continuar.');
+    // Verificar fecha al cargar
+    if (!fechaSeleccionada) {
+        const fechaDefault = new Date();
+        const opciones = { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        };
+        fechaSeleccionada = fechaDefault.toLocaleDateString('es-MX', opciones);
+        localStorage.setItem("fechaSeleccionada", fechaSeleccionada);
     }
-  });
+
+    // Manejo de selección de horas
+    hourItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const hour = item.textContent.trim(); // Mejor usar trim() para eliminar espacios
+            
+            // Alternar selección
+            if (item.classList.contains('selected')) {
+                item.classList.remove('selected');
+                const index = selectedHours.indexOf(hour);
+                if (index > -1) {
+                    selectedHours.splice(index, 1);
+                }
+            } else {
+                item.classList.add('selected');
+                selectedHours.push(hour);
+            }
+
+            // Actualizar estado del botón
+            if(continuarButton) {
+                continuarButton.disabled = selectedHours.length === 0;
+            }
+            
+            // Guardar en localStorage
+            guardarSeleccion();
+        });
+    });
+
+    // Función para guardar toda la selección
+    function guardarSeleccion() {
+        const seleccionCompleta = {
+            fecha: fechaSeleccionada,
+            horarios: selectedHours,
+            timestamp: new Date().toISOString()
+        };
+        
+        localStorage.setItem('reservaData', JSON.stringify(seleccionCompleta));
+        console.log('Datos guardados:', seleccionCompleta);
+    }
+
+    // Evento para el botón Continuar
+    if(continuarButton) {
+        continuarButton.addEventListener('click', function() {
+            guardarSeleccion();
+            // Redirigir a la página de confirmación
+            window.location.href = '../confirmacion/confirmacion-horarios.html';
+        });
+    }
+
+    // Verificar datos guardados al cargar
+    const datosGuardados = localStorage.getItem('reservaData');
+    if(datosGuardados) {
+        console.log('Datos recuperados:', JSON.parse(datosGuardados));
+    }
 });

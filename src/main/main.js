@@ -10,9 +10,9 @@ function createWindow() {
       contextIsolation: false
     },
   });
-  mainWindow.setMenu(null);
+  // mainWindow.setMenu(null);
   mainWindow.maximize();
-  mainWindow.loadFile(path.join(__dirname, '../renderer/asesor/index.html'));
+  mainWindow.loadFile(path.join(__dirname, '../renderer/asesor/asesorNuevo.html'));
 }
 
 app.whenReady().then(createWindow);

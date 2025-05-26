@@ -2,14 +2,13 @@
 body {
     font-family: 'Poppins', sans-serif;
     color: #333;
-  }
+}
   
   /* Títulos */
   .header h1 {
     font-size: 24px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 1rem;
   }
   
   .fecha-seleccionada h2 {
@@ -26,6 +25,10 @@ body {
     font-weight: 700;
     color: #005f8c;
   }
+
+.horarios-seleccionados{
+  height: 55vh;
+}
   
   /* Tarjetas */
   .card {
@@ -59,7 +62,7 @@ body {
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
+    gap: 5px;
     justify-items: center;
     margin-top: 1rem;
   }
@@ -68,8 +71,7 @@ body {
   .action-button {
     display: flex;
     justify-content: center;
-    gap: 1.5rem; /* Espaciado entre los botones */
-    margin-top: 3rem;
+    margin: 20px 0px;
   }
   
   .action-button button {

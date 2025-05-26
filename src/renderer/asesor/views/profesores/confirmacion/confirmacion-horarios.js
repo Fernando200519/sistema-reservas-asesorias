@@ -1,51 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Obtener la fecha y las horas seleccionadas del almacenamiento local
-    const fechaSeleccionada = localStorage.getItem('fechaSeleccionada');
-    const horariosSeleccionados = JSON.parse(localStorage.getItem('horariosSeleccionados')) || [];
-  
-    // Mostrar la fecha seleccionada
-    const fechaSeleccionadaEl = document.getElementById('fechaSeleccionada');
-    if (fechaSeleccionada) {
-      fechaSeleccionadaEl.textContent = fechaSeleccionada;
-    } else {
-      fechaSeleccionadaEl.textContent = 'No se seleccionó una fecha';
-    }
-  
-    // Renderizar las tarjetas de horarios seleccionados
+    // Elementos del DOM
+    const fechaElement = document.getElementById('fechaSeleccionada');
     const horariosGrid = document.getElementById('horariosGrid');
-    if (horariosSeleccionados.length > 0) {
-      horariosSeleccionados.forEach(hora => {
-        const card = document.createElement('div');
-        card.classList.add('card', 'disponible');
-        card.innerHTML = `
-          <div class="card-content">
-            <p>${hora}</p>
-          </div>
-        `;
-        horariosGrid.appendChild(card);
-      });
+    const btnRegresar = document.getElementById('regresar');
+    const btnConfirmar = document.getElementById('confirmar');
+
+    // Recuperar datos de localStorage
+    const reservaData = JSON.parse(localStorage.getItem('reservaData'));
+
+    // Mostrar datos en la interfaz
+    if (reservaData) {
+        // Mostrar fecha
+        fechaElement.textContent = reservaData.fecha;
+
+        // Mostrar horarios seleccionados
+        if (reservaData.horarios && reservaData.horarios.length > 0) {
+            reservaData.horarios.forEach(horario => {
+                const card = document.createElement('div');
+                card.classList.add('card', 'disponible');
+                card.innerHTML = `
+                    <div class="card-content">
+                      <p>${horario}</p>
+                    </div>
+                `;
+                horariosGrid.appendChild(card);
+            });
+        } else {
+            horariosGrid.innerHTML = '<p>No hay horarios seleccionados</p>';
+        }
     } else {
-      horariosGrid.innerHTML = '<p>No se seleccionaron horarios.</p>';
+        // No hay datos, redirigir
+        alert('No se encontraron datos de reserva. Serás redirigido a la página anterior.');
+        window.location.href = 'nuevo-horario.html';
+        return;
     }
-  
-    // Manejar el botón "Regresar"
-    const regresarButton = document.getElementById('regresar');
-    if (regresarButton) {
-      regresarButton.addEventListener('click', () => {
-        window.location.href = '../nuevo-horario/nuevo-horario.html';
-      });
-    } else {
-      console.error('El botón "Regresar" no fue encontrado en el DOM.');
-    }
-  
-    // Manejar el botón "Confirmar"
-    const confirmarButton = document.getElementById('confirmar'); // Definir el botón "Confirmar"
-    if (confirmarButton) {
-      confirmarButton.addEventListener('click', () => {
-        alert('Horarios confirmados con éxito.');
-        window.location.href = '../exito/exito-horarios.html';
-      });
-    } else {
-      console.error('El botón "Confirmar" no fue encontrado en el DOM.');
-    }
-  });
+
+    // Evento para botón Regresar
+    btnRegresar.addEventListener('click', () => {
+        window.history.back();
+    });
+
+    // Evento para botón Confirmar
+    btnConfirmar.addEventListener('click', () => {
+        // Aquí puedes agregar lógica para enviar al servidor
+        console.log('Reserva confirmada:', reservaData);
+
+        alert('Reserva confirmada con éxito!');
+        localStorage.removeItem('reservaData'); // Limpiar el almacenamiento
+        window.location.href = 'exito.html'; // Cambia a tu página de éxito
+    });
+});
