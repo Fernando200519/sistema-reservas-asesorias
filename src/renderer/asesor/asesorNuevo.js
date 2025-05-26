@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     horariosFiltrados.forEach(horario => {
       const estado = horario.estado || 'disponible';
-      const hora = horario.hora || '';
+      const hora = horario.hora;
       const fecha = formatearFecha(horario.fecha);
       const tema = horario.tema || '';
 
@@ -108,11 +108,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       horariosGrid.appendChild(card);
     });
-  }
-
-  function actualizarVisibilidadImpresora() {
-    imagenImpresora.style.display = filtroEstado.value === "reservada" ? "inline" : "none";
-    mostrarHorarios();
   }
 
   // ──────────────── Configurar Flatpickr ────────────────
@@ -151,10 +146,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     mostrarHorarios();
   });
 
-  filtroEstado.addEventListener("change", actualizarVisibilidadImpresora);
+  filtroEstado.addEventListener("change", mostrarHorarios);
+
+  
 
   // ──────────────── Inicialización ────────────────
-  actualizarVisibilidadImpresora();
   mostrarHorarios();
 
   // Manejar el botón "Eliminar horario"

@@ -7,9 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (horariosConfirmados.length > 0) {
                 const horariosExistentes = JSON.parse(localStorage.getItem('horariosIndex')) || [];
-                const nuevosHorarios = [...horariosExistentes, ...horariosConfirmados];
-                localStorage.setItem('horariosIndex', JSON.stringify(nuevosHorarios));
+                
+                // Añadir estado "disponible" a cada horario nuevo si no lo tiene
+                const horariosConEstado = horariosConfirmados.map(horario => ({
+                    ...horario,
+                    estado: horario.estado || "disponible" // Si no tiene estado, se asigna "disponible"
+                }));
 
+                const nuevosHorarios = [...horariosExistentes, ...horariosConEstado];
+                localStorage.setItem('horariosIndex', JSON.stringify(nuevosHorarios));
+                console.log('Horarios confirmados y guardados:', nuevosHorarios);
+                
                 localStorage.removeItem('horariosSeleccionados');
             }
 
