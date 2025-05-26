@@ -24,6 +24,7 @@ body {
   
   /* Títulos */
   .header h1 {
+    padding: 10px;
     font-size: 24px;
     font-weight: 700;
     text-align: center;
@@ -45,7 +46,7 @@ body {
   }
 
 .horarios-seleccionados{
-  height: 55vh;
+  height: 50vh;
 }
   
   /* Tarjetas */
@@ -85,11 +86,36 @@ body {
     margin-top: 1rem;
   }
   
-  /* Botones */
+
+.botones-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0;
+}
+
+.botones {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
   .action-button {
     display: flex;
-    justify-content: center;
-    margin: 20px 0px;
+    justify-content: space-between;
+    margin: 20px 300px;
+    width: 100%;
   }
   
   .action-button button {
@@ -157,80 +183,34 @@ body {
     border-radius: 3px;
 }
 
-
-/* Tarjetas */
-.card {
-    padding: 20px; /* Espaciado interno */
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Distribuye el contenido dentro de la tarjeta */
-}
-
-.card-content {
-  width: 100%;
-  padding-right: 0; /* Puedes ajustar o quitar el padding si ya existe */
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Estilo para el texto dentro de las tarjetas */
-.card p {
-    margin-bottom: 10px;
-    font-size: 1rem;
-    line-height: 1.5;
-}
-
-.card-content::-webkit-scrollbar {
-    width: 5px;
-}
-
-.card-content::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 3px;
-}
-
-.card em {
-  font-style: italic;
-}
-
-
-/* Tarjetas */
-.card {
-    padding: 20px; /* Espaciado interno */
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Distribuye el contenido dentro de la tarjeta */
-}
-
-.card-content {
-  width: 100%;
-  padding-right: 0; /* Puedes ajustar o quitar el padding si ya existe */
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Estilo para el texto dentro de las tarjetas */
-.card p {
-    margin-bottom: 10px;
-    font-size: 1rem;
-    line-height: 1.5;
-}
-
 .card.disponible {
-    background-color: #f0fff4;
-    border-left: 5px solid #28a745;
+    border-color: #00bcd4;
+    background-color: #e0f7fa;
+   border-left: 5px solid #005f8c;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 0.5rem;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.card-content {
+    width: 100%;
+    padding-right: 0;
+}
+
+.card-content p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 10px;
 }

@@ -26,23 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
             horariosGrid.innerHTML = '<p>No hay horarios seleccionados</p>';
         }
     } else {
-        // No hay datos, redirigir
         alert('No se encontraron datos de reserva. Serás redirigido a la página anterior.');
         window.location.href = 'nuevo-horario.html';
         return;
     }
 
-    // Evento para botón Regresar
     btnRegresar.addEventListener('click', () => {
         window.history.back();
     });
 
-    // Evento para botón Confirmar
     btnConfirmar.addEventListener('click', () => {
         console.log('Reserva confirmada:', reservaData);
 
-        alert('Reserva confirmada con éxito!');
-        localStorage.removeItem('reservaData'); // Limpiar almacenamiento
-        window.location.href = 'exito.html'; // Cambia a tu página de éxito
+        // Guardar solo los horarios seleccionados para exito-horarios.js
+        localStorage.setItem('horariosSeleccionados', JSON.stringify(reservaData));
+
+        localStorage.removeItem('reservaData');
+        window.location.href = '../exito/exito-horarios.html';
     });
 });
