@@ -1,3 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f2f5;
+}
+
+/* Contenedor principal */
+.container {
+  width: 90%;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header {
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.header h1 {
+  color: #003366;
+  font-size: 2.2rem;
+  padding: 20px;
+}
+
+
+/* Controles */
+.controls {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 35px 0px;
+}
+
+/* Botones de navegación */
+.arrow {
+    background-color: #f3f4f6;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .arrow:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .arrow svg {
+    width: 20px;
+    height: 20px;
+    fill: #4b5563;
+  }
+
+.date-picker {
+    background-color: white;
+    padding: 15px 25px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    width: 280px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.date-picker:hover {
+    border-color: #003366;
+}
+
+
+  
+/* Centrar el contenido en la vista de nuevo-horario */
+.nuevo-horario-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centra verticalmente */
+  padding: 0 2rem; /* Espaciado interno */
+  box-sizing: border-box; /* Incluye el padding en el tamaño total */
+}
+
+
+/* Animación fade-in */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+
 
 /* PARA NUEVO HORARIO */
 
@@ -7,7 +116,7 @@
     grid-template-columns: repeat(5, 1fr); /* Fuerza 5 columnas */
     gap: 1rem; /* Espacio entre las horas */
     max-width: 100%; /* Permite que ocupe todo el ancho disponible */
-    margin: 0 auto 2rem auto; /* Centra el contenedor */
+    margin: 0 auto 0 auto; /* Centra el contenedor */
     padding: 1.5rem; /* Más espacio interno */
     background: linear-gradient(135deg, #f0f4ff, #e6f7ff); /* Fondo degradado */
     border-radius: 16px;
@@ -60,6 +169,7 @@
     display: flex;
     justify-content: center; /* Centra los botones horizontalmente */
     gap: 1.5rem; /* Espaciado entre los botones */
+    margin: 40px;
   }
   
   /* Estilo general para los botones */
@@ -101,7 +211,9 @@
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
-    margin: 20px 0px;
+    margin-top: 0;      /* Quita el margen superior */
+    margin-bottom: 0;   /* Quita el margen inferior */
+    padding: 0 32px 12px 32px; /* Espaciado interno abajo */
 }
   
   /* Estilo general para los botones */
@@ -117,112 +229,3 @@
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.3s;
   }
-
-  /* Estilo específico para el botón de imprimir para que solo muestre el ícono */
-#btnImprimir {
-  background: transparent; /* Sin fondo */
-  border: none; /* Sin borde */
-  padding: 0; /* Sin padding */
-  box-shadow: none; /* Sin sombra */
-  border-radius: 0; /* Sin bordes redondeados (opcional, pero más limpio para un ícono) */
-  /* El cursor: pointer; y la transición se heredan de .btn, lo cual está bien */
-  /* El color de texto no importa ya que solo hay una imagen */
-}
-
-/* Opcional: Estilo hover para el botón de imprimir si quieres alguna retroalimentación visual */
-#btnImprimir:hover {
-  background: transparent; /* Mantiene el fondo transparente */
-  /* Podrías añadir un ligero cambio de opacidad o un filtro si lo deseas */
-  /* opacity: 0.8; */
-  /* transform: scale(1.1); */ /* Un ligero zoom al pasar el cursor */
-}
-  
-  .btn:hover {
-    background-color: #007E33;
-    transform: scale(1.05);
-  }
-
-/* Estado vacío en index.html */
-body.index-page .profesores-empty-state {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    max-width: 500px;
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
-    text-align: center;
-    display: flex; /* Cambia a flexbox */
-    flex-direction: column;
-    justify-content: center; /* Centra verticalmente el contenido interno */
-    align-items: center; /* Centra horizontalmente el contenido interno */
-    position: absolute; /* Posiciona el estado vacío de forma absoluta */
-    top: 50%; /* Lo posiciona al 50% desde la parte superior */
-    left: 50%; /* Lo posiciona al 50% desde la parte izquierda */
-    transform: translate(-50%, -50%); /* Lo centra completamente */
-    box-sizing: border-box; /* Incluye padding en el tamaño total */
-}
-
-/* Ajustar el tamaño del ícono */
-body.index-page .profesores-empty-state .empty-icon {
-    width: 100px; /* Tamaño máximo del ícono */
-    height: auto; /* Mantiene la proporción */
-    margin-bottom: 1rem; /* Espaciado debajo del ícono */
-    opacity: 0.8;
-}
-
-/* Asegurar que el contenedor padre permita el centrado */
-body.index-page .grid:empty {
-    position: relative; /* Necesario para que el estado vacío se posicione correctamente */
-    display: flex; /* Cambia a flexbox cuando está vacío */
-    justify-content: center; /* Centra horizontalmente el contenido */
-    align-items: center; /* Centra verticalmente el contenido */
-    min-height: calc(100vh - 150px); /* Ajusta la altura mínima para que ocupe el espacio visible */
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
-    padding: 0 20px; /* Agrega padding horizontal para evitar que se pegue a los bordes */
-    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
-}
-
-/* Contenedor principal */
-
-
-/* Ejemplo para resaltar el botón de eliminar */
-#eliminarHorario {
-  background: #e53935;
-  color: white;
-}
-#eliminarHorario:hover {
-  background: #b71c1c;
-}
-
-.hora-estado {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 10px;
-  gap: 10px;
-}
-
-.info-extra {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-size: 0.95rem;
-  color: #555;
-  width: 100%;
-}
-.info-extra span {
-  min-width: 120px;
-}
-
-.card em {
-  font-style: italic;
-}
-
-/* Contenedor del botón */
-.nuevo-horario-container {
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
-}

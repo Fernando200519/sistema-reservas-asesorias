@@ -1,17 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Elementos del DOM
-    const fechaElement = document.getElementById('fechaSeleccionada');
     const horariosGrid = document.getElementById('horariosGrid');
     const btnRegresar = document.getElementById('regresar');
     const btnConfirmar = document.getElementById('confirmar');
+    const fechaElement = document.getElementById('fecha-confirmacion');
 
-    // Recuperar datos de localStorage
     const reservaData = JSON.parse(localStorage.getItem('reservaData'));
 
-    // Mostrar datos en la interfaz
     if (reservaData) {
         // Mostrar fecha
-        fechaElement.textContent = reservaData.fecha;
+        fechaElement.textContent = reservaData.fecha_bonita;
 
         // Mostrar horarios seleccionados
         if (reservaData.horarios && reservaData.horarios.length > 0) {
@@ -42,11 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Evento para botón Confirmar
     btnConfirmar.addEventListener('click', () => {
-        // Aquí puedes agregar lógica para enviar al servidor
         console.log('Reserva confirmada:', reservaData);
 
         alert('Reserva confirmada con éxito!');
-        localStorage.removeItem('reservaData'); // Limpiar el almacenamiento
+        localStorage.removeItem('reservaData'); // Limpiar almacenamiento
         window.location.href = 'exito.html'; // Cambia a tu página de éxito
     });
 });
