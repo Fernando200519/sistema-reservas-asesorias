@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nuevo Horario</title>
-  <link rel="stylesheet" href="../../../css/style.css">
+  <link rel="stylesheet" href="../../../../../utils/flatpickr.min.css">
+  <script src="../../../../../utils/flatpickr.min.js"></script>
+  <script src="../../../../../utils/es.js"></script>
+  <script src="nuevo-horario.js"></script>
+  <link rel="stylesheet" href="nuevo-horario.css">
 </head>
 <body class="profesores-dashboard">
   <div class="container">
@@ -19,25 +23,27 @@
 
       <!-- Grupo de controles del calendario -->
       <div class="calendar-controls-group" style="display: flex; align-items: center; gap: 15px;">
-        <button class="arrow prev">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
-          </svg>
-        </button>
-        <div id="datePicker" class="date-picker">Seleccionar fecha</div>
-        <button class="arrow next">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
-          </svg>
-        </button>
+          <button class="arrow prev" id="dia-anterior">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
+              </svg>
+          </button>
+          
+          <div id="datepicker" class="date-picker">
+              <span id="fecha-seleccionada"></span>
+          </div>
+          
+          <button class="arrow next" id="dia-siguiente">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+              </svg>
+          </button>
       </div>
 
       <div style="flex-grow: 1;"></div> <!-- Espaciador derecho -->
     </div>
 
     <div class="nuevo-horario-container">
-
-
         <!-- Selector de horas -->
         <div class="hour-selector">
           <ul>
@@ -69,22 +75,7 @@
         <button id="regresar">Regresar</button>
         <button id="continuar">Continuar</button>
       </div>
-
-      <script src="../../../components/datePicker.js" type="module"></script>
-        <script type="module">
-    import { initializeApp } from '../../../global.js';
-
-    document.addEventListener('DOMContentLoaded', () => {
-      initializeApp().catch(error => {
-        console.error("Error al iniciar:", error);
-        document.body.innerHTML += `
-          <div style="color:red; padding:1rem;">
-            Error al cargar la aplicación. Recarga la página.
-          </div>
-        `;
-      });
-    });
-  </script>
-  <script src="./nuevo-horario.js" type="module"></script>
+    </div>
+  </div>
   </body>
 </html>

@@ -24,7 +24,6 @@ body {
 .header {
     display: flex;
     align-items: center;
-    margin-bottom: 25px;
     gap: 25px;
     padding: 15px 0;
     border-bottom: 1px solid #e1e4e8;
@@ -35,111 +34,152 @@ body {
     font-size: 2.2rem;
 }
 
-.active-tab {
+.header h2 {
     background-color: #003366;
     color: white;
-    border: none;
     padding: 10px 20px;
     border-radius: 20px;
     font-size: 1rem;
     font-weight: bold;
-    cursor: default;
     text-transform: none;
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* Controles */
-.controls {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%; /* Asegura que los espaciadores funcionen correctamente */
+.filtros{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
 }
 
-.calendar-controls-group{
-  display: flex; 
-  align-items: center; 
-  gap: 15px;
-}
-
-.filter-print-wrapper{
-  display: flex; 
+.calendario-filtro{
+  width: 70%;
+  height: 100%;
+  display: flex;
   align-items: center;
 }
 
-/* Botones de navegación */
-.arrow {
-    background-color: #f3f4f6;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .arrow:hover {
-    background-color: #e5e7eb;
-  }
-  
-  .arrow svg {
-    width: 20px;
-    height: 20px;
-    fill: #4b5563;
-  }
+.calendario-filtro h3{
+  color: #4B5563;
+  font-size: 1.2rem;
+  margin-right: 10px;
+  font-weight: 500;
+}
 
 .date-picker {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  min-height: 40px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  transition: all 0.3s;
 }
 
 .date-picker:hover {
-    border-color: #003366;
+  transform: scale(1.05);
 }
 
-.filter {
-    padding: 10px 15px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+#calendarioIcono{
+    width: 25px;
+}
+
+#fechaTexto{
+    margin-left: 10px;
+    color: #4B5563;
     font-size: 1rem;
-    min-width: 150px;
 }
 
-/* Grid de tarjetas */
-/* Diseño original de la cuadrícula de tarjetas */
+#salirFiltro{
+  display: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #4B5563;
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+
+
+
+.estado-filtro{
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.filter{
+  width: 150px;
+  height: 50px;
+  font-size: 1rem;
+  background-color: #fff;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+
+#boton-imprimir{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#imagenImpresora{
+  width: 40px;
+  margin-right: 40px;
+  padding-top: 4px;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
-    gap: 1.5rem; /* Espaciado entre tarjetas */
-    overflow-y: auto; /* Habilita el scroll si hay muchas tarjetas */
+    gap: 1.5rem;
+    overflow-y: auto;
     height: 55vh;
-    align-content: start; /* Asegura que las tarjetas no se estiren verticalmente */
+    align-content: start;
     padding: 10px 0px;
 }
-  
-/* Tarjetas */
+
 .card {
-    padding: 20px; /* Espaciado interno */
+    padding: 20px;
     border-radius: 10px;
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Distribuye el contenido dentro de la tarjeta */
+    justify-content: space-between;
+}
+
+.hora-estado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.info-extra span{
+    font-size: 0.95rem;
+    color: #555;
+    display: block;
+    margin-top: 5px;
+    width: 100%;
 }
 
 .card-content {
   width: 100%;
-  padding-right: 0; /* Puedes ajustar o quitar el padding si ya existe */
+  padding-right: 0;
 }
 
 .card:hover {
@@ -147,14 +187,12 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Estilo para el texto dentro de las tarjetas */
 .card p {
     margin-bottom: 10px;
     font-size: 1rem;
     line-height: 1.5;
 }
 
-/* Estados de tarjetas */
 .card.concluida {
     background-color: #f8f9fa;
     border-left: 5px solid #6c757d;
@@ -169,34 +207,6 @@ body {
     background-color: #f0fff4;
     border-left: 5px solid #28a745;
 }
-
-
-
-
-#btnImprimir{
-  display: none; 
-  border: none;
-  background-color: transparent;
-  position: absolute;
-  right: 300px;
-  cursor: pointer;
-}
-
-#imagenImpresora{
-  width: 40px;
-}
-
-.filter-print-group{
-  flex-grow: 1; 
-  display: flex; 
-  justify-content: flex-end; 
-  align-items: center;
-}
-
-.spacer-left{
-  flex-grow: 1;
-}
-
 
 
 
@@ -217,35 +227,46 @@ body {
 }
 
 .btn {
-  color: white;
-  padding: 15px 30px;
   border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: bold;
   cursor: pointer;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s;
 }
 
+.btn:hover {
+  transform: scale(1.05);
+}
+
 #nuevoHorario {
-    background-color: #00C851;
-    transition: all 0.3s;
+  background-color: #00C851;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 30px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  font-size: 1.1rem;
+  font-weight: bold;
 }
   
 #nuevoHorario:hover {
   background-color: #007E33;
-  transform: scale(1.05);
 }
 
 #eliminarHorario {
   background: #e53935;
-  transition: all 0.3s;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 30px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 #eliminarHorario:hover {
   background: #b71c1c;
-  transform: scale(1.05);
 }
+
+
+
+
+
 
 
 /* Scrollbars */
@@ -273,4 +294,27 @@ body {
 .card-content::-webkit-scrollbar-thumb {
     background: #c1c1c1;
     border-radius: 3px;
+}
+
+
+
+
+
+
+
+/* Estado vacío en index.html */
+.mensaje-horarios-vacios {
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 40%;
+    border-radius: 16px;
+    margin-bottom: 50px;
+}
+
+.reloj-icono {
+    width: 100px; /* Tamaño máximo del ícono */
+    height: auto; /* Mantiene la proporción */
+    margin-bottom: 1rem; /* Espaciado debajo del ícono */
+    opacity: 0.8;
 }
