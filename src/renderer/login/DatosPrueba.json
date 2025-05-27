@@ -5,5 +5,11 @@
     "nombre": "José Fernando Enríquez Maldonado",
     "nivel": "Inglés 2",
     "tipoUsuario": "alumno"
+  },
+  {
+    "matricula": "JORGE",
+    "contraseña": "jorge123",
+    "nombre": "Jorge Alberto",
+    "tipoUsuario": "asesor"
   }
 ]

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuevo Horario</title>
+  <link rel="stylesheet" href="../../../../../utils/flatpickr.min.css">
+  <script src="../../../../../utils/flatpickr.min.js"></script>
+  <script src="../../../../../utils/es.js"></script>
+  <script src="nuevo-horario.js"></script>
+  <link rel="stylesheet" href="nuevo-horario.css">
+</head>
+<body class="profesores-dashboard">
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Nuevo Horario</h1>
+    </div>
+
+    <!-- Selector de fecha -->
+    <div class="controls">
+      <div style="flex-grow: 1;"></div> <!-- Espaciador izquierdo -->
+
+      <!-- Grupo de controles del calendario -->
+      <div class="calendar-controls-group" style="display: flex; align-items: center; gap: 15px;">
+          <button class="arrow prev" id="dia-anterior">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
+              </svg>
+          </button>
+          
+          <div id="datepicker" class="date-picker">
+              <span id="fecha-seleccionada"></span>
+          </div>
+          
+          <button class="arrow next" id="dia-siguiente">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+              </svg>
+          </button>
+      </div>
+
+      <div style="flex-grow: 1;"></div> <!-- Espaciador derecho -->
+    </div>
+
+    <div class="nuevo-horario-container">
+        <!-- Selector de horas -->
+        <div class="hour-selector">
+          <ul>
+            <li>08:00 - 08:30</li>
+            <li>08:30 - 09:00</li>
+            <li>09:00 - 09:30</li>
+            <li>09:30 - 10:00</li>
+            <li>10:00 - 10:30</li>
+            <li>10:30 - 11:00</li>
+            <li>11:00 - 11:30</li>
+            <li>11:30 - 12:00</li>
+            <li>12:00 - 12:30</li>
+            <li>12:30 - 13:00</li>
+            <li>13:00 - 13:30</li>
+            <li>13:30 - 14:00</li>
+            <li>14:00 - 14:30</li>
+            <li>14:30 - 15:00</li>
+            <li>15:00 - 15:30</li>
+            <li>15:30 - 16:00</li>
+            <li>16:00 - 16:30</li>
+            <li>16:30 - 17:00</li>
+            <li>17:00 - 17:30</li>
+            <li>17:30 - 18:00</li>
+          </ul>
+        </div>
+      
+      <!-- Botones de acción -->
+      <div class="action-button">
+        <button id="regresar">Regresar</button>
+        <button id="continuar">Continuar</button>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

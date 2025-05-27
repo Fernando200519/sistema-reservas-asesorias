@@ -1,0 +1,249 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f2f5;
+}
+
+/* Contenedor principal */
+.container {
+  width: 90%;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header {
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.header h1 {
+  color: #003366;
+  font-size: 2.2rem;
+  padding: 20px;
+}
+
+
+/* Controles */
+.controls {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 35px 0px;
+}
+
+/* Botones de navegación */
+.arrow {
+    background-color: #f3f4f6;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .arrow:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .arrow svg {
+    width: 20px;
+    height: 20px;
+    fill: #4b5563;
+  }
+
+.date-picker {
+    background-color: white;
+    padding: 15px 25px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    width: 320px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.date-picker:hover {
+    border-color: #003366;
+}
+
+
+  
+/* Centrar el contenido en la vista de nuevo-horario */
+.nuevo-horario-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centra verticalmente */
+  padding: 0 2rem; /* Espaciado interno */
+  box-sizing: border-box; /* Incluye el padding en el tamaño total */
+}
+
+
+/* Animación fade-in */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+
+
+/* PARA NUEVO HORARIO */
+
+/* Selector de horas */
+.hour-selector {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Fuerza 5 columnas */
+    gap: 1rem; /* Espacio entre las horas */
+    max-width: 100%; /* Permite que ocupe todo el ancho disponible */
+    margin: 0 auto 0 auto; /* Centra el contenedor */
+    padding: 1.5rem; /* Más espacio interno */
+    background: linear-gradient(135deg, #f0f4ff, #e6f7ff); /* Fondo degradado */
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+  }
+  
+  /* Lista de horas */
+  .hour-selector ul {
+    display: contents; /* Permite que los <li> sean manejados directamente por el grid */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Estilo de cada hora */
+  .hour-selector li {
+    padding: 15px 20px;
+    background-color: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra ligera */
+  }
+  
+  /* Hover en cada hora */
+  .hour-selector li:hover {
+    background-color: #e0f7fa; /* Azul claro */
+    border-color: #00bcd4; /* Azul más intenso */
+    transform: scale(1.05); /* Efecto de zoom */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  }
+  
+  /* Hora seleccionada */
+  .hour-selector li.selected {
+    background-color: #00C851; /* Verde */
+    color: white;
+    font-weight: bold;
+    border-color: #007E33; /* Verde oscuro */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+  }
+  
+
+#continuar.btn-inactivo {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+#continuar:not(.btn-inactivo) {
+    background-color: #00C851;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+}
+
+#continuar:not(.btn-inactivo):hover {
+  background-color: #007E33;
+  transform: scale(1.05);
+}
+
+/* Clase adicional para inactivo (opcional, pero tú ya la tienes) */
+.btn-inactivo {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+  
+/* Contenedor de los botones de acción */
+.action-button {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 1.5rem; /* Espaciado entre los botones */
+    margin: 40px;
+  }
+  
+  /* Estilo general para los botones */
+  .action-button button {
+    background-color: #00C851;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+  }
+  
+  .action-button button:hover {
+    background-color: #007E33;
+    transform: scale(1.05);
+  }
+
+  /* Fecha seleccionada en confirmación */
+  .fecha-seleccionada {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .fecha-seleccionada span {
+    color: #00bcd4; /* Azul moderno */
+  }
+
+
+
+
+.hour-selector li.bloqueado {
+  background-color: #ccc;
+  color: #999;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}

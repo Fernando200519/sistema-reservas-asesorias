@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CAA Reservaciones</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,400italic&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="asesorNuevo.css">
+  <link rel="stylesheet" href="../../utils/flatpickr.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>CAA</h1>
+      <h2>Reservaciones</h2>
+    </div>
+
+    <div class="filtros"> 
+        <div class="calendario-filtro">
+            <h3>Selecciona una fecha para filtrar</h3>
+            <button id="datePicker" class="date-picker">
+                <img src="../../../assets/calendario.png" id="calendarioIcono">
+                <span id="fechaTexto"></span>
+                <span id="salirFiltro">×</span>
+            </button>
+        </div>
+
+        <div class="estado-filtro">
+          <button id="boton-imprimir" class="btn">
+             <img src="../../../assets/printer.png" alt="Imprimir" id="imagenImpresora">
+          </button>
+          <select class="filter" id="filtroEstado">
+            <option value="todas">Todas</option>
+            <option value="disponible">Disponibles</option>
+            <option value="reservada">Reservadas</option>
+            <option value="concluida">Concluidas</option>
+          </select>
+        </div>
+    </div>
+
+    <section class="grid"></section>
+
+    <div class="botones-container">
+      <div class="botones">
+        <button id="eliminarHorario" class="btn">Eliminar horario</button>
+        <button id="nuevoHorario" class="btn"><span>+</span> Nuevo Horario</button>
+      </div>
+    </div>
+
+    <script src="asesorNuevo.js"></script>
+    <script src="../../utils/flatpickr.min.js"></script>
+    <script src="../../utils/es.js"></script>
+
+    <!-- Inicio: Modal Detalles de Asesoría -->
+    <div id="modalDetallesHorario" class="modal-overlay">
+      <div class="modal-content">
+        <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+        <h2>Detalles de la Asesoría</h2>
+        <div class="modal-details">
+          <p><strong>Fecha:</strong> <span id="modalFecha"></span></p>
+          <p><strong>Hora:</strong> <span id="modalHora"></span></p>
+          <p><strong>Tema:</strong> <span id="modalTema"></span></p>
+          <p><strong>Estado:</strong> <span id="modalEstado"></span></p>
+          <p><strong>Alumnos:</strong></p>
+          <ul id="modalAlumnosLista">
+            <!-- Los alumnos se listarán aquí dinámicamente -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Fin: Modal Detalles de Asesoría -->
+
+</body>
+</html>

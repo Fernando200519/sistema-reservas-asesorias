@@ -39,7 +39,9 @@ form.addEventListener('submit', async (e) => {
         localStorage.setItem('matricula', user.matricula); // Guardar el usuario en localStorage
         window.location.href = '../alumno/alumno.html';
       } else if (user.tipoUsuario === 'asesor') {
-        window.location.href = '../alumno/asesor.html';
+        localStorage.setItem('nombreAsesor', user.nombre);
+        localStorage.setItem('marticula', user.matricula);
+        window.location.href = '../asesor/asesorNuevo.html';
       }
     } else {
       mensajeError.textContent = 'Usuario o contraseña incorrectos.';

@@ -1,0 +1,216 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 0 20px;
+}
+  
+  /* Títulos */
+  .header h1 {
+    padding: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .fecha-seleccionada h2 {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .fecha-seleccionada span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #005f8c;
+  }
+
+.horarios-seleccionados{
+  height: 50vh;
+}
+  
+  /* Tarjetas */
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 0.5rem;
+    text-align: center;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card.disponible {
+    border-color: #00bcd4;
+    background-color: #e0f7fa;
+  }
+  
+  .card-content p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+  }
+  
+  /* Cuadrícula */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 5px;
+    justify-items: center;
+    margin-top: 1rem;
+  }
+  
+
+.botones-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0;
+}
+
+.botones {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+  .action-button {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 300px;
+    width: 100%;
+  }
+  
+  .action-button button {
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .action-button button:hover {
+    background-color: #388e3c;
+    transform: scale(1.05);
+  }
+
+
+
+
+
+
+/* Tarjetas */
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 0.5rem;
+    text-align: center;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card.disponible {
+    border-color: #00bcd4;
+    background-color: #e0f7fa;
+  }
+
+.card-content {
+  width: 100%;
+  padding-right: 0; /* Puedes ajustar o quitar el padding si ya existe */
+}
+
+.card-content p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+  }
+
+.card-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.card.disponible {
+    border-color: #00bcd4;
+    background-color: #e0f7fa;
+   border-left: 5px solid #005f8c;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 0.5rem;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.card-content {
+    width: 100%;
+    padding-right: 0;
+}
+
+.card-content p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
