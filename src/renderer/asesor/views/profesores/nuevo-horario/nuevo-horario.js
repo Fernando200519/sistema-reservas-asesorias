@@ -74,6 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const datepickerDiv = document.getElementById("datepicker");
 
     let fechaActual = new Date();
+    let hoy = new Date();
+    hoy.setHours(0, 0, 0, 0); // Para comparación solo por fecha
+
 
     function formatearFecha(fecha) {
         const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -101,14 +104,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function avanzarDiaValido(direccion) {
+        let nuevaFecha = new Date(fechaActual);
+
         do {
-            fechaActual.setDate(fechaActual.getDate() + direccion);
-        } while (esFinDeSemana(fechaActual));
+            nuevaFecha.setDate(nuevaFecha.getDate() + direccion);
+
+            // Asegurar que la comparación sea solo por fecha (sin horas)
+            const nuevaFechaSinHora = new Date(nuevaFecha);
+            nuevaFechaSinHora.setHours(0, 0, 0, 0);
+
+            // Si es un retroceso y la nueva fecha es menor que hoy, salir sin actualizar
+            if (direccion === -1 && nuevaFechaSinHora.getTime() < hoy.getTime()) {
+                return;
+            }
+
+        } while (esFinDeSemana(nuevaFecha));
+
+        fechaActual = nuevaFecha;
         actualizarFechaMostrada();
     }
 
+
     const picker = flatpickr(datepickerDiv, {
         locale: "es",
+        minDate: "today",
         dateFormat: "Y-m-d",
         defaultDate: fechaActual,
         disable: [date => esFinDeSemana(date)],

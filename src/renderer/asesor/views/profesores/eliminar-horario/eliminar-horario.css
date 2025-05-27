@@ -72,10 +72,13 @@ body {
 }
 
 .card-info {
+  /* Si quieres que los elementos dentro de card-info se organicen mejor: */
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 16px; /* Espacio entre hora y estado */
+  flex-direction: column; /* Apila hora, fecha, estado verticalmente */
+  align-items: flex-start; /* Alinea a la izquierda, o 'center' si prefieres */
+  gap: 6px; /* Espacio entre los elementos */
+  flex-grow: 1; /* Para que ocupe el espacio disponible si el botón está al lado */
+  padding: 10px; /* Un poco de padding interno para card-info */
 }
 
 .card-content {
@@ -94,10 +97,20 @@ body {
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
+.fecha { /* Estilo para la fecha */
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d2b2b;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  text-shadow: 0 1px 4px rgba(#e0e0e0);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
 .estado {
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #fff;
-  background: #d7e62f;
+  background: #6c757d;
   border-radius: 8px;
   padding: 2px 10px;
   text-transform: capitalize;
@@ -108,8 +121,9 @@ body {
 }
 
 /* Opcional: Colores por estado */
-.card.reservado .estado { background: #ffb300; color: #333; }
-.card.concluido .estado { background: #9e9e9e; color: #fff; }
+.card.reservada .estado { background: #dc3545; color: white; }
+.card.disponible .estado { background: #28a745; color: white; } /* Verde */
+.card.concluida .estado { background: #6c757d; color: white; } /* Gris */
 
 .eliminar-btn {
   background: none ;
@@ -322,4 +336,32 @@ body {
     margin: 0;
     opacity: 0.85;
     font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.card-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
 }

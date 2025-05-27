@@ -50,5 +50,25 @@
     <script src="asesorNuevo.js"></script>
     <script src="../../utils/flatpickr.min.js"></script>
     <script src="../../utils/es.js"></script>
+
+    <!-- Inicio: Modal Detalles de Asesoría -->
+    <div id="modalDetallesHorario" class="modal-overlay">
+      <div class="modal-content">
+        <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+        <h2>Detalles de la Asesoría</h2>
+        <div class="modal-details">
+          <p><strong>Fecha:</strong> <span id="modalFecha"></span></p>
+          <p><strong>Hora:</strong> <span id="modalHora"></span></p>
+          <p><strong>Tema:</strong> <span id="modalTema"></span></p>
+          <p><strong>Estado:</strong> <span id="modalEstado"></span></p>
+          <p><strong>Alumnos:</strong></p>
+          <ul id="modalAlumnosLista">
+            <!-- Los alumnos se listarán aquí dinámicamente -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Fin: Modal Detalles de Asesoría -->
+
 </body>
 </html>
