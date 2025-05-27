@@ -318,3 +318,104 @@ body {
     margin-bottom: 1rem; /* Espaciado debajo del ícono */
     opacity: 0.8;
 }
+
+.reloj-icono {
+    width: 100px; /* Tamaño máximo del ícono */
+    height: auto; /* Mantiene la proporción */
+    margin-bottom: 1rem; /* Espaciado debajo del ícono */
+    opacity: 0.8;
+}
+
+/* Estilos para la Modal de Detalles de Asesoría */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65); /* Fondo oscuro semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegurar que esté por encima de otros elementos */
+  opacity: 0; /* Inicialmente invisible para la animación */
+  pointer-events: none; /* Inicialmente no interactuable */
+  transition: opacity 0.3s ease-out;
+}
+
+.modal-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  max-width: 550px; /* Ancho máximo de la modal */
+  position: relative;
+  transform: translateY(-20px); /* Posición inicial para animación */
+  transition: transform 0.3s ease-out;
+}
+
+.modal-overlay.visible .modal-content {
+  transform: translateY(0);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 2.2rem;
+  color: #aaa;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.modal-close-btn:hover {
+  color: #333;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #003366;
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.modal-details p {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+.modal-details p strong {
+  color: #003366;
+  min-width: 70px; /* Alineación de los títulos */
+  display: inline-block;
+  font-weight: 600;
+}
+
+#modalAlumnosLista {
+  list-style: none; /* Quitar viñetas por defecto */
+  padding-left: 0;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#modalAlumnosLista li {
+  background-color: #f7f9fc;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: #333;
+  border-left: 3px solid #00C851;
+}

@@ -5,6 +5,7 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -12,7 +13,7 @@ function createWindow() {
   });
   // mainWindow.setMenu(null);
   mainWindow.maximize();
-  mainWindow.loadFile(path.join(__dirname, '../renderer/asesor/index.html'));
+  mainWindow.loadFile(path.join(__dirname, '../renderer/asesor/asesorNuevo.html'));
 }
 
 app.whenReady().then(createWindow);
