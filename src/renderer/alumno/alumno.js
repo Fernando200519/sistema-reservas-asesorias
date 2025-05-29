@@ -1,3 +1,7 @@
+document.getElementById("button-salir").addEventListener("click", function(){
+    window.location.href = "../login/login.html";
+});
+
 // Mostrar el nivel de ingles en la interfaz 
 const nivel = localStorage.getItem("nivelIngles");
 const contenedorNivel = document.querySelector('.container-1-nivel');

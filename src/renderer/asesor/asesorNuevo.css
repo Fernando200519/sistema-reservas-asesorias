@@ -24,14 +24,38 @@ body {
 .header {
     display: flex;
     align-items: center;
-    gap: 25px;
+    /* gap: 25px; */ /* El gap puede empujar el botón si no se maneja con justify-content */
+    justify-content: flex-start; /* Alinea los elementos principales (h1, h2) a la izquierda */
     padding: 15px 0;
     border-bottom: 1px solid #e1e4e8;
+    position: relative; /* Necesario para posicionar el botón de salir absolutamente */
 }
 
 .header h1 {
     color: #003366;
     font-size: 2.2rem;
+    margin-right: 25px; /* Reemplaza el gap para el espaciado entre h1 y h2 si es necesario */
+}
+
+/* Estilos para el botón de Salir */
+.boton-salir-icono {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Ajusta este valor para el espaciado desde la derecha */
+  transform: translateY(-50%);
+  padding: 5px; /* Un padding más pequeño si no hay fondo en hover */
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out; /* Transición solo para transform */
+}
+
+.boton-salir-icono:hover {
+  transform: translateY(-50%) scale(1.1); /* Combina el centrado vertical con la escala */
+}
+
+#iconoSalir {
+  width: 46px; /* Ajusta al tamaño de tu ícono */
+  height: 46px; /* Ajusta al tamaño de tu ícono */
+  display: block; /* Para evitar espacio extra */
 }
 
 .header h2 {
