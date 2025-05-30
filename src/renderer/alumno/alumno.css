@@ -338,3 +338,78 @@ span{
     text-align: center;
     color: #666666;
 }
+
+/*Fondo oscuro para el modal*/
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+/*Ocultar modales*/
+
+.oculto {
+  display: none;
+}
+/*MODAL PARA SALIR */
+
+#modal-salir{
+    width: 45%;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    z-index: 20;
+}
+
+#modal-salir .texto-cancelar{
+    display: flex;
+    font-size: 19px;
+    justify-content: center;
+    color: #666666;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#modal-salir  .botones-cancelar{
+    display: flex;
+    justify-content: center;
+}
+
+#modal-salir  .btn-cancelar{
+    background-color: #F8F9FA;
+    border: none;
+    color: #666666;
+    font-weight: 400;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 10px 35px;
+    margin-right: 20px;
+    border: 1px solid #D1D1D1;
+}
+
+#modal-salir  .btn-cancelar:hover{
+    background-color: #E9ECEF;
+}
+
+#modal-salir  .btn-confirmar{
+    background-color: #D62828;
+    border: none;
+    color: #FFFFFF;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 10px 35px;
+    margin-left: 20px;
+}
+
+#modal-salir .btn-confirmar:hover{
+    background-color: #C82333;
+}

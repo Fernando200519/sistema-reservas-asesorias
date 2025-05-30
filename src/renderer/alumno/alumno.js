@@ -1,7 +1,3 @@
-document.getElementById("button-salir").addEventListener("click", function(){
-    window.location.href = "../login/login.html";
-});
-
 // Mostrar el nivel de ingles en la interfaz 
 const nivel = localStorage.getItem("nivelIngles");
 const contenedorNivel = document.querySelector('.container-1-nivel');
@@ -119,6 +115,40 @@ document.addEventListener('click', (e) => {
         }
     }
 });
+
+document.getElementById('button-salir').addEventListener('click', () => {
+    const modal = document.getElementById('modal-salir');
+    modal.innerHTML = `
+        <p class="texto-cancelar">¿Estás seguro de que deseas salir del sistema de reservaciones?</p>
+
+        <div class="botones-cancelar">
+            <button class="btn-cancelar" id="button-negar">No</button>
+            <button class="btn-confirmar" id="button-aceptar">Sí</button>
+        </div>
+    `;
+    
+    mostrarModal('modal-salir');
+
+    document.getElementById("button-aceptar").addEventListener("click", function(){
+        window.location.href = "../login/login.html";
+    });
+
+    document.getElementById("button-negar").addEventListener("click", function(){
+        cerrarModal('modal-salir');
+    });
+});
+
+function mostrarModal(id) {
+    document.getElementById('overlay').classList.remove('oculto');
+    document.getElementById(id).classList.remove('oculto');
+}
+
+function cerrarModal(id) {
+    document.getElementById('overlay').classList.add('oculto');
+    document.getElementById(id).classList.add('oculto');
+}
+
+
 
 
 
