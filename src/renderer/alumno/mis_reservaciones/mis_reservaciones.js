@@ -142,8 +142,18 @@ function cancelarReservacion(idReservacion) {
         if (!(/^Tema [1-9]|10:/.test(asesoriaCancelada.tema))) {
             asesoriaCancelada.tema = null;
         }
-        asesoriasDisponibles.push(asesoriaCancelada);
-        // Ordenar por hora antes de guardar
+
+        // Asegurar formato correcto de fecha
+        const fecha = parsearFechaPersonalizada(asesoriaCancelada.fecha);
+        asesoriaCancelada.fecha = formatearFechaLocal(fecha);
+
+        // Verificar si ya está en asesorías disponibles
+        const yaExiste = asesoriasDisponibles.some(a => String(a.id) === String(asesoriaCancelada.id));
+        if (!yaExiste) {
+            asesoriasDisponibles.push(asesoriaCancelada);
+        }
+
+        // Ordenar y guardar
         const asesoriasOrdenadas = ordenarAsesoriasPorHora(asesoriasDisponibles);
         localStorage.setItem("asesoriasDisponibles", JSON.stringify(asesoriasOrdenadas));
     }
@@ -162,4 +172,23 @@ function ordenarAsesoriasPorHora(asesorias) {
         const dateB = new Date(`1970-01-01T${horaInicioB}:00`);
         return dateA - dateB;
     });
+}
+
+function formatearFechaLocal(fecha) {
+    if (!(fecha instanceof Date) || isNaN(fecha)) return "Fecha inválida";
+    
+    const año = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    return `${año}-${mes}-${dia}`; // → "2025-05-30"
+}
+
+function parsearFechaPersonalizada(fechaStr) {
+    const partes = fechaStr.split(', ')[1].split(' de ');
+    const dia = parseInt(partes[0], 10);
+    const mes = ["enero", "febrero", "marzo", "abril", "mayo", "junio", 
+                 "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+                .indexOf(partes[1].toLowerCase());
+    const año = parseInt(partes[2], 10);
+    return new Date(año, mes, dia);
 }

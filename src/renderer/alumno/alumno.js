@@ -1,3 +1,20 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const fechaSeleccionada = localStorage.getItem("fechaSeleccionada");
+    let asesoriasLocales = JSON.parse(localStorage.getItem("asesoriasDisponibles"));
+
+    if (!asesoriasLocales) {
+        fetch("EjemploDatos.json")
+            .then(res => res.json())
+            .then(data => {
+                localStorage.setItem("asesoriasDisponibles", JSON.stringify(data));
+                mostrarReservaciones(data, fechaSeleccionada);
+            })
+            .catch(error => console.error("Error cargando datos:", error));
+    } else {
+        mostrarReservaciones(asesoriasLocales, fechaSeleccionada);
+    }
+});
+
 // Mostrar el nivel de ingles en la interfaz 
 const nivel = localStorage.getItem("nivelIngles");
 const contenedorNivel = document.querySelector('.container-1-nivel');
@@ -5,26 +22,10 @@ if (contenedorNivel && nivel) {
     contenedorNivel.textContent = nivel;
 }
 
-
 document.getElementById("button-mis-reservaciones").addEventListener("click", function() {
     // Redirigir a la página anterior
     window.location.href = 'mis_reservaciones/mis_reservaciones.html';
 });
-
-// Leer desde archivo local JSON
-let asesoriasLocales = JSON.parse(localStorage.getItem("asesoriasDisponibles"));
-
-if (asesoriasLocales !== null) {
-    mostrarReservaciones(asesoriasLocales);
-} else {
-    fetch('EjemploDatos.json')
-      .then(res => res.json())
-      .then(data => {
-        localStorage.setItem("asesoriasDisponibles", JSON.stringify(data));
-        mostrarReservaciones(data);
-      })
-      .catch(error => console.error('Error cargando datos:', error));
-}
 
 function ordenarAsesoriasPorHora(asesorias) {
     return asesorias.sort((a, b) => {
@@ -36,16 +37,48 @@ function ordenarAsesoriasPorHora(asesorias) {
     });
 }
 
+function formatearFechaLocal(fecha) {
+    if (!(fecha instanceof Date) || isNaN(fecha)) return "Fecha inválida";
+    
+    const año = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    return `${año}-${mes}-${dia}`; // → "2025-05-30"
+}
+
+function parsearFechaPersonalizada(fechaStr) {
+    const partes = fechaStr.split(', ')[1].split(' de ');
+    const dia = parseInt(partes[0], 10);
+    const mes = ["enero", "febrero", "marzo", "abril", "mayo", "junio", 
+                 "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+                .indexOf(partes[1].toLowerCase());
+    const año = parseInt(partes[2], 10);
+    return new Date(año, mes, dia);
+}
+
 
 // Mostrar las reservaciones de la fecha seleccionada
 function mostrarReservaciones(data) {
+    console.log("Contenido de data:", data);
     const contenedor = document.querySelector('.container-3');
     contenedor.innerHTML = ''; // Limpiar contenido anterior
+    contenedor.style.display = 'grid';
+    contenedor.style.justifyContent = '';
+    contenedor.style.alignItems = '';
 
-    if (data.length === 0) {
-        document.querySelector('.container-3').style.display = 'flex';
-        document.querySelector('.container-3').style.justifyContent = 'center';
-        document.querySelector('.container-3').style.alignItems = 'center';
+    const fechaSeleccionada = localStorage.getItem("fechaSeleccionada");
+
+    const fecha = parsearFechaPersonalizada(fechaSeleccionada);
+    const fechaFormateada = formatearFechaLocal(fecha);
+
+    console.log("Fecha formateada:" + fechaFormateada);
+    console.log("Todas las fechas en las reservas:", data.map(reserva => reserva.fecha));
+    const asesoriasFiltradas = data.filter(reserva => reserva.fecha === fechaFormateada);
+
+    if (asesoriasFiltradas.length === 0) {
+        contenedor.style.display = 'flex';
+        contenedor.style.justifyContent = 'center';
+        contenedor.style.alignItems = 'center';
         contenedor.innerHTML = `
             <div class="container-3-vacio">
                 <img src="../../../assets/calendario.png">
@@ -55,8 +88,7 @@ function mostrarReservaciones(data) {
         return;
     }
 
-    // Ordenar por hora antes de mostrar
-    const asesoriasOrdenadas = ordenarAsesoriasPorHora(data);
+    const asesoriasOrdenadas = ordenarAsesoriasPorHora(asesoriasFiltradas);
 
     asesoriasOrdenadas.forEach(reserva => {
         const card = document.createElement('div');

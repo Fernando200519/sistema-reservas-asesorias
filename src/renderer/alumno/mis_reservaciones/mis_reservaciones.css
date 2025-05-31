@@ -136,18 +136,18 @@ span{
     align-items: center;
     display: flex;
     justify-content: right;
+    padding: 0px 50px;
 }
 
 .container-4-button-reservar{
-    padding: 1% 4%;
-    background-color: #0D3B66;
+    padding: 15px 40px;
+    background-color: #003366;
     font-weight: 600;
     color: #FFFFFF;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin-right: 2%;
-    font-size: 90%;
+    font-size: 16px;
 }
 
 .container-4-button-reservar:hover{

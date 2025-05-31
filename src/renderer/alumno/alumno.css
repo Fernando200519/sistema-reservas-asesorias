@@ -294,14 +294,14 @@ span{
 }
 
 .container-4-button-reservar{
-    padding: 1% 4%;
+    padding: 15px 40px;
     background-color: #003366;
     font-weight: 600;
     color: #FFFFFF;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 90%;
+    font-size: 16px;
 }
 
 #button-salir{

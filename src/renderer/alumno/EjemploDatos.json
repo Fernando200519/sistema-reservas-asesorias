@@ -4,27 +4,71 @@
     "hora": "09:00 - 09:30",
     "tema": null,
     "asesor": "Dr. Jorge Alberto Molina Hernández",
-    "cupos": 3
+    "cupos": 3,
+    "fecha": "2025-06-04"
   },
   {
     "id": "102",
     "hora": "10:00 - 10:30",
     "tema": "Tema 1: Saludos",
     "asesor": "Mtra. Analidia Luján Gutiérrez",
-    "cupos": 2
+    "cupos": 2,
+    "fecha": "2025-06-04"
   },
   {
     "id": "103",
     "hora": "11:00 - 11:30",
     "tema": "Tema 2: Despedidas",
     "asesor": "Dr. Jorge Alberto Molina Hernández",
-    "cupos": 1
+    "cupos": 1,
+    "fecha": "2025-06-04"
   },
   {
     "id": "104",
     "hora": "12:00 - 12:30",
     "tema": "Tema 6: Gustos y preferencias",
     "asesor": "Dr. Jorge Alberto Molina Hernández",
-    "cupos": 1
+    "cupos": 1,
+    "fecha": "2025-06-04"
+  },
+  {
+    "id": "105",
+    "hora": "12:00 - 12:30",
+    "tema": "Tema 6: Gustos y preferencias",
+    "asesor": "Dr. Jorge Alberto Molina Hernández",
+    "cupos": 1,
+    "fecha": "2025-06-05"
+  },
+  {
+    "id": "106",
+    "hora": "14:00 - 14:30",
+    "tema": "Tema 6: Gustos y preferencias",
+    "asesor": "Dr. Jorge Alberto Molina Hernández",
+    "cupos": 1,
+    "fecha": "2025-06-05"
+  },
+  {
+    "id": "107",
+    "hora": "12:30 - 13:00",
+    "tema": "Tema 6: Gustos y preferencias",
+    "asesor": "Dr. Jorge Alberto Molina Hernández",
+    "cupos": 1,
+    "fecha": "2025-06-05"
+  },
+  {
+    "id": "108",
+    "hora": "12:30 - 13:00",
+    "tema": "Tema 6: Gustos y preferencias",
+    "asesor": "Mtra. Analidia Luján Gutiérrez",
+    "cupos": 1,
+    "fecha": "2025-06-05"
+  },
+  {
+    "id": "109",
+    "hora": "13:30 - 14:00",
+    "tema": "Tema 6: Gustos y preferencias",
+    "asesor": "Mtra. Analidia Luján Gutiérrez",
+    "cupos": 2,
+    "fecha": "2025-06-06"
   }
 ]
