@@ -38,7 +38,8 @@ form.addEventListener('submit', async (e) => {
         localStorage.setItem('matricula', usuario);
         window.location.href = '../alumno/alumno.html';
       } else if (tipo === 'ACADEMICO') {
-        window.location.href = '../alumno/asesor.html';
+        window.location.href = '../asesor/asesorNuevo.html';
+        localStorage.setItem('nombreAsesor', data.nombre);
       } else {
         mensajeError.textContent = 'Tipo de usuario desconocido.';
         mensajeError.style.display = 'block';

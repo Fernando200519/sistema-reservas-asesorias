@@ -1,3 +1,5 @@
+console.log(localStorage.getItem('nombreAsesor'));
+
 document.addEventListener('DOMContentLoaded', async () => {
   // ──────────────── Elementos del DOM ────────────────
   const fechaTexto = document.getElementById("fechaTexto");
