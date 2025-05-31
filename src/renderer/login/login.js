@@ -1,3 +1,5 @@
+import {verificarLogin} from '../../database/queries.js';
+
 const passwordInput = document.getElementById('contraseña');
 const togglePassword = document.getElementById('toggle-password');
 const form = document.querySelector('.login-form');
@@ -22,35 +24,26 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  try {
-    // Enviar solicitud al backend real
-    const response = await fetch('http://localhost:3000/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        matricula: usuario,
-        contrasena: contraseña
-      })
-    });
+ try {
+    // Ahora usamos la función importada
+    const data = await verificarLogin(usuario, contraseña);
 
-    const data = await response.json();
+    if (data.success) {
+      const tipo = data.tipo_usuario;
 
-    if (response.ok && data.success) {
-      const user = data.alumno;
-
-      if (user.tipo_usuario === 'alumno') {
-        localStorage.setItem('nivelIngles', user.nivel_ingles); // Pedro modificalo si el nombre de la variable es diferente
-        localStorage.setItem('nombreAlumno', user.nombre); // Pedro modificalo si el nombre de la variable es diferente
-        localStorage.setItem('matricula', usuario); // Pedro modificalo si el nombre de la variable es diferente
+      if (tipo === 'ESTUDIANTE') {
+        const nivelIngles = data.curso === "INGI" ? "Inglés 1" : "Inglés 2";
+        localStorage.setItem('nivelIngles', nivelIngles);
+        localStorage.setItem('nombreAlumno', data.nombre);
+        localStorage.setItem('matricula', usuario);
         window.location.href = '../alumno/alumno.html';
-      } else if (user.tipo_usuario === 'asesor') {
+      } else if (tipo === 'ACADEMICO') {
         window.location.href = '../alumno/asesor.html';
       } else {
         mensajeError.textContent = 'Tipo de usuario desconocido.';
         mensajeError.style.display = 'block';
       }
+
     } else {
       mensajeError.textContent = data.error || 'Usuario o contraseña incorrectos.';
       mensajeError.style.display = 'block';

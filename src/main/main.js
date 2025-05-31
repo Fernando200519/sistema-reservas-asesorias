@@ -12,7 +12,7 @@ function createWindow() {
   });
   // mainWindow.setMenu(null);
   mainWindow.maximize();
-  mainWindow.loadFile(path.join(__dirname, '../renderer/asesor/asesorNuevo.html'));
+  mainWindow.loadFile(path.join(__dirname, '../renderer/login/login.html'));
 }
 
 app.whenReady().then(createWindow);
