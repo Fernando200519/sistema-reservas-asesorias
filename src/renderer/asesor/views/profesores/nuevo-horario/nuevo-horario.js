@@ -34,15 +34,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const fechaData = JSON.parse(localStorage.getItem('fechaSeleccionada'));
         if (!fechaData) return;
 
+        const asesorActual = "JORGE" // POR QUE ASESOR ES UNA LLAVE FORANEA Y ASI SE TIENE QUEDAR(CREO)
+        
         const seleccionCompleta = {
             fecha: fechaData.iso,
             fecha_bonita: fechaData.bonito,
             horarios: selectedHours,
-            timestamp: new Date().toISOString()
+            asesor: asesorActual,
         };
 
         localStorage.setItem('reservaData', JSON.stringify(seleccionCompleta));
         console.log('Datos guardados:', seleccionCompleta);
+    }
+
+    function formatearFechaYYYYMMDD(fecha) {
+        const d = new Date(fecha); // esto ya es en UTC si viene de toISOString()
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        return `${yyyy}-${mm}-${dd}`;
     }
 
     function actualizarEstadoBoton() {
@@ -90,7 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function actualizarFechaMostrada() {
         const fechaBonita = formatearFecha(fechaActual);
-        const fechaISO = fechaActual.toISOString().split('T')[0];
+        const yyyy = fechaActual.getFullYear();
+        const mm = String(fechaActual.getMonth() + 1).padStart(2, '0');
+        const dd = String(fechaActual.getDate()).padStart(2, '0');
+        const fechaISO = `${yyyy}-${mm}-${dd}`;
 
         fechaSpan.textContent = fechaBonita;
         picker.setDate(fechaActual, false);

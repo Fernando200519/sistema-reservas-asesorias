@@ -10,7 +10,8 @@
  * - hora: ej. "10:00",
  * - id_evento: "ID del evento, ej. 3513" (**Imporante: guardar este ID para una reservación**)
  */
-export async function leerHorarios(fecha) {
+/*YA INGRESADA EN EL CODIGO*/
+export async function leerHorarios(fecha) { 
   try {
     const response = await fetch('https://gb572ef1f8a56c6-caa23.adb.us-ashburn-1.oraclecloudapps.com/ords/equipocaa/maestros/leer_asesorias', {
       method: 'POST',
@@ -115,6 +116,7 @@ export async function obtenerMisReservaciones(matricula) {
  * - curso: "INGI" o "INGII"
  * - nombre: Nombre completo del usuario
  */
+/*YA INGRESADA EN EL CODIGO*/
 export async function verificarLogin(matricula, contra) {
   async function obtenerNombreAlumno() {
     try {
@@ -178,33 +180,9 @@ export async function verificarLogin(matricula, contra) {
  * @returns {Promise<Object>} Respuesta de la API con los horarios cargados
  */
 export async function cargarHorarios(horas, fecha, asesor) {
-    function formatearFecha() {
-      const partes = fecha.split(', ')[1].split(' '); // ["11", "Mayo", "2025"]
-
-      const dia = partes[0];
-      const mesTexto = partes[1].toLowerCase();
-      const anio = partes[2];
-
-      // Diccionario de meses
-      const meses = {
-        enero: "01", febrero: "02", marzo: "03",
-        abril: "04", mayo: "05", junio: "06",
-        julio: "07", agosto: "08", septiembre: "09",
-        octubre: "10", noviembre: "11", diciembre: "12"
-      };
-
-      const mes = meses[mesTexto];
-
-      return `${dia}-${mes}-${anio}`;    
-    }
-
-    console.log("horas", horas);
-    console.log("fecha", formatearFecha());  
-    console.log("asesor", asesor);
-
     const v_json = {
       items: horas,
-      fecha: formatearFecha(),
+      fecha: fecha,
       asesor: asesor
     }
 

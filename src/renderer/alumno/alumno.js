@@ -1,17 +1,25 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const fechaSeleccionada = localStorage.getItem("fechaSeleccionada");
-    let asesoriasLocales = JSON.parse(localStorage.getItem("asesoriasDisponibles"));
+import { leerHorarios } from '../../database/queries.js';
 
-    if (!asesoriasLocales) {
-        fetch("EjemploDatos.json")
-            .then(res => res.json())
-            .then(data => {
-                localStorage.setItem("asesoriasDisponibles", JSON.stringify(data));
-                mostrarReservaciones(data, fechaSeleccionada);
-            })
-            .catch(error => console.error("Error cargando datos:", error));
-    } else {
-        mostrarReservaciones(asesoriasLocales, fechaSeleccionada);
+document.addEventListener("DOMContentLoaded", async () => {
+    const fechaSeleccionada = localStorage.getItem("fechaSeleccionada");
+
+    if (!fechaSeleccionada) {
+        console.error("No hay una fecha seleccionada en localStorage");
+        return;
+    }
+
+    const fecha = parsearFechaPersonalizada(fechaSeleccionada); // convierte "jueves, 30 de mayo de 2025" → Date
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const año = fecha.getFullYear();
+    const fechaFormateada = `${dia}-${mes}-${año}`; // → "30-05-2025"
+
+    try {
+        console.log(fechaFormateada);
+        const asesorias = await leerHorarios(fechaFormateada);
+        mostrarReservaciones(asesorias);
+    } catch (error) {
+        console.error("Error obteniendo asesorías:", error);
     }
 });
 
@@ -59,21 +67,20 @@ function parsearFechaPersonalizada(fechaStr) {
 
 // Mostrar las reservaciones de la fecha seleccionada
 function mostrarReservaciones(data) {
-    console.log("Contenido de data:", data);
     const contenedor = document.querySelector('.container-3');
-    contenedor.innerHTML = ''; // Limpiar contenido anterior
+    contenedor.innerHTML = '';
     contenedor.style.display = 'grid';
     contenedor.style.justifyContent = '';
     contenedor.style.alignItems = '';
 
     const fechaSeleccionada = localStorage.getItem("fechaSeleccionada");
+    const fechaFiltro = formatearFechaLocal(parsearFechaPersonalizada(fechaSeleccionada));
 
-    const fecha = parsearFechaPersonalizada(fechaSeleccionada);
-    const fechaFormateada = formatearFechaLocal(fecha);
-
-    console.log("Fecha formateada:" + fechaFormateada);
-    console.log("Todas las fechas en las reservas:", data.map(reserva => reserva.fecha));
-    const asesoriasFiltradas = data.filter(reserva => reserva.fecha === fechaFormateada);
+    // Extrae solo la parte de la fecha (sin hora) del formato ISO
+    const asesoriasFiltradas = data.filter(item => {
+        const fechaISO = item.fecha.split('T')[0]; // "2025-05-30"
+        return fechaISO === fechaFiltro;
+    });
 
     if (asesoriasFiltradas.length === 0) {
         contenedor.style.display = 'flex';
@@ -102,11 +109,11 @@ function mostrarReservaciones(data) {
                         <p class="nombre-asesor">Asesor: <span>${reserva.asesor}</span></p>
                         <div class="cupos-container">
                             <div class="circulo"></div>
-                            <div class="cupos-disponibles">Cupos disponibles: <span>${reserva.cupos}</span></div>
+                            <div class="cupos-disponibles">Cupos disponibles: <span>${reserva.cupo}</span></div>
                         </div>
                     </div>
                     <div class="container-3-datos-derecha">
-                        <button class="container-3-btn-reservar" data-id="${reserva.id}">✓ Reservar asesoría</button>
+                        <button class="container-3-btn-reservar" data-id="${reserva.id_evento}">✓ Reservar asesoría</button>
                     </div>
                 </div>
             </div>
@@ -117,7 +124,7 @@ function mostrarReservaciones(data) {
     document.querySelectorAll('.container-3-btn-reservar').forEach(button => {
         button.addEventListener('click', () => {
             const idAsesoria = button.getAttribute('data-id');
-            reservarAsesoria(idAsesoria); // llamada a función para reservar
+            reservarAsesoria(idAsesoria); // aún si no está definida aquí, parece que existe globalmente
         });
     });
 }
@@ -130,7 +137,7 @@ document.addEventListener('click', (e) => {
         const card = e.target.closest('.container-3-horario-card');
         const tema = card.querySelector('.container-3-tema').textContent.trim();
         const hora = card.querySelector('.informacion-hora').textContent.trim();
-        const asesor = card.querySelector('.nombre-asesor span').textContent.trim();
+        const asesor = "JORGE";
         const fecha = localStorage.getItem("fechaSeleccionada");
 
         // Guardar todos los datos en localStorage
@@ -178,4 +185,28 @@ function mostrarModal(id) {
 function cerrarModal(id) {
     document.getElementById('overlay').classList.add('oculto');
     document.getElementById(id).classList.add('oculto');
+}
+
+// al final de alumno.js
+window.actualizarAsesorias = async function() {
+    const fechaSeleccionada = localStorage.getItem("fechaSeleccionada");
+    if (!fechaSeleccionada) {
+        console.error("No hay una fecha seleccionada en localStorage");
+        return;
+    }
+
+    const fecha = parsearFechaPersonalizada(fechaSeleccionada);
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const año = fecha.getFullYear();
+    const fechaFormateada = `${dia}-${mes}-${año}`;
+
+    try {
+        console.log(fechaFormateada);
+        const asesorias = await leerHorarios(fechaFormateada);
+        localStorage.setItem("asesoriasDisponibles", JSON.stringify(asesorias));
+        mostrarReservaciones(asesorias);
+    } catch (error) {
+        console.error("Error actualizando asesorías:", error);
+    }
 }

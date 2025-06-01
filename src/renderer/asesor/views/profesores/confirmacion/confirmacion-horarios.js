@@ -1,3 +1,5 @@
+import { cargarHorarios } from '../../../../../database/queries.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const horariosGrid = document.getElementById('horariosGrid');
     const btnRegresar = document.getElementById('regresar');
@@ -35,23 +37,47 @@ document.addEventListener('DOMContentLoaded', () => {
         window.history.back();
     });
 
-    btnConfirmar.addEventListener('click', () => {
-    console.log('Reserva confirmada:', reservaData);
+    btnConfirmar.addEventListener('click', async () => {
+        console.log('[DEBUG] Reserva a confirmar:', reservaData);
 
-    const { fecha, horarios } = reservaData;
+        const { fecha, horarios, asesor } = reservaData;
 
-    // Convertir cada string horario a un objeto con estado y tema por defecto
-    const horariosConEstado = horarios.map(hora => ({
-        fecha: fecha,
-        hora: hora,
-        estado: '',
-        tema: '' // Se asignará después
-    }));
+        function formatearFecha(fechaParam) {
+            if (/^\d{4}-\d{2}-\d{2}$/.test(fechaParam)) {
+                const [anio, mes, dia] = fechaParam.split('-');
+                return `${dia}-${mes}-${anio}`;
+            }   
+        }
 
-    // Guardar temporalmente para exito-horarios
-    localStorage.setItem('horariosSeleccionados', JSON.stringify(horariosConEstado));
+        const horasSoloInicio = horarios.map(hora => hora.split(' - ')[0]);
+        const fechaCorrecta = formatearFecha(fecha);
 
-    localStorage.removeItem('reservaData');
-    window.location.href = '../exito/exito-horarios.html';
-});
+        console.log('[DEBUG] Enviando a API:', {horarios: horasSoloInicio, fechaCorrecta, asesor});
+
+        try {
+            const respuesta = await cargarHorarios(horasSoloInicio, fechaCorrecta, asesor);
+            console.log('[DEBUG] Respuesta API:', respuesta);
+
+            if (respuesta && respuesta.items) {
+                const horariosConEstado = horasSoloInicio.map(hora => ({
+                    fecha: fecha,
+                    hora: hora,
+                    estado: '',
+                }));
+
+                localStorage.setItem('horariosSeleccionados', JSON.stringify(horariosConEstado));
+                localStorage.removeItem('reservaData');
+
+                window.location.href = '../exito/exito-horarios.html';
+            } else {
+                alert('Error al guardar los horarios en la base de datos. Intenta nuevamente.');
+            }
+
+        } catch (error) {
+            console.error('[ERROR] en confirmación:', error);
+            alert('Ocurrió un error al confirmar los horarios. Intenta nuevamente.');
+        }
+    });
+
+
 });

@@ -33,8 +33,12 @@ function actualizarFecha(fecha) {
 
     document.getElementById("fecha-seleccionada").textContent = capitalizada;
     flatpickrInstance.setDate(fecha);
-    obtenerReservaciones(formatearFechaLocal(fecha));
     actualizarBotonAnterior();
+
+    // Llama a alumno.js para actualizar los datos reales
+    if (typeof window.actualizarAsesorias === "function") {
+        window.actualizarAsesorias();
+    }
 }
 
 // Función para formatear la fecha a YYYY-MM-DD

@@ -1,3 +1,4 @@
+// exito-horario.js
 document.addEventListener('DOMContentLoaded', () => {
     const botonOk = document.getElementById('ok');
 
@@ -7,21 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (horariosConfirmados.length > 0) {
                 const horariosExistentes = JSON.parse(localStorage.getItem('horariosIndex')) || [];
-                
-                // Añadir estado "disponible" a cada horario nuevo si no lo tiene
+
                 const horariosConEstado = horariosConfirmados.map(horario => ({
                     ...horario,
-                    estado: horario.estado || "disponible" // Si no tiene estado, se asigna "disponible"
+                    estado: horario.estado || "disponible"
                 }));
 
                 const nuevosHorarios = [...horariosExistentes, ...horariosConEstado];
                 localStorage.setItem('horariosIndex', JSON.stringify(nuevosHorarios));
-                console.log('Horarios confirmados y guardados:', nuevosHorarios);
-                
                 localStorage.removeItem('horariosSeleccionados');
-            }
 
-            window.location.href = '../../../asesorNuevo.html';
+                window.location.href = '../../../asesorNuevo.html';
+            } else {
+                window.location.href = '../../../asesorNuevo.html';
+            }
         });
     }
 });

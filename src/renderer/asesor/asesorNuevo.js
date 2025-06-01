@@ -1,5 +1,3 @@
-console.log(localStorage.getItem('nombreAsesor'));
-
 document.addEventListener('DOMContentLoaded', async () => {
   // ──────────────── Elementos del DOM ────────────────
   const fechaTexto = document.getElementById("fechaTexto");
@@ -9,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const imagenImpresora = document.getElementById("imagenImpresora");
   const horariosGrid = document.querySelector('.grid');
 
-    // Elementos de la Modal
+  // Elementos de la Modal
   const modalDetallesHorario = document.getElementById("modalDetallesHorario");
   const modalCloseBtn = document.getElementById("modalCloseBtn");
   const modalFecha = document.getElementById("modalFecha");
@@ -21,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ──────────────── Variables ────────────────
   let fechaSeleccionada = null;
+  
 
   // ──────────────── Funciones utilitarias ────────────────
 
