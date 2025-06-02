@@ -26,8 +26,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ──────────────── Funciones utilitarias ────────────────
 
   function formatearFechaParaComparacion(fecha) {
-    return fecha.toISOString().split("T")[0]; // YYYY-MM-DD
-  }
+    const d = fecha.getDate().toString().padStart(2, '0');
+    const m = (fecha.getMonth() + 1).toString().padStart(2, '0'); // los meses son 0-11
+    const y = fecha.getFullYear();
+    return `${m}-${d}-${y}`;
+}
 
   function capitalizarPrimeraLetra(texto) {
     return texto.charAt(0).toUpperCase() + texto.slice(1);
@@ -80,10 +83,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   async function mostrarHorarios() {
     console.log("[mostrarHorarios] Iniciando...");
     const todosHorarios = await leerHorarios({"tipo": "asesor", "asesor": "JORGE"});
+    
     console.log("[mostrarHorarios] Horarios obtenidos:", todosHorarios);
-    
-    console.log("[mostrarHorarios] Horarios desde localStorage:", todosHorarios);
-    
     if (!filtroEstado) {
         console.error("[mostrarHorarios] ERROR: filtroEstado es null. Asegúrate que el elemento con ID 'filtroEstado' existe.");
         return;
@@ -116,7 +117,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const fecha = formatearFecha(horario.fecha); // Asegúrate que formatearFecha esté definida
       const tema = horario.tema || '';
 
-      console.log(`[mostrarHorarios] Procesando horario: Fecha=${horario.fecha}, Hora=${hora}, Estado=${estado}`);
+      // console.log(`[mostrarHorarios] Procesando horario: Fecha=${horario.fecha}, Hora=${hora}, Estado=${estado}`);
 
       const card = document.createElement('div');
       card.classList.add('card', estado);
@@ -199,6 +200,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         salirFiltro.style.display = "inline";
 
         fechaSeleccionada = formatearFechaParaComparacion(fecha);
+        console.log("[picker.onChange] Fecha seleccionada:", fechaSeleccionada);
         mostrarHorarios();
       }
     }

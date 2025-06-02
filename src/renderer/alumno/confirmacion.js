@@ -1,3 +1,5 @@
+import { reservarAsesoria } from "../../database/queries.js";
+
 document.addEventListener('DOMContentLoaded', () => {
   const spanTema = document.querySelector('.cuadro-datos-izquierda p:nth-child(1) span');
   const spanFecha = document.querySelector('.cuadro-datos-izquierda p:nth-child(2) span');
@@ -42,31 +44,26 @@ document.getElementById('btn-confirmar').addEventListener('click', async () => {
   };
 
   try {
-    const response = await fetch('http://localhost:3000/api/reservaciones', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(datos)
-    });
-
-    if (!response.ok) {
-      throw new Error('Error al reservar asesoría');
-    }
+    const response = await reservarAsesoria(idAsesoria, tema, matricula);
+    
+    console.log('Respuesta de la API:', response);
+    if (response.ok) {
+      throw new Error('Error al confirmar la reservación');
+    } 
 
     mostrarModal(); // Éxito
 
   } catch (error) {
     console.error('Error al confirmar reservación:', error);
-    alert('Ocurrió un error al confirmar la reservación. Intenta de nuevo.');
+    alert('Ocurrió un error al confirmar la reservación en confirmacion.js Intentálo de nuevo.');
   }
 });
 
-function cerrarModal() {
+window.cerrarModal = function() {
   window.location.href = "alumno.html";
 }
 
-function mostrarModal() {
+window.mostrarModal =  function() {
   document.getElementById('overlay').classList.remove('oculto');
   document.getElementById('modal-reservacion-confirmada').classList.remove('oculto');
 }
