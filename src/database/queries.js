@@ -1,6 +1,9 @@
 /**
  * Devuelve los horarios disponibles en una fecha específica
- * @param {string} fecha - La fecha para la que se desean los horarios, debe estar en el formato "dd-mm-YYYY" (ejemplo: "11-05-2025")
+ * @param {Object{}} fecha - Un objeto JSON con lo siguiente: 
+ * - fecha: Fecha en formato "YYYY-MM-DD" (ejemplo: "2025-05-22")
+ * - tipo: "alumno" o "asesor"
+ * - nivelIngles: *opcional * "INGI" o "INGII" (sólo si tipo es "alumno")
  * @returns {Object[]} - Un array de horarios, cada horario es un JSON que contiene el siguiente formato: 
  * - actividad: "AS"
  * - asesor: Primer nombre del asesor, ej. "JORGE" (sólo devuelve el primer nombre)
@@ -11,7 +14,8 @@
  * - id_evento: "ID del evento, ej. 3513" (**Imporante: guardar este ID para una reservación**)
  */
 /*YA INGRESADA EN EL CODIGO*/
-export async function leerHorarios(fecha) { 
+export async function leerHorarios({fecha, tipo, nivelIngles, asesor}) { 
+  console.log("leerHorarios", {fecha, tipo, nivelIngles, asesor});
   try {
     const response = await fetch('https://gb572ef1f8a56c6-caa23.adb.us-ashburn-1.oraclecloudapps.com/ords/equipocaa/maestros/leer_asesorias', {
       method: 'POST',
@@ -19,7 +23,10 @@ export async function leerHorarios(fecha) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        fecha: fecha
+        fecha: fecha,
+        tipo: tipo,
+        nivelIngles: nivelIngles == "Inglés 1" ? "INGI" : nivelIngles == "Inglés 2" ? "INGII" : null, 
+        asesor: asesor
     })})
     if (!response.ok) {
       throw new Error('Error al cargar los horarios desde la BD');
@@ -193,16 +200,18 @@ export async function cargarHorarios(horas, fecha, asesor) {
       const response = await fetch('https://gb572ef1f8a56c6-caa23.adb.us-ashburn-1.oraclecloudapps.com/ords/equipocaa/maestros/leer', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(v_json)
       });
+
       if (!response.ok) {
         throw new Error('Error al guardar el horario en la BD');
-      }
-      const data = await response.json();
-      return data; // Retornar la respuesta de la API si es necesario
+      };
+      
+      return response; // Retornar la respuesta de la API si es necesario
     } catch (error) {
+      console.log("Aquí se captura el error");
       console.error(error);
     }
 }

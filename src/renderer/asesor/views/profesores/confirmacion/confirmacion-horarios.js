@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const respuesta = await cargarHorarios(horasSoloInicio, fechaCorrecta, asesor);
             console.log('[DEBUG] Respuesta API:', respuesta);
 
-            if (respuesta && respuesta.items) {
+            if (respuesta) {
                 const horariosConEstado = horasSoloInicio.map(hora => ({
                     fecha: fecha,
                     hora: hora,

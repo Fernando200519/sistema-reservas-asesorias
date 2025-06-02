@@ -13,6 +13,7 @@ function createWindow() {
   // mainWindow.setMenu(null);
   mainWindow.maximize();
   mainWindow.loadFile(path.join(__dirname, '../renderer/login/login.html'));
+  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(createWindow);

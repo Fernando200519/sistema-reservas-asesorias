@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         console.log(fechaFormateada);
-        const asesorias = await leerHorarios(fechaFormateada);
+        const asesorias = await leerHorarios({fecha: fechaFormateada, tipo: 'alumno', nivelIngles: localStorage.getItem("nivelIngles")});
         mostrarReservaciones(asesorias);
     } catch (error) {
         console.error("Error obteniendo asesorías:", error);
@@ -203,7 +203,8 @@ window.actualizarAsesorias = async function() {
 
     try {
         console.log(fechaFormateada);
-        const asesorias = await leerHorarios(fechaFormateada);
+        const asesorias = await leerHorarios({fecha: fechaFormateada, tipo: 'alumno', nivelIngles: localStorage.getItem("nivelIngles")});
+        console.log("Asesorías obtenidas:", asesorias);
         localStorage.setItem("asesoriasDisponibles", JSON.stringify(asesorias));
         mostrarReservaciones(asesorias);
     } catch (error) {

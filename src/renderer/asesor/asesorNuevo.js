@@ -1,3 +1,5 @@
+import { leerHorarios } from '../../database/queries.js';
+
 document.addEventListener('DOMContentLoaded', async () => {
   // ──────────────── Elementos del DOM ────────────────
   const fechaTexto = document.getElementById("fechaTexto");
@@ -75,9 +77,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     `;
   }
 
-function mostrarHorarios() {
+  async function mostrarHorarios() {
     console.log("[mostrarHorarios] Iniciando...");
-    const todosHorarios = JSON.parse(localStorage.getItem('horariosIndex')) || [];
+    const todosHorarios = await leerHorarios({"tipo": "asesor", "asesor": "JORGE"});
+    console.log("[mostrarHorarios] Horarios obtenidos:", todosHorarios);
+    
     console.log("[mostrarHorarios] Horarios desde localStorage:", todosHorarios);
     
     if (!filtroEstado) {
