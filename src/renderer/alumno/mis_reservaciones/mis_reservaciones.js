@@ -87,9 +87,26 @@ async function cargarReservaciones() {
             </div>
         `;
 
-        card.addEventListener('click', () => mostrarDetallesDinamico(res));
+        if (esCancelable(res.fecha, res.hora)) { card.addEventListener('click', () => mostrarDetallesDinamico(res)) };
         contenedor.appendChild(card);
     });
+}
+
+function esCancelable(reservacion_fecha, reservacion_hora) {
+    const [dia, mes, anio] = reservacion_fecha.split("-");
+    const fechaISO = `${anio}-${mes}-${dia}T${reservacion_hora}:00`; // formato ISO local
+
+    const fechaEvento = new Date(fechaISO);
+
+    const ahora = new Date();
+
+    const diferenciaMs = fechaEvento - ahora;
+    const diferenciaHoras = diferenciaMs / (1000 * 60 * 60);
+
+    const puedeCancelar = diferenciaHoras >= 24;
+
+    console.log(`¿Puede cancelar? ${puedeCancelar}`);
+    return puedeCancelar;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

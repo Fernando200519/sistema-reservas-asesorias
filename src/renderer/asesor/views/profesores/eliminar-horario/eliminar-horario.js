@@ -34,9 +34,10 @@ function renderHorarios() {
 
   horarios.forEach((horario, idx) => {
     const estado = horario.estado || 'disponible'; // Obtiene el estado
+    if (estado !== 'concluida') {
     const hora = horario.hora || horario;
     const fecha = horario.fecha ? formatearFecha(horario.fecha) : 'Sin fecha';
-
+    
     horariosLista.innerHTML += `
       <div class="card ${estado}">
         <div class="card-info">
@@ -51,6 +52,7 @@ function renderHorarios() {
         </button>
       </div>
     `;
+    }
   });
 
   function formatearFecha(fechaStr) {
