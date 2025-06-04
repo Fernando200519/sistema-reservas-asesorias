@@ -13,6 +13,10 @@
     <div class="header">
       <h1>CAA</h1>
       <h2>Reservaciones</h2>
+      <!-- Botón de Salir -->
+      <a href="../login/login.html" id="botonSalir" class="boton-salir-icono" title="Salir">
+        <img src="../../../assets/door.png" alt="Salir" id="iconoSalir">
+      </a>
     </div>
 
     <div class="filtros"> 
@@ -69,6 +73,19 @@
       </div>
     </div>
     <!-- Fin: Modal Detalles de Asesoría -->
+
+    <!-- Inicio: Modal Confirmación de Salida -->
+    <div id="modalConfirmarSalida" class="modal-overlay">
+      <div class="modal-content modal-confirmacion">
+        <h2>Confirmar Salida</h2>
+        <p>¿Estás seguro de que quieres salir y volver a la pantalla de inicio de sesión?</p>
+        <div class="modal-actions">
+          <button id="btnConfirmarSalida" class="btn btn-confirmar">Confirmar</button>
+          <button id="btnCancelarSalida" class="btn btn-cancelar">Cancelar</button>
+        </div>
+      </div>
+    </div>
+    <!-- Fin: Modal Confirmación de Salida -->
 
 </body>
 </html>

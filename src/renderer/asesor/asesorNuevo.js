@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const filtroEstado = document.getElementById("filtroEstado");
   const imagenImpresora = document.getElementById("imagenImpresora");
   const horariosGrid = document.querySelector('.grid');
+  const botonSalir = document.getElementById("botonSalir");
 
   // Elementos de la Modal
   const modalDetallesHorario = document.getElementById("modalDetallesHorario");
@@ -17,6 +18,47 @@ document.addEventListener('DOMContentLoaded', async () => {
   const modalTema = document.getElementById("modalTema");
   const modalEstado = document.getElementById("modalEstado");
   const modalAlumnosLista = document.getElementById("modalAlumnosLista");
+
+  // Elementos del NUEVO Modal de Confirmación de Salida
+  const modalConfirmarSalida = document.getElementById("modalConfirmarSalida");
+  const btnConfirmarSalida = document.getElementById("btnConfirmarSalida");
+  const btnCancelarSalida = document.getElementById("btnCancelarSalida");
+
+  // --- Lógica para el botón de Salir y Modal de Confirmación ---
+  if (botonSalir) {
+    botonSalir.addEventListener('click', (event) => {
+      event.preventDefault(); // Previene la navegación inmediata
+      if (modalConfirmarSalida) {
+        modalConfirmarSalida.classList.add('visible');
+      }
+    });
+  }
+
+  function cerrarModalConfirmarSalida() {
+    if (modalConfirmarSalida) {
+      modalConfirmarSalida.classList.remove('visible');
+    }
+  }
+
+  if (btnCancelarSalida) {
+    btnCancelarSalida.addEventListener('click', cerrarModalConfirmarSalida);
+  }
+
+  if (btnConfirmarSalida) {
+    btnConfirmarSalida.addEventListener('click', () => {
+      // Redirigir a login.html
+      window.location.href = botonSalir.href; // Usa el href del botón de salir original
+    });
+  }
+
+  // Opcional: Cerrar modal de confirmación al hacer clic en el overlay
+  if (modalConfirmarSalida) {
+    modalConfirmarSalida.addEventListener('click', (event) => {
+      if (event.target === modalConfirmarSalida) {
+        cerrarModalConfirmarSalida();
+      }
+    });
+  }
 
 
   // ──────────────── Variables ────────────────

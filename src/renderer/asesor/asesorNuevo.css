@@ -24,14 +24,38 @@ body {
 .header {
     display: flex;
     align-items: center;
-    gap: 25px;
+    /* gap: 25px; */ /* El gap puede empujar el botón si no se maneja con justify-content */
+    justify-content: flex-start; /* Alinea los elementos principales (h1, h2) a la izquierda */
     padding: 15px 0;
     border-bottom: 1px solid #e1e4e8;
+    position: relative; /* Necesario para posicionar el botón de salir absolutamente */
 }
 
 .header h1 {
     color: #003366;
     font-size: 2.2rem;
+    margin-right: 25px; /* Reemplaza el gap para el espaciado entre h1 y h2 si es necesario */
+}
+
+/* Estilos para el botón de Salir */
+.boton-salir-icono {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Ajusta este valor para el espaciado desde la derecha */
+  transform: translateY(-50%);
+  padding: 5px; /* Un padding más pequeño si no hay fondo en hover */
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out; /* Transición solo para transform */
+}
+
+.boton-salir-icono:hover {
+  transform: translateY(-50%) scale(1.1); /* Combina el centrado vertical con la escala */
+}
+
+#iconoSalir {
+  width: 46px; /* Ajusta al tamaño de tu ícono */
+  height: 46px; /* Ajusta al tamaño de tu ícono */
+  display: block; /* Para evitar espacio extra */
 }
 
 .header h2 {
@@ -417,4 +441,64 @@ body {
   font-size: 0.95rem;
   color: #333;
   border-left: 3px solid #00C851;
+}
+
+
+
+
+
+/* Estilos específicos para el modal de confirmación si son necesarios */
+.modal-content.modal-confirmacion {
+  max-width: 450px; /* Un poco más pequeño para confirmaciones */
+  text-align: center; /* Centrar el texto y los botones */
+}
+
+.modal-content.modal-confirmacion h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.modal-content.modal-confirmacion p {
+  margin-bottom: 25px;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center; /* Centra los botones si hay espacio */
+  gap: 15px; /* Espacio entre botones */
+}
+
+.modal-actions .btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.modal-actions .btn:active {
+    transform: scale(0.98);
+}
+
+.modal-actions .btn-confirmar {
+  background-color: #dc3545; /* Rojo para confirmar acciones destructivas o de salida */
+  color: white;
+}
+
+.modal-actions .btn-confirmar:hover {
+  background-color: #c82333;
+}
+
+.modal-actions .btn-cancelar {
+  background-color: #6c757d; /* Gris para cancelar */
+  color: white;
+}
+
+.modal-actions .btn-cancelar:hover {
+  background-color: #5a6268;
 }
