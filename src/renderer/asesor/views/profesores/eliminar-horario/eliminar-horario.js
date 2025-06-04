@@ -81,9 +81,7 @@ function renderHorarios() {
       year: 'numeric'
     }).replace(/^\w/, c => c.toUpperCase());
   }
-
-
-
+  
   // MODIFICADO: ahora solo muestra el modal y guarda el índice
   document.querySelectorAll('.eliminar-btn').forEach(btn => {
     btn.onclick = (e) => {

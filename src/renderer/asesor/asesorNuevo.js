@@ -267,7 +267,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   filtroEstado.addEventListener("change", mostrarHorarios);
-
   
   modalCloseBtn.addEventListener('click', cerrarModalDetalles);
 

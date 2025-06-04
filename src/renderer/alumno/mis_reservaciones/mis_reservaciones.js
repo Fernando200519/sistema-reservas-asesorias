@@ -82,7 +82,7 @@ async function cargarReservaciones() {
                         <h3 class="tema">Tema: <span>${limpiarTextoTema(res.tema)}</span></h3>
                         <h3 class="nombre-asesor">Asesor: <span>${res.asesor}</span></h3>
                     </div>
-                    <p class="fecha">Fecha: ${res.fecha}</p>
+                    <p class="fecha">Fecha: ${formatearFecha(res.fecha)}</p>
                 </div>
             </div>
         `;
@@ -109,6 +109,35 @@ function esCancelable(reservacion_fecha, reservacion_hora) {
     return puedeCancelar;
 }
 
+function formatearFecha(fechaStr) {
+  // Dividir la fecha en día, mes y año
+  const partes = fechaStr.split('-');
+  const dia = parseInt(partes[0], 10);
+  const mes = parseInt(partes[1], 10) - 1; // Los meses en JS van de 0 a 11
+  const año = parseInt(partes[2], 10);
+  
+  // Crear objeto Date
+  const fecha = new Date(año, mes, dia);
+  
+  // Verificar si la fecha es válida
+  if (isNaN(fecha.getTime())) {
+    return "Fecha inválida";
+  }
+  
+  // Nombres de los días y meses
+  const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+  const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  
+  // Obtener día de la semana, día del mes, mes y año
+  const nombreDia = diasSemana[fecha.getDay()];
+  const diaMes = fecha.getDate();
+  const nombreMes = meses[fecha.getMonth()];
+  const añoFormateado = fecha.getFullYear();
+  
+  // Formatear la cadena final
+  return `${nombreDia}, ${diaMes} de ${nombreMes} de ${añoFormateado}`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     cargarReservaciones();
 });
@@ -125,7 +154,7 @@ function mostrarDetallesDinamico(reservacion) {
 
         <div class="container-detalles-reservación-información">
             <p>Tema : <span class="cdri-informacion">${limpiarTextoTema(reservacion.tema)}</span></p>
-            <p>Fecha: <span class="cdri-informacion">${reservacion.fecha}</span></p>
+            <p>Fecha: <span class="cdri-informacion">${formatearFecha(reservacion.fecha)}</span></p>
             <p>Hora : <span class="cdri-informacion">${reservacion.hora}</span></p>
 
             <div class="container-detalles-reservación-información-personas">
