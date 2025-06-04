@@ -159,8 +159,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     modalEstado.textContent = capitalizarEstado(horario.estado);
 
     modalAlumnosLista.innerHTML = ''; 
-    if (horario.alumnos && horario.alumnos.length > 0) {
+
+    
+    if (horario.alumnos) {
       console.log("[abrirModalDetalles] Alumnos:", horario.alumnos);
+      horario.alumnos = horario.alumnos.split(',');
       horario.alumnos.forEach(alumno => {
         const li = document.createElement('li');
         li.textContent = alumno; 
