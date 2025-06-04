@@ -112,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
             iso: fechaISO,
             bonito: fechaBonita
         }));
-
         bloquearHorariosOcupados(fechaISO);
     }
 
@@ -162,25 +161,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // === FUNCIÓN GLOBAL DE BLOQUEO, AHORA LOCAL ===
     function bloquearHorariosOcupados(fechaISO) {
         const reservas = JSON.parse(localStorage.getItem('horariosIndex')) || [];
-
         const reservasDeLaFecha = reservas.filter(r => r.fecha === fechaISO);
-
         const horariosOcupados = reservasDeLaFecha.map(r => r.hora);
-        console.log('Horarios ocupados para la fecha', fechaISO, ':', horariosOcupados);
 
-        hourItems.forEach(item => {
-            const hora = item.textContent.trim();
+        const todayISO = new Date().toISOString().split('T')[0]; // YYYY-MM-DD de hoy
+        const esHoy = fechaISO === todayISO;
 
-            if (horariosOcupados.includes(hora)) {
-                item.classList.add('bloqueado');
-                item.classList.remove('selected');
-                item.style.pointerEvents = 'none';
-                item.style.opacity = '0.4';
+        const ahora = new Date();
+
+        document.querySelectorAll('.hour-selector li').forEach(item => {
+            const horaTexto = item.textContent.trim(); // Ej. "08:00 - 08:30"
+            const horaInicio = horaTexto.split(' - ')[0]; // Solo "08:00"
+
+            const [horas, minutos] = horaInicio.split(':').map(Number);
+            const horaCompleta = new Date(fechaISO + 'T' + horaInicio + ':00');
+
+            const ocupada = horariosOcupados.includes(horaTexto);
+
+            const pasada = esHoy && horaCompleta < ahora;
+
+            if (ocupada || pasada) {
+            item.classList.add('bloqueado');
+            item.classList.remove('selected');
+            item.style.pointerEvents = 'none';
+            item.style.opacity = '0.4';
             } else {
-                item.classList.remove('bloqueado');
-                item.style.pointerEvents = 'auto';
-                item.style.opacity = '1';
+            item.classList.remove('bloqueado');
+            item.style.pointerEvents = 'auto';
+            item.style.opacity = '1';
             }
         });
-    }
+        }
+
 });
