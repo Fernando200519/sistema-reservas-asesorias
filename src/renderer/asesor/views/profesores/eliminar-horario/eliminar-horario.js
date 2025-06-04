@@ -1,5 +1,7 @@
+import { leerHorarios, eliminarHorario } from "../../../../../database/queries.js";
+
 const horariosLista = document.getElementById('horarios-lista');
-let horarios = JSON.parse(localStorage.getItem('horariosIndex')) || [];
+let horarios = await leerHorarios({"tipo": "asesor", "asesor": "JORGE"});
 
 let idxAEliminar = null; // <-- NUEVO: para guardar el índice a eliminar
 
@@ -97,10 +99,11 @@ document.getElementById('btn-cancelar').onclick = function() {
   idxAEliminar = null;
 };
 
-document.getElementById('btn-confirmar').onclick = function() {
+document.getElementById('btn-confirmar').onclick = async function() {
   if (idxAEliminar !== null) {
-    horarios.splice(idxAEliminar, 1);
-    localStorage.setItem('horariosIndex', JSON.stringify(horarios));
+    console.log(`Eliminando horario con ID: ${horarios[idxAEliminar].id_evento}`);
+    const response = eliminarHorario(horarios[idxAEliminar].id_evento);
+    horarios = await leerHorarios({"tipo": "asesor", "asesor": "JORGE"});
     renderHorarios();
   }
   document.getElementById('modal-eliminar').style.display = 'none';

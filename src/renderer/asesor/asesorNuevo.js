@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function capitalizarEstado(estado) {
+    console.log("[capitalizarEstado] Recibido estado:", estado);
     return estado.charAt(0).toUpperCase() + estado.slice(1);
   }
 

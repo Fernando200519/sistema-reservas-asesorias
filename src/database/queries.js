@@ -14,7 +14,7 @@
  * - id_evento: "ID del evento, ej. 3513" (**Imporante: guardar este ID para una reservación**)
  */
 /*YA INGRESADA EN EL CODIGO*/
-export async function leerHorarios({fecha, tipo, nivelIngles, asesor}) { 
+export async function leerHorarios({fecha, tipo, nivelIngles, asesor, matricula}) { 
   console.log("leerHorarios", {fecha, tipo, nivelIngles, asesor});
   try {
     const response = await fetch('https://gb572ef1f8a56c6-caa23.adb.us-ashburn-1.oraclecloudapps.com/ords/equipocaa/maestros/leer_asesorias', {
@@ -26,7 +26,8 @@ export async function leerHorarios({fecha, tipo, nivelIngles, asesor}) {
         fecha: fecha,
         tipo: tipo,
         nivelIngles: nivelIngles == "Inglés 1" ? "INGI" : nivelIngles == "Inglés 2" ? "INGII" : null, 
-        asesor: asesor
+        asesor: asesor,
+        matricula: matricula
     })})
     if (!response.ok) {
       throw new Error('Error al cargar los horarios desde la BD');
@@ -214,4 +215,49 @@ export async function cargarHorarios(horas, fecha, asesor) {
       console.log("Aquí se captura el error");
       console.error(error);
     }
+}
+
+export async function cancelarReservacion(idReservacion) {
+  try {
+    const response = await fetch('https://gb572ef1f8a56c6-caa23.adb.us-ashburn-1.oraclecloudapps.com/ords/equipocaa/maestros/eliminar_asesoria', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id_reservacion: idReservacion })
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al cancelar la reservación');
+    }
+
+    const data = await response.json();
+    console.log('Respuesta de la API:', data);
+  } catch (error) {
+    console.error('Error al cancelar la reservación:', error);
+    return false; // Retorna false en caso de error
+  }
+}
+
+export async function eliminarHorario(idHorario) {
+  console.log("json::", JSON.stringify({ id_evento: String(idHorario)}));
+  try {
+    const response = await fetch('https://gb572ef1f8a56c6-caa23.adb.us-ashburn-1.oraclecloudapps.com/ords/equipocaa/maestros/eliminar_asesoria', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id_evento: idHorario })
+    });
+
+    if (!response.ok) {
+      console.error('Error en la conexión:', response.statusText);
+    }
+
+    const data = await response.json();
+    console.log('Respuesta de la API:', data);
+  } catch (error) {
+    console.error('Error al eliminar el horario:', error);
+    return false; // Retorna false en caso de error
+  }
 }

@@ -1,3 +1,5 @@
+import { obtenerMisReservaciones, cancelarReservacion as cancelarReservacionAsesoria} from "../../../database/queries.js";
+
 // Mostrar el nivel de inglés en la interfaz 
 const nivel = localStorage.getItem("nivelIngles");
 const contenedorNivel = document.querySelector('.container-2-nivel');
@@ -45,9 +47,9 @@ function mantenerReservacion() {
     mostrarModal('modal-detalles');
 }
 
-function cargarReservaciones() {
+async function cargarReservaciones() {
     const contenedor = document.querySelector('.container-3');
-    const reservaciones = obtenerJSONSeguro("misReservaciones");
+    const reservaciones = await obtenerMisReservaciones(localStorage.getItem("matricula"));
 
     contenedor.innerHTML = '';
 
@@ -63,6 +65,10 @@ function cargarReservaciones() {
         `;
         return;
     }
+
+    console.log("[cargarReservaciones] Reservaciones obtenidas:", reservaciones);
+    console.log(typeof reservaciones);
+
 
     reservaciones.forEach(res => {
         const card = document.createElement('div');
@@ -119,7 +125,7 @@ function mostrarDetallesDinamico(reservacion) {
     `;
 
     modal.querySelector('.btn-cerrar').addEventListener('click', volverALista);
-    modal.querySelector('.btn-cancelar-res').addEventListener('click', () => mostrarConfirmacion(reservacion.id));
+    modal.querySelector('.btn-cancelar-res').addEventListener('click', () => mostrarConfirmacion(reservacion.id_reservacion));
 
     mostrarModal('modal-detalles');
 }
@@ -144,27 +150,8 @@ function mostrarConfirmacion(idReservacion) {
     mostrarModal('modal-confirmacion');
 }
 
-function cancelarReservacion(idReservacion) {
-    let reservaciones = obtenerJSONSeguro("misReservaciones");
-    let asesoriasDisponibles = obtenerJSONSeguro("asesoriasDisponibles");
-
-    // Buscar la asesoría cancelada
-    const asesoriaCancelada = reservaciones.find(r => String(r.id) === String(idReservacion));
-
-    // Quitarla de misReservaciones
-    reservaciones = reservaciones.filter(r => String(r.id) !== String(idReservacion));
-    localStorage.setItem("misReservaciones", JSON.stringify(reservaciones));
-
-    // Volver a agregarla a las asesorías disponibles
-    if (asesoriaCancelada) {
-        if (!/^Tema (10|[1-9]):/.test(asesoriaCancelada.tema)) {
-            asesoriaCancelada.tema = null;
-        }
-
-        asesoriasDisponibles.push(asesoriaCancelada);
-        const asesoriasOrdenadas = ordenarAsesoriasPorHora(asesoriasDisponibles);
-        localStorage.setItem("asesoriasDisponibles", JSON.stringify(asesoriasOrdenadas));
-    }
+async function cancelarReservacion(idReservacion) {
+    const response = await cancelarReservacionAsesoria(idReservacion);
 
     cerrarModal('modal-confirmacion');
     cerrarModal('modal-detalles');
