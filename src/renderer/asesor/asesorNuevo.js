@@ -163,8 +163,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     if (horario.alumnos) {
       console.log("[abrirModalDetalles] Alumnos:", horario.alumnos);
-      horario.alumnos = horario.alumnos.split(',');
-      horario.alumnos.forEach(alumno => {
+      const alumnos = horario.alumnos.split(',');
+      alumnos.forEach(alumno => {
         const li = document.createElement('li');
         li.textContent = alumno; 
         modalAlumnosLista.appendChild(li);

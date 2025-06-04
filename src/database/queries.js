@@ -33,6 +33,7 @@ export async function leerHorarios({fecha, tipo, nivelIngles, asesor, matricula}
       throw new Error('Error al cargar los horarios desde la BD');
     }
     const data = await response.json();
+    localStorage.setItem("reservacionesActivas", data.reservaciones_activas); // Guardar la fecha seleccionada en localStorage
     return data.eventos
   } catch (error) {
     console.error(error);
@@ -166,8 +167,8 @@ export async function verificarLogin(matricula, contra) {
 
     if (data.success) {
       // Usuario válido
-      const nombre = obtenerNombreAlumno()
-      data.nombre = nombre.nombre_completo;
+      const nombre = await obtenerNombreAlumno()
+      data.nombre = nombre;
       return data;
     } else {
       // Credenciales inválidas

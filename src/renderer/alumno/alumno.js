@@ -1,5 +1,6 @@
 import { leerHorarios } from '../../database/queries.js';
 
+console.log("Nombre alumno: ", localStorage.getItem("nombreAlumno"));
 document.addEventListener("DOMContentLoaded", async () => {
     const fechaSeleccionada = localStorage.getItem("fechaSeleccionada");
 
@@ -81,6 +82,20 @@ function mostrarReservaciones(data) {
         const fechaISO = item.fecha.split('T')[0]; // "2025-05-30"
         return fechaISO === fechaFiltro;
     });
+
+    if (localStorage.getItem("reservacionesActivas") > 1) {
+        contenedor.style.display = 'flex';
+        contenedor.style.justifyContent = 'center';
+        contenedor.style.alignItems = 'center';
+        contenedor.innerHTML = `
+            <div class="container-3-vacio">
+                <img src="../../../assets/calendario.png">
+                <p>Has alcanzado el límite de asesorías! Consulta la sección de Mis reservaciones para gestionar tus horarios.</p>
+            </div>
+        `;
+        return;
+
+    }
 
     if (asesoriasFiltradas.length === 0) {
         contenedor.style.display = 'flex';
