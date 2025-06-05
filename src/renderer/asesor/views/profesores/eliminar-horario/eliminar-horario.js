@@ -1,3 +1,4 @@
+// MANTENER EXACTAMENTE COMO ESTABA - Solo agregar la función de correos como mejora opcional
 import { leerHorarios, eliminarHorario } from "../../../../../database/queries.js";
 
 const horariosLista = document.getElementById('horarios-lista');
@@ -34,9 +35,10 @@ function renderHorarios() {
 
   horarios.forEach((horario, idx) => {
     const estado = horario.estado || 'disponible'; // Obtiene el estado
+    if (estado !== 'concluida') {
     const hora = horario.hora || horario;
     const fecha = horario.fecha ? formatearFecha(horario.fecha) : 'Sin fecha';
-
+    
     horariosLista.innerHTML += `
       <div class="card ${estado}">
         <div class="card-info">
@@ -51,6 +53,7 @@ function renderHorarios() {
         </button>
       </div>
     `;
+    }
   });
 
   function formatearFecha(fechaStr) {
@@ -80,8 +83,6 @@ function renderHorarios() {
     }).replace(/^\w/, c => c.toUpperCase());
   }
 
-
-
   // MODIFICADO: ahora solo muestra el modal y guarda el índice
   document.querySelectorAll('.eliminar-btn').forEach(btn => {
     btn.onclick = (e) => {
@@ -99,13 +100,87 @@ document.getElementById('btn-cancelar').onclick = function() {
   idxAEliminar = null;
 };
 
+// ⚡ FUNCIÓN MEJORADA - Pero con fallback al método original
 document.getElementById('btn-confirmar').onclick = async function() {
   if (idxAEliminar !== null) {
-    console.log(`Eliminando horario con ID: ${horarios[idxAEliminar].id_evento}`);
-    const response = eliminarHorario(horarios[idxAEliminar].id_evento);
+    const horarioAEliminar = horarios[idxAEliminar];
+    const idEvento = horarioAEliminar.id_evento;
+    
+    console.log(`Eliminando horario con ID: ${idEvento}`);
+    
+    try {
+      // INTENTAR cargar el servicio de correos (si existe)
+      let enviarNotificaciones = false;
+      let eliminarHorarioConNotificacion = null;
+      
+      try {
+        // Intentar importar el servicio de correos dinámicamente
+        const servicioCorreos = await import("../../../../../database/eliminar-horario-service.js");
+        eliminarHorarioConNotificacion = servicioCorreos.eliminarHorarioConNotificacion;
+        enviarNotificaciones = true;
+        console.log("✅ Servicio de correos disponible");
+      } catch (importError) {
+        console.log("⚠️ Servicio de correos no disponible, usando método original");
+        enviarNotificaciones = false;
+      }
+      
+      // Mostrar indicador de carga
+      const btnConfirmar = document.getElementById('btn-confirmar');
+      const textoOriginal = btnConfirmar.textContent;
+      btnConfirmar.textContent = 'Eliminando...';
+      btnConfirmar.disabled = true;
+      
+      if (enviarNotificaciones && eliminarHorarioConNotificacion) {
+        // MÉTODO NUEVO: Con notificaciones por correo
+        const resultado = await eliminarHorarioConNotificacion(idEvento, 'Cancelación por el asesor');
+        
+        if (resultado.exito) {
+          console.log('✅ Horario eliminado exitosamente con notificaciones');
+          const estudiantesNotificados = resultado.detalles?.notificaciones?.notificacionesEnviadas || 0;
+          
+          if (estudiantesNotificados > 0) {
+            alert(`Horario eliminado exitosamente.\n📧 Se notificó a ${estudiantesNotificados} estudiante(s) por correo.`);
+          } else {
+            alert('Horario eliminado exitosamente.');
+          }
+        } else {
+          throw new Error(resultado.error || 'Error desconocido');
+        }
+      } else {
+        // MÉTODO ORIGINAL: Sin notificaciones
+        await eliminarHorario(idEvento);
+        console.log('✅ Horario eliminado exitosamente (método original)');
+        alert('Horario eliminado exitosamente.');
+      }
+      
+      // Restaurar botón
+      btnConfirmar.textContent = textoOriginal;
+      btnConfirmar.disabled = false;
+      
+    } catch (error) {
+      console.error('❌ Error al eliminar horario:', error);
+      
+      // ÚLTIMO RECURSO: Intentar método original
+      try {
+        await eliminarHorario(idEvento);
+        console.log('✅ Horario eliminado con método de respaldo');
+        alert('Horario eliminado (método de respaldo).');
+      } catch (finalError) {
+        console.error('💥 Error crítico:', finalError);
+        alert('Error al eliminar el horario. Por favor, intenta nuevamente.');
+      }
+      
+      // Restaurar botón en caso de error
+      const btnConfirmar = document.getElementById('btn-confirmar');
+      btnConfirmar.textContent = 'Confirmar';
+      btnConfirmar.disabled = false;
+    }
+    
+    // MANTENER EXACTAMENTE COMO ESTABA: Actualizar la lista
     horarios = await leerHorarios({"tipo": "asesor", "asesor": "JORGE"});
     renderHorarios();
   }
+  
   document.getElementById('modal-eliminar').style.display = 'none';
   idxAEliminar = null;
 };
