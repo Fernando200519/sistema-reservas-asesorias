@@ -10,7 +10,12 @@ function renderHorarios() {
   horariosLista.innerHTML = '';
   const gridElement = document.querySelector('.grid');
 
-  if (horarios.length === 0) {
+  // Filtra dentro de la función con base en el array actualizado
+  const horariosFiltrados = horarios.filter(horario => horario.estado !== "concluida");
+
+  console.log("PEDRO Y FERNANDO: " + horarios);
+
+  if (horariosFiltrados.length === 0) {
     horariosLista.innerHTML = `
       <div class="profesores-empty-state-card">
         <img src="../../../../../../assets/clock.png" alt="Ícono de reloj" class="empty-icon">
@@ -81,8 +86,7 @@ function renderHorarios() {
       month: 'long',
       year: 'numeric'
     }).replace(/^\w/, c => c.toUpperCase());
-  }
-
+  } 
   // MODIFICADO: ahora solo muestra el modal y guarda el índice
   document.querySelectorAll('.eliminar-btn').forEach(btn => {
     btn.onclick = (e) => {

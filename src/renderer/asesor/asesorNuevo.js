@@ -136,10 +136,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log("[mostrarHorarios] Estado actual del filtro:", estadoActual);
 
     const horariosFiltrados = todosHorarios.filter(horario => {
-      const coincideFecha = !fechaSeleccionada || horario.fecha === fechaSeleccionada; // Asegúrate que fechaSeleccionada esté definida globalmente si se usa aquí
-      const coincideEstado = estadoActual === "todas" || horario.estado === estadoActual;
+      const coincideFecha = !fechaSeleccionada || horario.fecha === fechaSeleccionada;
+
+      let coincideEstado;
+
+      if (estadoActual === "todas") {
+        coincideEstado = horario.estado !== "concluida"; // excluir concluidas
+      } else {
+        coincideEstado = horario.estado === estadoActual;
+      }
+
       return coincideFecha && coincideEstado;
     });
+
     console.log("[mostrarHorarios] Horarios filtrados:", horariosFiltrados);
 
     // Restaurar estilos de grid por defecto antes de verificar si está vacío
@@ -202,11 +211,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     modalAlumnosLista.innerHTML = ''; 
 
-    
     if (horario.alumnos) {
       console.log("[abrirModalDetalles] Alumnos:", horario.alumnos);
-      horario.alumnos = horario.alumnos.split(',');
-      horario.alumnos.forEach(alumno => {
+      const alumnos = horario.alumnos.split(',');
+      alumnos.forEach(alumno => {
         const li = document.createElement('li');
         li.textContent = alumno; 
         modalAlumnosLista.appendChild(li);
@@ -267,7 +275,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   filtroEstado.addEventListener("change", mostrarHorarios);
-
   
   modalCloseBtn.addEventListener('click', cerrarModalDetalles);
 
