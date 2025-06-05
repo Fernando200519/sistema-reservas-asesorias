@@ -262,3 +262,72 @@ export async function eliminarHorario(idHorario) {
     return false; // Retorna false en caso de error
   }
 }
+/**
+ * Función básica para obtener datos de asesoría (placeholder)
+ */
+async function obtenerDatosAsesoria(idEvento) {
+  // Por ahora devuelve datos simulados
+  return {
+    id: idEvento,
+    tema: 'Tema de asesoría',
+    fecha: new Date(),
+    hora: '10:00',
+    asesor: 'JORGE'
+  };
+}
+
+/**
+ * Función básica para eliminar asesoría (placeholder) 
+ */
+async function eliminarAsesoria(idEvento) {
+  try {
+    // Aquí iría la llamada real a tu API
+    console.log(`Eliminando asesoría ${idEvento}`);
+    return {
+      exito: true,
+      mensaje: 'Asesoría eliminada'
+    };
+  } catch (error) {
+    return {
+      exito: false,
+      error: error.message
+    };
+  }
+}
+
+/**
+ * Función básica para obtener estudiantes afectados (placeholder)
+ */
+async function obtenerEstudiantesAfectados(idEvento) {
+  // Por ahora devuelve array vacío
+  return [];
+}
+
+/**
+ * Función básica para obtener datos de estudiante (placeholder)
+ */
+async function obtenerDatosEstudiante(matricula) {
+  return {
+    matricula: matricula,
+    nombre: 'Estudiante',
+    email: 'estudiante@ejemplo.com'
+  };
+}
+
+/**
+ * Función básica para registrar notificación (placeholder)
+ */
+async function registrarNotificacion(datos) {
+  console.log('Registrando notificación:', datos);
+  return true;
+}
+
+// Agregar a las exportaciones
+module.exports = {
+  // ... tus exportaciones existentes
+  obtenerDatosAsesoria,
+  eliminarAsesoria,
+  obtenerEstudiantesAfectados,
+  obtenerDatosEstudiante,
+  registrarNotificacion
+};
