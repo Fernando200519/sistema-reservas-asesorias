@@ -226,3 +226,35 @@ window.actualizarAsesorias = async function() {
         console.error("Error actualizando asesorías:", error);
     }
 }
+
+document.getElementById('boton-recargar').addEventListener('click', async () => {
+  // 1. Obtener la fecha actualmente seleccionada del localStorage
+  const fechaSeleccionada = localStorage.getItem("fechaSeleccionada");
+
+  // 2. Volver a cargar los datos para ESA fecha específica
+  try {
+    const fecha = parsearFechaPersonalizada(fechaSeleccionada);
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const año = fecha.getFullYear();
+    const fechaFormateada = `${dia}-${mes}-${año}`;
+
+    // 3. Recargar los datos
+    const asesorias = await leerHorarios({
+      fecha: fechaFormateada, 
+      tipo: 'alumno', 
+      nivelIngles: localStorage.getItem("nivelIngles"), 
+      matricula: localStorage.getItem("matricula")
+    });
+    
+    // 4. Actualizar la interfaz
+    mostrarReservaciones(asesorias);
+    
+    console.log("Datos recargados para la fecha:", fechaSeleccionada);
+    
+  } catch (error) {
+    console.error("Error al recargar:", error);
+    // Opcional: Recargar toda la página como fallback
+    // location.reload();
+  }
+});

@@ -1,3 +1,5 @@
+const { ipcRenderer } = require('electron');
+
 import { leerHorarios } from '../../database/queries.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -23,6 +25,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const modalConfirmarSalida = document.getElementById("modalConfirmarSalida");
   const btnConfirmarSalida = document.getElementById("btnConfirmarSalida");
   const btnCancelarSalida = document.getElementById("btnCancelarSalida");
+
+  imagenImpresora.addEventListener('click', () => {
+    imprimirReservaciones(fechaSeleccionada);
+  });
 
   // --- Lógica para el botón de Salir y Modal de Confirmación ---
   if (botonSalir) {
@@ -72,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const m = (fecha.getMonth() + 1).toString().padStart(2, '0'); // los meses son 0-11
     const y = fecha.getFullYear();
     return `${m}-${d}-${y}`;
-}
+  }
 
   function capitalizarPrimeraLetra(texto) {
     return texto.charAt(0).toUpperCase() + texto.slice(1);
@@ -303,4 +309,85 @@ document.addEventListener('DOMContentLoaded', async () => {
       window.location.href = './views/profesores/nuevo-horario/nuevo-horario.html';
     });
   }
+});
+
+// ------------------------- vista previa impresion --------------------------
+  function generarVistaImpresion(fecha, horarios) {
+    const filtradas = horarios.filter(r => r.fecha === fecha && r.estado === 'reservada');
+
+    if (filtradas.length === 0) {
+      return `<h2>No hay reservaciones para el día ${fecha}</h2>`;
+    }
+
+    let tablaHTML = `
+      <h2>Reservaciones para el día ${fecha}</h2>
+      <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Horario</th>
+            <th>Alumno(s)</th>
+            <th>Tema</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    filtradas.forEach(r => {
+      const alumnos = r.alumnos ? r.alumnos.split(',').join(', ') : 'No registrados';
+      tablaHTML += `
+        <tr>
+          <td>${r.hora}</td>
+          <td>${alumnos}</td>
+          <td>${r.tema || 'Sin tema asignado'}</td>
+        </tr>
+      `;
+    });
+
+    tablaHTML += `
+        </tbody>
+      </table>
+    `;
+
+    return tablaHTML;
+  }
+
+// ---------------------Función Imprimir ------------------------------------------------------
+async function imprimirReservaciones(fechaSeleccionada) {
+  if (!fechaSeleccionada) {
+    alert("Primero selecciona una fecha.");
+    return;
+  }
+
+  const todosHorarios = await leerHorarios({ tipo: 'asesor', asesor: 'JORGE' });
+  const contenido = generarVistaImpresion(fechaSeleccionada, todosHorarios);
+
+  const ventanaImpresion = window.open('', '_blank');
+  ventanaImpresion.document.write(`
+    <html>
+      <head>
+        <title>Imprimir Reservaciones</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 20px; }
+          table { width: 100%; border-collapse: collapse; }
+          th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+          h2 { text-align: center; }
+        </style>
+      </head>
+      <body>
+        ${contenido}
+      </body>
+    </html>
+  `);
+
+  ventanaImpresion.document.close();
+  ventanaImpresion.focus();
+
+  setTimeout(() => {
+    ventanaImpresion.print();
+    ventanaImpresion.close();
+  }, 500);
+}
+
+document.getElementById('boton-recargar').addEventListener('click', async () => {
+  location.reload();
 });
