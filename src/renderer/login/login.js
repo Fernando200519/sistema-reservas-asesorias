@@ -1,4 +1,4 @@
-import {verificarLogin} from '../../database/queries.js';
+import { verificarLogin } from '../../database/queries.js';
 
 const passwordInput = document.getElementById('contraseña');
 const togglePassword = document.getElementById('toggle-password');

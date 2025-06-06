@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancelación de Asesoría - CAA</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        
+        .email-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .header .subtitle {
+            margin: 10px 0 0 0;
+            font-size: 14px;
+            background-color: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .alert-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .alert-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            color: #e17055;
+        }
+        
+        .alert-text {
+            font-weight: 600;
+            color: #6c5a00;
+        }
+        
+        .details-section {
+            background-color: #f8fafd;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .details-title {
+            color: #003366;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 12px;
+            padding: 8px 0;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #4a5568;
+            width: 120px;
+            flex-shrink: 0;
+        }
+        
+        .detail-value {
+            color: #1a202c;
+            flex: 1;
+        }
+        
+        .message-section {
+            margin: 25px 0;
+            line-height: 1.7;
+        }
+        
+        .contact-info {
+            background-color: #e6f3ff;
+            border-left: 4px solid #003366;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .contact-info h3 {
+            color: #003366;
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        
+        .footer {
+            background-color: #f8fafd;
+            padding: 25px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background-color: #003366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            margin: 15px 0;
+        }
+        
+        .btn-primary:hover {
+            background-color: #002244;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .detail-row {
+                flex-direction: column;
+            }
+            
+            .detail-label {
+                width: auto;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>CAA</h1>
+            <div class="subtitle">Centro de Autoacceso</div>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <!-- Alert -->
+            <div class="alert-box">
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-text">Tu asesoría ha sido cancelada</div>
+            </div>
+            
+            <!-- Greeting -->
+            <p>Estimado(a) <strong>[NOMBRE_ESTUDIANTE]</strong>,</p>
+            
+            <!-- Message -->
+            <div class="message-section">
+                <p>Te informamos que tu asesoría programada ha sido <strong>cancelada</strong>. Lamentamos cualquier inconveniente que esto pueda ocasionarte.</p>
+                
+                <p><strong>Motivo de la cancelación:</strong> [MOTIVO_CANCELACION]</p>
+            </div>
+            
+            <!-- Details -->
+            <div class="details-section">
+                <div class="details-title">Detalles de la asesoría cancelada:</div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">📚 Tema:</div>
+                    <div class="detail-value">[TEMA_ASESORIA]</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">📅 Fecha:</div>
+                    <div class="detail-value">[FECHA_ASESORIA]</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">🕒 Hora:</div>
+                    <div class="detail-value">[HORA_ASESORIA]</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">👨‍🏫 Asesor:</div>
+                    <div class="detail-value">[NOMBRE_ASESOR]</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">🎯 Nivel:</div>
+                    <div class="detail-value">[NIVEL_INGLES]</div>
+                </div>
+            </div>
+            
+            <!-- Next Steps -->
+            <div class="message-section">
+                <h3 style="color: #003366; margin-bottom: 15px;">¿Qué puedes hacer ahora?</h3>
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 8px;">🔄 Puedes reservar una nueva asesoría ingresando al sistema de reservaciones</li>
+                    <li style="margin-bottom: 8px;">👨‍🏫 Consultar otros horarios disponibles con el mismo asesor</li>
+                    <li style="margin-bottom: 8px;">📞 Contactar directamente al Centro de Autoacceso si tienes dudas</li>
+                    <li style="margin-bottom: 8px;">📧 Responder a este correo si necesitas más información</li>
+                </ul>
+                
+                <div style="text-align: center; margin: 25px 0;">
+                    <a href="[URL_SISTEMA]" class="btn-primary">🔄 Reservar Nueva Asesoría</a>
+                </div>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h3>¿Necesitas ayuda?</h3>
+                <p><strong>Centro de Autoacceso - Universidad Veracruzana Campus Coatzacoalcos</strong></p>
+                <p>📍 [CAA_DIRECCION]</p>
+                <p>📧 Email: [EMAIL_CAA]</p>
+                <p>📞 Teléfono: [TELEFONO_CAA]</p>
+                <p>🕒 Horario de atención: Lunes a Viernes de 8:00 AM a 6:00 PM</p>
+            </div>
+            
+            <div class="message-section">
+                <p>Gracias por tu comprensión y te esperamos pronto en el Centro de Autoacceso.</p>
+                <p style="margin-top: 20px;">
+                    <strong>Atentamente,<br>
+                    Equipo del Centro de Autoacceso<br>
+                    Universidad Veracruzana Campus Coatzacoalcos</strong>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Este es un mensaje automático del Sistema de Reservaciones del Centro de Autoacceso</p>
+            <p>Universidad Veracruzana Campus Coatzacoalcos</p>
+            <p>📧 Para dudas o comentarios: [EMAIL_CAA]</p>
+            <p style="color: #9ca3af; font-size: 12px; margin-top: 15px;">
+                Enviado el [FECHA_ENVIO] | Sistema CAA v1.0
+            </p>
+        </div>
+    </div>
+</body>
+</html>
