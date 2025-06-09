@@ -148,7 +148,22 @@ body {
   padding: 0 15px;
   cursor: pointer;
 }
+.container-2-img-recargar{
+    border-style: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-right: 40px;
+    margin-top: 4px;
+    transition: all 0.3s;
+}
 
+.container-2-img-recargar:hover {
+  transform: scale(1.03);
+}
+
+#img-recargar{
+    width: 28px;
+}
 
 #boton-imprimir{
   border: none;

@@ -68,7 +68,7 @@ body{
     border-top: 1.5px #c2c2c2 solid;
     display: flex;
     align-items: center;
-    padding: 0 1.5%;
+    padding: 30px;
     height: 70px;
 }
 
@@ -103,7 +103,6 @@ body{
     display: flex;
     justify-content: right;
     align-items: center;
-    padding-right: 30px;
 }
 
 .container-2-div-dias span{
@@ -157,12 +156,25 @@ body{
     background-color: #e9ecf0;
 }
 
+
 .img-flecha-adelante{
     width: 20px;
 }
 
 span{
     font-weight: 400;
+}
+
+.container-2-img-recargar{
+    border-style: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-top: 4px;
+}
+
+#img-recargar{
+    width: 25px;
 }
 
 .container-3 {
@@ -413,3 +425,5 @@ span{
 #modal-salir .btn-confirmar:hover{
     background-color: #C82333;
 }
+
+
